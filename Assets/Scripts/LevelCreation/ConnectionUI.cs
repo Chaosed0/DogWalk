@@ -22,7 +22,6 @@ public class ConnectionUI : MonoBehaviour
     void Awake()
     {
         img = GetComponent<Image>();
-        img.color = Color.green;
         graph = GameObject.Find("Graph").GetComponent<PathGraph>();
     }
 
@@ -35,7 +34,7 @@ public class ConnectionUI : MonoBehaviour
     {
         if (!fadeStarted)
         {
-            img.color = Color.blue;
+            //img.color = Color.blue;
             EventBus.PublishEvent(new ActiveSegmentHoveredEvent(this));
         }
     }
@@ -44,7 +43,7 @@ public class ConnectionUI : MonoBehaviour
     {
         if (!fadeStarted)
         {
-            img.color = Color.green;
+            //img.color = Color.green;
             EventBus.PublishEvent(new NoSegmentsHoveredEvent(this));
         }
     }

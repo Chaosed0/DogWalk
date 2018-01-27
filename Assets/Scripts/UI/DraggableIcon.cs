@@ -31,8 +31,12 @@ public class DraggableIcon : MonoBehaviour {
     {
         if (Input.GetMouseButtonUp(0))
         {
-            Vector3 trapPosition = currentConnectionUI.GetTrapPosition();
-            Instantiate(Resources.Load<GameObject>("TestTrap"), trapPosition, Quaternion.identity);
+            if (currentConnectionUI)
+            {
+                Vector3 trapPosition = currentConnectionUI.GetTrapPosition();
+                Instantiate(Resources.Load<GameObject>("TestTrap"), trapPosition, Quaternion.identity);
+            }
+
             Destroy(gameObject);
         }
     }

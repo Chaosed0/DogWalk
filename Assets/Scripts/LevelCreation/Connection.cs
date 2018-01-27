@@ -11,7 +11,7 @@ public class Connection : MonoBehaviour {
     PathTendril tendril;
     PathGraph graph;
     Canvas levelCreationCanvas;
-    Image testImage;
+    Image tendrilImage;
     Vector3 pos1Canvas;
     Vector3 pos2Canvas;
     float length;
@@ -34,9 +34,9 @@ public class Connection : MonoBehaviour {
     void InitializeConnection()
     {
         levelCreationCanvas = GameObject.Find("LevelCreationUI").GetComponent<Canvas>();
-        testImage = Instantiate(Resources.Load("ConnectionImage") as GameObject).GetComponent<Image>();
-        testImage.rectTransform.SetParent(levelCreationCanvas.transform);
-        testImage.gameObject.GetComponent<ConnectionUI>().connection = this;
+        tendrilImage = Instantiate(Resources.Load("ConnectionImage") as GameObject).GetComponent<Image>();
+        tendrilImage.rectTransform.SetParent(levelCreationCanvas.transform);
+        tendrilImage.gameObject.GetComponent<ConnectionUI>().connection = this;
 
         Vector3 pos1 = Camera.main.WorldToViewportPoint(node1.transform.position);
         Vector3 pos2 = Camera.main.WorldToViewportPoint(node2.transform.position);
@@ -49,10 +49,10 @@ public class Connection : MonoBehaviour {
         length = Mathf.Sqrt(Mathf.Pow(canvasDistX, 2) + Mathf.Pow(canvasDistY, 2));
         float rads = Mathf.Atan2(canvasDistY, canvasDistX);
 
-        testImage.rectTransform.anchoredPosition = new Vector2((pos1.x - .5f) * levelCreationCanvas.pixelRect.width + length * Mathf.Cos(rads) / 2,
+        tendrilImage.rectTransform.anchoredPosition = new Vector2((pos1.x - .5f) * levelCreationCanvas.pixelRect.width + length * Mathf.Cos(rads) / 2,
             (pos1.y - .5f) * levelCreationCanvas.pixelRect.height + length * Mathf.Sin(rads) / 2);
-        testImage.rectTransform.sizeDelta = new Vector2(length, testImage.rectTransform.sizeDelta.y);
-        testImage.rectTransform.rotation = Quaternion.Euler(0, 0, rads * Mathf.Rad2Deg);
+        tendrilImage.rectTransform.sizeDelta = new Vector2(length, tendrilImage.rectTransform.sizeDelta.y);
+        tendrilImage.rectTransform.rotation = Quaternion.Euler(0, 0, rads * Mathf.Rad2Deg);
     }
 
     [SubscribeGlobal]
@@ -67,11 +67,6 @@ public class Connection : MonoBehaviour {
         viewportMousePos.x *= levelCreationCanvas.pixelRect.width;
         viewportMousePos.y *= levelCreationCanvas.pixelRect.height;
 
-        Debug.Log("pos1, pos2, and viewportMousePos: ");
-        Debug.Log(pos1Canvas);
-        Debug.Log(pos2Canvas);
-        Debug.Log(viewportMousePos);
-
         return Vector2.Distance(viewportMousePos, pos1Canvas) / length;
     }
 
@@ -85,7 +80,7 @@ public class Connection : MonoBehaviour {
             tendril.TogglePath();
         }
         Debug.Log("tendril.isTraversable: " + tendril.isTraversable);
-        return tendril.isTraversable;
+        return canFinishIfToggled;
     }
 
     public PathTendril GetTendril()
