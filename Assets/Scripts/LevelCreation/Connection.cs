@@ -33,6 +33,7 @@ public class Connection : MonoBehaviour {
         levelCreationCanvas = GameObject.Find("LevelCreationUI").GetComponent<Canvas>();
         testImage = Instantiate(Resources.Load("ConnectionImage") as GameObject).GetComponent<Image>();
         testImage.rectTransform.SetParent(levelCreationCanvas.transform);
+        testImage.gameObject.GetComponent<ConnectionUI>().connection = this;
 
         Vector3 pos1 = Camera.main.WorldToViewportPoint(node1.transform.position);
         Vector3 pos2 = Camera.main.WorldToViewportPoint(node2.transform.position);
@@ -47,5 +48,23 @@ public class Connection : MonoBehaviour {
             (pos1.y - .5f) * levelCreationCanvas.pixelRect.height + distance * Mathf.Sin(rads) / 2);
         testImage.rectTransform.sizeDelta = new Vector2(distance, testImage.rectTransform.sizeDelta.y);
         testImage.rectTransform.rotation = Quaternion.Euler(0, 0, rads * Mathf.Rad2Deg);
+    }
+
+    public bool ToggleConnection()
+    {
+        Debug.Log("tendril.isTraversable: " + tendril.isTraversable);
+        bool canFinishIfToggled = graph.CanReachFinishIf(tendril, !tendril.isTraversable);
+        Debug.Log("canFinishIfToggled: " + canFinishIfToggled);
+        if (canFinishIfToggled)
+        {
+            tendril.TogglePath();
+        }
+        Debug.Log("tendril.isTraversable: " + tendril.isTraversable);
+        return tendril.isTraversable;
+    }
+
+    public PathTendril GetTendril()
+    {
+        return tendril;
     }
 }

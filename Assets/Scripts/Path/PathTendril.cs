@@ -26,16 +26,26 @@ public class PathTendril : MonoBehaviour {
         return pathTendrilNodes[pathTendrilNodes.Count - 1];
     }
 
+    public void TogglePath()
+    {
+        if (isTraversable)
+        {
+            DisablePath();
+        }
+        else
+        {
+            EnablePath();
+        }
+    }
+
     public void EnablePath()
     {
         isTraversable = true;
-        this.enabled = true;
     }
 
     public void DisablePath()
     {
         isTraversable = false;
-        this.enabled = false;
     }
 
     public void SetTraversable(bool canTraverse)

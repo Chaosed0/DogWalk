@@ -16,6 +16,7 @@ public class ConnectionUI : MonoBehaviour
     public Connection connection; // TODO: enable/disable connections based on click actions
     public bool activeConnection = true;
     public bool fadeStarted = false;
+    public PathTendril tendril;
 
     void Awake()
     {
@@ -48,6 +49,7 @@ public class ConnectionUI : MonoBehaviour
             activeConnection = !activeConnection;
             Debug.Log("CLICKED!");
             // activate/deactivate the connection
+            connection.ToggleConnection();
         }
     }
 

@@ -38,8 +38,12 @@ public class PathGraph : MonoBehaviour
     public Dictionary<PathNeuronNode, List<PathEdge>> nodeToEdge = new Dictionary<PathNeuronNode, List<PathEdge>>();
     public Dictionary<PathTendril, PathEdge> tendrilToEdge = new Dictionary<PathTendril, PathEdge>();
 
+    GameManager gameManager;
+
     void Awake()
     {
+        gameManager = FindObjectOfType<GameManager>();
+
         foreach (PathEdge edge in edges)
         {
             List<PathEdge> n1Edges = GetOrInsertEdgesForNode(edge.node1);
@@ -85,15 +89,14 @@ public class PathGraph : MonoBehaviour
             {
                 PathNeuronNode otherNode = GetOtherNode(node, edge);
 
-                if (otherNode == endNode)
-                {
-                    return true;
-                }
-
                 if (!closedSet.Contains(otherNode))
                 {
                     if (edge.tendril.isTraversable)
                     {
+                        if (otherNode == endNode)
+                        {
+                            return true;
+                        }
                         queue.Enqueue(otherNode);
                         closedSet.Add(otherNode);
                     }
