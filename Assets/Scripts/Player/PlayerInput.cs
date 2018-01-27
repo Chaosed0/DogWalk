@@ -24,6 +24,10 @@ public class PlayerInput : MonoBehaviour
     {
         player = GetComponent<Player>();
         playerMovement = GetComponent<PlayerMovement>();
+        this.enabled = false;
+
+        EventBus.Subscribe<RoundActuallyStartEvent>((x) => this.enabled = true);
+        EventBus.Subscribe<RoundEndEvent>((x) => this.enabled = false);
     }
 
     void Update()

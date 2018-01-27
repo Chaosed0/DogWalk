@@ -1,5 +1,8 @@
 ﻿public struct RoundStartEvent {}
 
+public struct RoundActuallyStartEvent { }
+public struct LevelCreationStartEvent { }
+
 public struct RoundEndEvent {
     public float remainingTime;
 

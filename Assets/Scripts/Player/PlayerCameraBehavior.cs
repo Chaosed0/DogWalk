@@ -9,6 +9,13 @@ public class PlayerCameraBehavior : MonoBehaviour {
     
     Vector3 refvel;
 
+    void Awake()
+    {
+        this.enabled = false;
+        EventBus.Subscribe<RoundActuallyStartEvent>((x) => this.enabled = true);
+        EventBus.Subscribe<RoundEndEvent>((x) => this.enabled = false);
+    }
+
     void Update()
     {
         float rotationDamping = Time.deltaTime;

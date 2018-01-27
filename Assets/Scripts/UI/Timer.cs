@@ -13,7 +13,15 @@ public class Timer : MonoBehaviour
     {
         timerText = GetComponent<Text>();
         StartLevelSetupCountdown();
+
+        EventBus.Subscribe<RoundActuallyStartEvent>((x) => StartRaceCountdown());
 	}
+
+    [SubscribeGlobal]
+    void HandleLevelCreationStartEvent(LevelCreationStartEvent e)
+    {
+        StartLevelSetupCountdown();
+    }
 
     public void StartLevelSetupCountdown()
     {

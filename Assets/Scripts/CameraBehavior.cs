@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class CameraBehavior : MonoBehaviour {
 
-    public PlayerInput playerInput;
-
     public float raceStartMovementSpeed;
     public float raceStartRotationSpeed;
-    public Vector3 levelCreationCamPosition;
+
+    public Transform levelCreationTransform;
 
     public float dogTransitionMovementSpeed;
     public float dogTransitionRotationSpeed;
-    public Vector3 dogViewPosition;
-    public Vector3 dogViewRotation;
+    public Transform dogViewTransform;
 
     public float skyboxLerpRate;
 
@@ -25,13 +23,21 @@ public class CameraBehavior : MonoBehaviour {
     void Awake()
     {
         playerCameraBehavior = GetComponent<PlayerCameraBehavior>();
-        playerCameraBehavior.enabled = false;
-        playerInput.enabled = false;
     }
 
 	void Start ()
     {
-        transform.position = levelCreationCamPosition;
+        transform.position = levelCreationTransform.position;
+        transform.rotation = levelCreationTransform.rotation;
+    }
+
+    public void LerpToLevelCreationStart()
+    {
+        StartCoroutine(LerpToPos(levelCreationTransform.position, raceStartMovementSpeed));
+        StartCoroutine(LerpToRot(levelCreationTransform.rotation, raceStartRotationSpeed));
+        StartCoroutine(LerpSky(false));
+
+        OnCoroutinesStopped = () => { EventBus.PublishEvent(new LevelCreationStartEvent()); };
     }
 
     public void LerpToRaceStart()
@@ -39,22 +45,14 @@ public class CameraBehavior : MonoBehaviour {
         StartCoroutine(LerpToPos(playerCameraBehavior.GetTargetPosition(), raceStartMovementSpeed));
         StartCoroutine(LerpToRot(playerCameraBehavior.GetTargetRotation(), raceStartRotationSpeed));
 
-        OnCoroutinesStopped = () => {
-            playerCameraBehavior.enabled = true;
-            playerInput.enabled = true;
-        };
+        OnCoroutinesStopped = () => { EventBus.PublishEvent(new RoundActuallyStartEvent()); };
     }
 
-    void Update()
+    public void LerpToDog()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    playerCameraBehavior.enabled = false;
-
-        //    StartCoroutine(LerpToPos(dogViewPosition, dogTransitionMovementSpeed));
-        //    StartCoroutine(LerpToRot(Quaternion.Euler(dogViewRotation), dogTransitionRotationSpeed));
-        //    StartCoroutine(LerpSky());
-        //}
+        StartCoroutine(LerpToPos(dogViewTransform.position, dogTransitionMovementSpeed));
+        StartCoroutine(LerpToRot(dogViewTransform.rotation, dogTransitionRotationSpeed));
+        StartCoroutine(LerpSky(true));
     }
 
     IEnumerator LerpToPos(Vector3 targetPos, float speed)
@@ -91,7 +89,7 @@ public class CameraBehavior : MonoBehaviour {
         CoroutineStopped();
     }
 
-    IEnumerator LerpSky()
+    IEnumerator LerpSky(bool lighten)
     {
         ++runningCoroutines;
         float t = 0;
@@ -99,7 +97,7 @@ public class CameraBehavior : MonoBehaviour {
         while (t < 1)
         {
             t += Mathf.Clamp01(Time.deltaTime * skyboxLerpRate);
-            RenderSettings.skybox.SetFloat("_Blend", t);
+            RenderSettings.skybox.SetFloat("_Blend", (lighten ? t : 1-t));
             yield return null;
         }
 
@@ -120,6 +118,14 @@ public class CameraBehavior : MonoBehaviour {
     public void HandleRoundStart(RoundStartEvent e)
     {
         LerpToRaceStart();
+    }
+
+    [SubscribeGlobal]
+    public void HandleRoundEnd(RoundEndEvent e)
+    {
+        LerpToDog();
+
+        OnCoroutinesStopped = () => { Invoke("LerpToLevelCreationStart", 2.0f); };
     }
 
     void OnDestroy()

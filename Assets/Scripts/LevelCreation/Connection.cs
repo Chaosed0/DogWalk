@@ -50,6 +50,12 @@ public class Connection : MonoBehaviour {
         testImage.rectTransform.rotation = Quaternion.Euler(0, 0, rads * Mathf.Rad2Deg);
     }
 
+    [SubscribeGlobal]
+    public void HandleLevelCreationStart(LevelCreationStartEvent e)
+    {
+        InitializeConnection();
+    }
+
     public bool ToggleConnection()
     {
         Debug.Log("tendril.isTraversable: " + tendril.isTraversable);
