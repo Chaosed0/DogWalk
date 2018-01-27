@@ -34,9 +34,21 @@ class PathGraph : MonoBehaviour
                 Vector3 next2 = GetOtherNode(pair.Key, edge2).transform.position;
                 Vector3 rel1 = next1 - pair.Key.transform.position;
                 Vector3 rel2 = next2 - pair.Key.transform.position;
-                return Mathf.Atan2(rel1.z, rel1.x).CompareTo(Mathf.Atan2(rel2.z, rel2.x));
+                float ang1 = GetClockwiseAngle(rel1.z, rel1.x);
+                float ang2 = GetClockwiseAngle(rel2.z, rel2.x);
+                return ang1.CompareTo(ang2);
             });
         }
+    }
+
+    float GetClockwiseAngle(float z, float x)
+    {
+        float angle = Mathf.Atan2(z, x);
+        if (angle < 0)
+        {
+            angle += Mathf.PI;
+        }
+        return angle;
     }
 
     public PathNeuronNode GetOtherNode(PathNeuronNode node, PathEdge edge)

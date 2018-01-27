@@ -27,7 +27,7 @@ class Player: MonoBehaviour
         }
         else
         {
-            newIndex = (pathIndex-1)%availablePaths.Count;
+            newIndex = (pathIndex-1 + availablePaths.Count)%availablePaths.Count;
         }
 
         SetCurrentPathIndex(newIndex);
