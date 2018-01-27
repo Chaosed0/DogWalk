@@ -41,14 +41,14 @@ public class CameraBehavior : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            playerCameraBehavior.enabled = false;
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    playerCameraBehavior.enabled = false;
 
-            StartCoroutine(LerpToPos(dogViewPosition, dogTransitionMovementSpeed));
-            StartCoroutine(LerpToRot(Quaternion.Euler(dogViewRotation), dogTransitionRotationSpeed));
-            StartCoroutine(LerpSky());
-        }
+        //    StartCoroutine(LerpToPos(dogViewPosition, dogTransitionMovementSpeed));
+        //    StartCoroutine(LerpToRot(Quaternion.Euler(dogViewRotation), dogTransitionRotationSpeed));
+        //    StartCoroutine(LerpSky());
+        //}
     }
 
     IEnumerator LerpToPos(Vector3 targetPos, float speed)
