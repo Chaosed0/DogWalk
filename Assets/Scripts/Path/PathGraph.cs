@@ -65,6 +65,42 @@ public class PathGraph : MonoBehaviour
         }
     }
 
+    public bool DoesPathExist(PathNeuronNode startNode, PathNeuronNode endNode)
+    {
+        bool pathExists = false;
+
+        HashSet<PathNeuronNode> openSet = new HashSet<PathNeuronNode> { startNode };
+        HashSet<PathNeuronNode> closedSet = new HashSet<PathNeuronNode> { startNode };
+
+        Queue<PathNeuronNode> queue = new Queue<PathNeuronNode>();
+        queue.Enqueue(startNode);
+
+        while (queue.Count > 0)
+        {
+            PathNeuronNode node = queue.Dequeue();
+            foreach (PathEdge edge in nodeToEdge[node])
+            {
+                PathNeuronNode otherNode = GetOtherNode(node, edge);
+
+                if (otherNode == endNode)
+                {
+                    return true;
+                }
+
+                if (!closedSet.Contains(otherNode))
+                {
+                    if (edge.tendril.isTraversable)
+                    {
+                        queue.Enqueue(otherNode);
+                        closedSet.Add(otherNode);
+                    }
+                }
+            }
+        }
+
+        return pathExists;
+    }
+
     float GetClockwiseAngle(float z, float x)
     {
         float angle = Mathf.Atan2(z, x);

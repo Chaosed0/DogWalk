@@ -5,6 +5,7 @@ using UnityEngine;
 public class PathTendril : MonoBehaviour {
     public List<PathTendrilNode> pathTendrilNodes = new List<PathTendrilNode>();
     MeshRenderer meshRenderer;
+    public bool isTraversable = true;
 
     void Awake()
     {
@@ -23,6 +24,11 @@ public class PathTendril : MonoBehaviour {
         if (pathTendrilNodes.Count == 0)
             return null;
         return pathTendrilNodes[pathTendrilNodes.Count - 1];
+    }
+
+    public void SetTraversable(bool canTraverse)
+    {
+        isTraversable = canTraverse;
     }
 
     public void SetSelected(bool selected)

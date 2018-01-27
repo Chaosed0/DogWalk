@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour {
     // The player who currently has control.
     public int currentPlayer;
 
+    public PathNeuronNode startNode;
+    public PathNeuronNode finishNode;
+
     public float playerOneScore;
     public float playerTwoScore;
 
