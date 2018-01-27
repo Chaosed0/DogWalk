@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 222113924189330878}
   - component: {fileID: 114555051593428400}
   - component: {fileID: 114840906232176258}
+  - component: {fileID: 114965339989186554}
   m_Layer: 5
   m_Name: TrapIcon
   m_TagString: Untagged
@@ -113,6 +114,7 @@ GameObject:
   - component: {fileID: 222432863021561204}
   - component: {fileID: 114531999380956194}
   - component: {fileID: 114681320449685970}
+  - component: {fileID: 114514112244842330}
   m_Layer: 5
   m_Name: BuffIcon
   m_TagString: Untagged
@@ -231,6 +233,18 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114514112244842330
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1666870634238558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf910aaf43bd3bf4e8057248c0d39322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 1687718357515968, guid: aba62bcc501d8324b9e96e608075f992, type: 2}
 --- !u!114 &114531999380956194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -399,6 +413,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &114965339989186554
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1137250231691526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf910aaf43bd3bf4e8057248c0d39322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 1687718357515968, guid: aba62bcc501d8324b9e96e608075f992, type: 2}
 --- !u!222 &222113924189330878
 CanvasRenderer:
   m_ObjectHideFlags: 1

@@ -18,3 +18,13 @@ public struct ToggleCurrentPlayerEvent
         this.currentPlayer = currentPlayer;
     }
 }
+
+public struct ActiveSegmentHoveredEvent
+{
+    // add the connection data structure here.
+}
+
+public struct NoSegmentsHoveredEvent
+{
+
+}

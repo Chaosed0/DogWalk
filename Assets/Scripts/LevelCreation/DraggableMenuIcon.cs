@@ -51,7 +51,7 @@ public class DraggableMenuIcon : MonoBehaviour, IPointerDownHandler, IPointerUpH
 
     public void OnPointerUp (PointerEventData eventData)
     {
-        Destroy(imageIcon);
+        Destroy(imageIcon.gameObject);
     }
 
     // Use this for initialization

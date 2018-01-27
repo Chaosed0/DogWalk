@@ -28,6 +28,7 @@ public class ConnectionUI : MonoBehaviour
         if (!fadeStarted)
         {
             img.color = Color.blue;
+            EventBus.PublishEvent(new ActiveSegmentHoveredEvent());
         }
     }
 
@@ -36,6 +37,7 @@ public class ConnectionUI : MonoBehaviour
         if (!fadeStarted)
         {
             img.color = Color.green;
+            EventBus.PublishEvent(new NoSegmentsHoveredEvent());
         }
     }
 
