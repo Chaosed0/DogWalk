@@ -4,46 +4,46 @@ using UnityEngine;
 
 public class CameraBehavior : MonoBehaviour {
 
-    public float matchStartMovementSpeed;
-    public float matchStartRotationSpeed;
-    public Vector3 overheadPosition;
-    public Vector3 matchStartPosition;
-    public Vector3 matchStartRotation;
+    public float raceStartMovementSpeed;
+    public float raceStartRotationSpeed;
+    public Vector3 levelCreationCamPosition;
+    public Vector3 raceStartPosition;
+    public Vector3 raceStartRotation;
 
 	void Start ()
     {
-        transform.position = overheadPosition;
+        transform.position = levelCreationCamPosition;
     }
 
-    public void LerpToRoundStart()
+    public void LerpToRaceStart()
     {
-        StartCoroutine(LerpToRoundStartPos());
-        StartCoroutine(LerpToRoundStartRot());
+        StartCoroutine(LerpToRaceStartPos());
+        StartCoroutine(LerpToRaceStartRot());
     }
 
-    IEnumerator LerpToRoundStartPos()
+    IEnumerator LerpToRaceStartPos()
     {
         float t = 0;
         Vector3 startPos = transform.position;
 
         while (t < 1)
         {
-            t += Mathf.Clamp01(Time.deltaTime * matchStartMovementSpeed);
-            transform.position = Vector3.Lerp(startPos, matchStartPosition, t);
+            t += Mathf.Clamp01(Time.deltaTime * raceStartMovementSpeed);
+            transform.position = Vector3.Lerp(startPos, raceStartPosition, t);
 
             yield return null;
         }
     }
 
-    IEnumerator LerpToRoundStartRot()
+    IEnumerator LerpToRaceStartRot()
     {
         float t = 0;
         Quaternion startRot = transform.rotation;
-        Quaternion targetRot = Quaternion.Euler(matchStartRotation);
+        Quaternion targetRot = Quaternion.Euler(raceStartRotation);
 
         while (t < 1)
         {
-            t += Mathf.Clamp01(Time.deltaTime * matchStartRotationSpeed);
+            t += Mathf.Clamp01(Time.deltaTime * raceStartRotationSpeed);
             transform.rotation = Quaternion.Slerp(startRot, targetRot, t);
             yield return null;
         }
@@ -52,6 +52,6 @@ public class CameraBehavior : MonoBehaviour {
     [SubscribeGlobal]
     public void HandleRoundStart(RoundStartEvent e)
     {
-        LerpToRoundStart();
+        LerpToRaceStart();
     }
 }
