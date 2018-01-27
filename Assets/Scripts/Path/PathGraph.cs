@@ -71,6 +71,23 @@ public class PathGraph : MonoBehaviour
         float ang2 = GetClockwiseAngle(rel2.z, rel2.x);
         return ang2.CompareTo(ang1);
     }
+    
+    public bool CanReachFinishIf(PathTendril tendril, bool tentativeState)
+    {
+        tendril.SetTraversable(tentativeState);
+        bool canReachFinish = CanReachFinish();
+        tendril.SetTraversable(!tentativeState);
+        return canReachFinish;
+    }
+
+    public bool CanReachFinish()
+    {
+        if (gameManager.startNode == null || gameManager.finishNode == null)
+        {
+            Debug.LogError("Set start and finish in MainCamera/GameManager");
+        }
+        return DoesPathExist(gameManager.startNode, gameManager.finishNode);
+    }
 
     public bool DoesPathExist(PathNeuronNode startNode, PathNeuronNode endNode)
     {

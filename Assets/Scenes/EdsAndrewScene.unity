@@ -324,7 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1ecf8008e31b2a4c883e986d908a861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: {fileID: 819393978}
+  playerInput: {fileID: 0}
   raceStartMovementSpeed: 0.7
   raceStartRotationSpeed: 0.7
   levelCreationCamPosition: {x: 0, y: 20.4, z: -9.3}
@@ -356,8 +356,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPlayer: 1
-  startNode: {fileID: 0}
-  finishNode: {fileID: 0}
+  startNode: {fileID: 1321697576}
+  finishNode: {fileID: 1321697570}
   playerOneScore: 0
   playerTwoScore: 0
   timer: {fileID: 0}
@@ -605,7 +605,7 @@ Prefab:
     - target: {fileID: 224375360615672290, guid: 88a76e3941349604b91d1573d284ce69,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -116.15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224265516165897552, guid: 88a76e3941349604b91d1573d284ce69,
         type: 2}
@@ -625,7 +625,7 @@ Prefab:
     - target: {fileID: 224265516165897552, guid: 88a76e3941349604b91d1573d284ce69,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -348.45
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 88a76e3941349604b91d1573d284ce69, type: 2}
@@ -961,8 +961,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minMoveSpeed: 3
   maxMoveSpeed: 10
-  burstMoveSpeed: 15
-  burstChargeMin: 0.95
+  burstMoveSpeed: 20
+  burstChargeMin: 0.93
   burstChargeMax: 1
 --- !u!114 &819393978
 MonoBehaviour:
