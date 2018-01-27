@@ -48,4 +48,10 @@ public class CameraBehavior : MonoBehaviour {
             yield return null;
         }
     }
+
+    [SubscribeGlobal]
+    public void HandleMatchStart(MatchStartEvent e)
+    {
+        LerpToMatchStart();
+    }
 }

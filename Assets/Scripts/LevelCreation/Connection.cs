@@ -19,7 +19,6 @@ public class Connection : MonoBehaviour {
     {
         levelCreationCanvas = GameObject.Find("LevelCreationUI").GetComponent<Canvas>();
         testImage = Instantiate(Resources.Load("ConnectionImage") as GameObject).GetComponent<Image>();
-        testImage.gameObject.AddComponent<ConnectionUI>();
         testImage.rectTransform.SetParent(levelCreationCanvas.transform);
 
         Vector3 pos1 = Camera.main.WorldToViewportPoint(node1.transform.position);

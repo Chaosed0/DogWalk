@@ -27,13 +27,10 @@ public class ConnectionUI : MonoBehaviour
         Debug.Log("exited");
     }
 
-    void Update()
+    [SubscribeGlobal]
+    public void HandleMatchStart(MatchStartEvent e)
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Camera.main.GetComponent<CameraBehavior>().LerpToMatchStart();
-            StartCoroutine(FadeOut());
-        }
+        StartCoroutine(FadeOut());
     }
 
     IEnumerator FadeOut()

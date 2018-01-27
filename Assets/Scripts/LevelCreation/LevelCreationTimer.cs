@@ -25,6 +25,6 @@ public class LevelCreationTimer : MonoBehaviour
         }
 
         timerText.text = "GO";
-        Camera.main.GetComponent<CameraBehavior>().LerpToMatchStart();
+        EventBus.PublishEvent(new MatchStartEvent());
     }
 }
