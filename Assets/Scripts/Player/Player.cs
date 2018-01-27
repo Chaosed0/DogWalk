@@ -38,6 +38,7 @@ public class Player: MonoBehaviour
             newIndex = (pathIndex-1 + availablePaths.Count)%availablePaths.Count;
         }
 
+        DeselectCurrentPath();
         SetCurrentPathIndex(newIndex);
 
         //facing = pathGraph.GetNext(startNode, availablePaths[pathIndex]);
@@ -47,7 +48,7 @@ public class Player: MonoBehaviour
     {
         PathEdge pathToFollow = availablePaths[pathIndex];
 
-        pathToFollow.tendril.SetSelected(false);
+        DeselectCurrentPath();
         playerMovement.StartFollowingPath(pathToFollow.GetPath(currentNode));
     }
 
@@ -64,7 +65,13 @@ public class Player: MonoBehaviour
         currentNode = node;
         availablePaths = pathGraph.GetAvailablePathsForNode(currentNode);
         SetCurrentPathIndex(0);
-        //facing = pathGraph.GetNext(currentNode, availablePaths[pathIndex]);
+    }
+
+    void DeselectCurrentPath()
+    {
+        if (this.pathIndex >= 0) {
+            availablePaths[this.pathIndex].tendril.SetSelected(false);
+        }
     }
 
     void SetCurrentPathIndex(int pathIndex)
@@ -72,11 +79,10 @@ public class Player: MonoBehaviour
         if (this.pathIndex == pathIndex)
             return;
 
-        if (this.pathIndex >= 0) {
-            availablePaths[this.pathIndex].tendril.SetSelected(false);
-        }
-
         this.pathIndex = pathIndex;
         availablePaths[this.pathIndex].tendril.SetSelected(true);
+
+        Vector3 facing = pathGraph.GetOtherNode(currentNode, availablePaths[pathIndex]).transform.position - currentNode.transform.position;
+        GetComponent<Rigidbody>().MoveRotation(Quaternion.LookRotation(facing));
     }
 }

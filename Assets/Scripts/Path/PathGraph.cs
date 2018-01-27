@@ -55,7 +55,7 @@ public class PathGraph : MonoBehaviour
                 Vector3 rel2 = next2 - pair.Key.transform.position;
                 float ang1 = GetClockwiseAngle(rel1.z, rel1.x);
                 float ang2 = GetClockwiseAngle(rel2.z, rel2.x);
-                return ang1.CompareTo(ang2);
+                return ang2.CompareTo(ang1);
             });
         }
     }

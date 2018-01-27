@@ -9,6 +9,7 @@ class PlayerMovement: MonoBehaviour
     bool isMoving = false;
     int currentSegment = -1;
     List<Vector3> currentPath;
+    Vector3 currentFacing;
     float currentSegmentDistance = 0.0f;
 
     float moveSpeed = 10.0f;
@@ -40,6 +41,7 @@ class PlayerMovement: MonoBehaviour
         currentSegmentDistance += moveSpeed * Time.deltaTime;
         Vector3 nextPosition = GetNextPosition();
         rigidbody.MovePosition(nextPosition);
+        rigidbody.MoveRotation(Quaternion.LookRotation(currentFacing));
 
         if (nextPosition == currentPath[currentPath.Count - 1])
         {
@@ -58,6 +60,7 @@ class PlayerMovement: MonoBehaviour
         Vector3 direction = currentPath[currentSegment+1] - currentPath[currentSegment];
         float segmentDistance = direction.magnitude;
         direction = direction.normalized;
+        this.currentFacing = direction;
 
         if (currentSegmentDistance > segmentDistance)
         {
