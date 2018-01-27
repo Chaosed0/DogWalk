@@ -70,7 +70,7 @@ public class PathGraph : MonoBehaviour
         float angle = Mathf.Atan2(z, x);
         if (angle < 0)
         {
-            angle += Mathf.PI;
+            angle += 2*Mathf.PI;
         }
         return angle;
     }
