@@ -6,13 +6,20 @@ public class PlayerMovement: MonoBehaviour
 {
     new Rigidbody rigidbody;
 
+    public float minMoveSpeed = 3.0f;
+    public float maxMoveSpeed = 10.0f;
+    public float burstMoveSpeed = 20.0f;
+
+    public float burstChargeMin = 0.93f;
+    public float burstChargeMax = 1.0f;
+
     bool isMoving = false;
     int currentSegment = -1;
     List<Vector3> currentPath;
     Vector3 currentFacing;
     float currentSegmentDistance = 0.0f;
 
-    float moveSpeed = 10.0f;
+    float currentMoveSpeed = 10.0f;
 
     public class StoppedMovingEvent { }
 
@@ -21,9 +28,13 @@ public class PlayerMovement: MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
     }
 
-    void SetMoveSpeed(float moveSpeed)
+    public void SetCharge(float charge)
     {
-        this.moveSpeed = moveSpeed;
+        currentMoveSpeed = Mathf.Lerp(minMoveSpeed, maxMoveSpeed, charge);
+        if (charge >= burstChargeMin && charge <= burstChargeMax)
+        {
+            currentMoveSpeed = burstMoveSpeed;
+        }
     }
 
     public void StartFollowingPath(List<Vector3> path)
@@ -38,7 +49,7 @@ public class PlayerMovement: MonoBehaviour
     {
         if (!isMoving) return;
 
-        currentSegmentDistance += moveSpeed * Time.deltaTime;
+        currentSegmentDistance += currentMoveSpeed * Time.deltaTime;
         Vector3 nextPosition = GetNextPosition();
         rigidbody.MovePosition(nextPosition);
         rigidbody.MoveRotation(Quaternion.LookRotation(currentFacing));

@@ -5,28 +5,65 @@ using UnityEngine.Events;
 
 public class PlayerInput : MonoBehaviour
 {
+    public float chargeTime = 1.0f;
+
     Player player;
+    PlayerMovement playerMovement;
+
+    bool isCharging = false;
+    float currentCharge = 0.0f;
+
+    public class StartedChargingEvent { }
+    public class ChargeChangedEvent {
+        public float charge;
+        public ChargeChangedEvent(float charge) { this.charge = charge; }
+    }
+    public class StoppedChargingEvent { }
 
     void Awake()
     {
         player = GetComponent<Player>();
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (!playerMovement.IsMoving())
         {
-            player.TraversePath();
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                currentCharge = 0.0f;
+                isCharging = true;
+                this.gameObject.PublishEvent(new StartedChargingEvent());
+            }
+
+            if (Input.GetKeyUp(KeyCode.UpArrow))
+            {
+                isCharging = false;
+                this.gameObject.PublishEvent(new StoppedChargingEvent());
+                playerMovement.SetCharge(currentCharge);
+                player.TraversePath();
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                player.SelectNextPath(false);
+            }
+
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                player.SelectNextPath(true);
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (isCharging)
         {
-            player.SelectNextPath(false);
-        }
-
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            player.SelectNextPath(true);
+            currentCharge += Time.deltaTime / chargeTime;
+            if (currentCharge >= 1.0f)
+            {
+                currentCharge -= 1.0f;
+            }
+            this.gameObject.PublishEvent(new ChargeChangedEvent(currentCharge));
         }
     }
 }
