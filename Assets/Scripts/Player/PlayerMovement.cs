@@ -56,8 +56,8 @@ public class PlayerMovement: MonoBehaviour
 
         if (nextPosition == currentPath[currentPath.Count - 1])
         {
-            isMoving = false;
             this.gameObject.PublishEvent(new StoppedMovingEvent());
+            isMoving = false;
         }
     }
 

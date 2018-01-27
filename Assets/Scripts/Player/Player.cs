@@ -14,10 +14,12 @@ public class Player: MonoBehaviour
     List<PathEdge> availablePaths;
     int pathIndex = -1;
 
+    // For carrying over state between StartTraverse and StoppedMoving
+    PathNeuronNode nextNode;
+
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        playerMovement.gameObject.Subscribe<PlayerMovement.StoppedMovingEvent>((x) => OnStoppedMoving());
     }
 
     void Start()
@@ -25,6 +27,7 @@ public class Player: MonoBehaviour
         SetCurrentNode(startNode);
         SetCurrentPathIndex(0);
         playerMovement.SetPosition(startNode.transform.position);
+        playerMovement.gameObject.Subscribe<PlayerMovement.StoppedMovingEvent>((x) => OnStoppedMoving());
     }
 
     public void SelectNextPath(bool clockwise)
@@ -84,12 +87,13 @@ public class Player: MonoBehaviour
 
         DeselectCurrentPath();
         playerMovement.StartFollowingPath(pathToFollow.GetPath(currentNode));
+        PathEdge previousPath = availablePaths[pathIndex];
+        nextNode = pathGraph.GetOtherNode(currentNode, previousPath);
     }
 
     public void OnStoppedMoving()
     {
-        PathEdge previousPath = availablePaths[pathIndex];
-        SetCurrentNode(pathGraph.GetOtherNode(currentNode, previousPath));
+        SetCurrentNode(nextNode);
         pathIndex = -1;
     }
 
