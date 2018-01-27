@@ -15,13 +15,13 @@ public class CameraBehavior : MonoBehaviour {
         transform.position = overheadPosition;
     }
 
-    public void LerpToMatchStart()
+    public void LerpToRoundStart()
     {
-        StartCoroutine(LerpToMatchStartPos());
-        StartCoroutine(LerpToMatchStartRot());
+        StartCoroutine(LerpToRoundStartPos());
+        StartCoroutine(LerpToRoundStartRot());
     }
 
-    IEnumerator LerpToMatchStartPos()
+    IEnumerator LerpToRoundStartPos()
     {
         float t = 0;
         Vector3 startPos = transform.position;
@@ -35,7 +35,7 @@ public class CameraBehavior : MonoBehaviour {
         }
     }
 
-    IEnumerator LerpToMatchStartRot()
+    IEnumerator LerpToRoundStartRot()
     {
         float t = 0;
         Quaternion startRot = transform.rotation;
@@ -50,8 +50,8 @@ public class CameraBehavior : MonoBehaviour {
     }
 
     [SubscribeGlobal]
-    public void HandleMatchStart(MatchStartEvent e)
+    public void HandleRoundStart(RoundStartEvent e)
     {
-        LerpToMatchStart();
+        LerpToRoundStart();
     }
 }
