@@ -8,9 +8,28 @@ public class PathEdge
     public PathNeuronNode node1;
     public PathNeuronNode node2;
     public PathTendril tendril;
+
+    public List<Vector3> GetPath(PathNeuronNode start)
+    {
+        List<Vector3> path = new List<Vector3>();
+
+        path.Add(node1.transform.position);
+        foreach (PathTendrilNode node in tendril.pathTendrilNodes)
+        {
+            path.Add(node.transform.position);
+        }
+        path.Add(node2.transform.position);
+
+        if (node1 != start)
+        {
+            path.Reverse();
+        }
+
+        return path;
+    }
 }
 
-class PathGraph : MonoBehaviour
+public class PathGraph : MonoBehaviour
 {
     public List<PathEdge> edges = new List<PathEdge>();
 

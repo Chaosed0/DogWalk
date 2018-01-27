@@ -3,14 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-class Player: MonoBehaviour
+public class Player: MonoBehaviour
 {
     public PathNeuronNode startNode;
     public PathGraph pathGraph;
 
+    PlayerMovement playerMovement;
+
     PathNeuronNode currentNode;
     List<PathEdge> availablePaths;
     int pathIndex = -1;
+
+    void Awake()
+    {
+        playerMovement = GetComponent<PlayerMovement>();
+        playerMovement.gameObject.Subscribe<PlayerMovement.StoppedMovingEvent>((x) => OnStoppedMoving());
+    }
 
     void Start()
     {
@@ -38,10 +46,15 @@ class Player: MonoBehaviour
     public void TraversePath()
     {
         PathEdge pathToFollow = availablePaths[pathIndex];
-        pathIndex = -1;
 
         pathToFollow.tendril.SetSelected(false);
-        SetCurrentNode(pathGraph.GetOtherNode(currentNode, pathToFollow));
+        playerMovement.StartFollowingPath(pathToFollow.GetPath(currentNode));
+    }
+
+    public void OnStoppedMoving()
+    {
+        PathEdge previousPath = availablePaths[pathIndex];
+        SetCurrentNode(pathGraph.GetOtherNode(currentNode, previousPath));
     }
 
     void SetCurrentNode(PathNeuronNode node)

@@ -27,7 +27,6 @@ public class PathTendril : MonoBehaviour {
 
     public void SetSelected(bool selected)
     {
-        Debug.Log(this.name);
         if (selected)
         {
             meshRenderer.material.color = Color.red;
