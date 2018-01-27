@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class PlayerMovement: MonoBehaviour
+public class PlayerMovement: MonoBehaviour
 {
-    Rigidbody rigidbody;
+    new Rigidbody rigidbody;
 
     bool isMoving = false;
     int currentSegment = -1;
@@ -48,6 +48,11 @@ class PlayerMovement: MonoBehaviour
             isMoving = false;
             this.gameObject.PublishEvent(new StoppedMovingEvent());
         }
+    }
+
+    public bool IsMoving()
+    {
+        return isMoving;
     }
 
     Vector3 GetNextPosition()

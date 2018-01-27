@@ -25,6 +25,8 @@ public class PathEdge
             path.Reverse();
         }
 
+        path = SplineUtil.GenerateSpline(path, 5);
+
         return path;
     }
 }
@@ -127,18 +129,10 @@ public class PathGraph : MonoBehaviour
     {
         foreach (PathEdge edge in edges)
         {
-            if (edge.tendril == null || edge.tendril.GetFirst() == null)
+            List<Vector3> path = edge.GetPath(edge.node1);
+            for (int i = 0; i < path.Count - 1; i++)
             {
-                Gizmos.DrawLine(edge.node1.transform.position, edge.node2.transform.position);
-            }
-            else
-            {
-                Gizmos.DrawLine(edge.node1.transform.position, edge.tendril.pathTendrilNodes[0].transform.position);
-                for (int i = 0; i < edge.tendril.pathTendrilNodes.Count - 1; i++)
-                {
-                    Gizmos.DrawLine(edge.tendril.pathTendrilNodes[i].transform.position, edge.tendril.pathTendrilNodes[i+1].transform.position);
-                }
-                Gizmos.DrawLine(edge.tendril.pathTendrilNodes[edge.tendril.pathTendrilNodes.Count - 1].transform.position, edge.node2.transform.position);
+                Gizmos.DrawLine(path[i], path[i+1]);
             }
         }
     }

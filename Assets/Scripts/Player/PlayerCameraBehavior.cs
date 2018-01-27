@@ -5,13 +5,24 @@ using UnityEngine;
 public class PlayerCameraBehavior : MonoBehaviour {
     public Transform lookAt;
     public Transform followPoint;
+    public PlayerMovement playerMovement;
     
     Vector3 refvel;
 
     void Update()
     {
+        float rotationDamping = Time.deltaTime;
+        if (!playerMovement.IsMoving())
+        {
+            rotationDamping *= 10.0f;
+        }
+        else
+        {
+            rotationDamping *= 2.0f;
+        }
+
         transform.position = Vector3.SmoothDamp(transform.position, GetTargetPosition(), ref refvel, 0.1f);
-        transform.rotation = Quaternion.Slerp(transform.rotation, GetTargetRotation(), Time.deltaTime * 10.0f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, GetTargetRotation(), rotationDamping);
     }
 
     public Vector3 GetTargetPosition()
