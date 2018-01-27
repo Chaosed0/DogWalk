@@ -8,6 +8,7 @@ public class Timer : MonoBehaviour
     public float raceTime;
 
     Text timerText;
+    bool stopEarly = false;
 
 	void Awake ()
     {
@@ -32,12 +33,19 @@ public class Timer : MonoBehaviour
     {
         StartCoroutine(StartRaceCountdownCoroutine());
     }
+
+    public void FinishLevelSetupEarly()
+    {
+        stopEarly = true;
+    }
 	
 	IEnumerator StartLevelSetupCountdownCoroutine()
     {
         float remainingLevelSetupTime = allowedLevelSetupTime + .5f; // to account for start delays
         while (remainingLevelSetupTime > 0)
         {
+            if (stopEarly) break;
+
             remainingLevelSetupTime -= Time.deltaTime;
             timerText.text = "" + Mathf.Clamp(Mathf.Ceil(remainingLevelSetupTime), 1, allowedLevelSetupTime);
             yield return null;
@@ -45,6 +53,7 @@ public class Timer : MonoBehaviour
 
         timerText.text = "GO";
         EventBus.PublishEvent(new RoundStartEvent());
+        stopEarly = false;
     }
 
     IEnumerator StartRaceCountdownCoroutine()
@@ -52,6 +61,8 @@ public class Timer : MonoBehaviour
         float remainingRaceTime = raceTime + .5f;
         while (remainingRaceTime > 0)
         {
+            if (stopEarly) break;
+
             remainingRaceTime -= Time.deltaTime;
             timerText.text = "" + Mathf.Clamp(Mathf.Ceil(remainingRaceTime), 1, raceTime);
             yield return null;
@@ -59,5 +70,6 @@ public class Timer : MonoBehaviour
 
         timerText.text = "OK";
         EventBus.PublishEvent(new RoundEndEvent(remainingRaceTime));
+        stopEarly = false;
     }
 }

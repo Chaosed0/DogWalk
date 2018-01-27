@@ -26,6 +26,8 @@ public class PathEdge
         }
 
         path = SplineUtil.GenerateSpline(path, 5);
+        // Not sure why, but the spline doesn't include the final point
+        path.Add(node2.transform.position);
 
         return path;
     }
