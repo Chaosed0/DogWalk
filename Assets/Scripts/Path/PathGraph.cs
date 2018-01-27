@@ -31,6 +31,46 @@ public class PathEdge
 
         return path;
     }
+
+    float GetPathLength (List<Vector3> path)
+    {
+        float length = 0;
+
+        for (int i = 0; i < path.Count - 1; i++)
+        {
+            length += Vector3.Distance(path[i], path[i + 1]);
+        }
+
+        return length;
+    }
+
+    public Vector3 GetPointAlongPath (PathNeuronNode start, float t)
+    {
+        List<Vector3> path = GetPath(start);
+        float length = GetPathLength(path);
+        float distanceTraveled = 0;
+        float distanceAlongCurrentPath = 0;
+        float accumulatedT = 0;
+
+        int i = 0;
+        while (i < path.Count - 1 && accumulatedT < t)
+        {
+            distanceAlongCurrentPath = Mathf.Min(Vector3.Distance(path[i], path[i + 1]), (t - accumulatedT) * length);
+            distanceTraveled += distanceAlongCurrentPath;
+            accumulatedT = distanceTraveled / length;
+            i++;
+        }
+
+        if (i != 0)
+        {
+            return path[i - 1] + distanceAlongCurrentPath * (path[i] - path[i - 1]).normalized;
+        }
+        else
+        {
+            Debug.LogError("You fucked up mang.");
+            return new Vector3();
+        }
+    }
 }
 
 public class PathGraph : MonoBehaviour

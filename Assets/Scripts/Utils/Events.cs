@@ -24,10 +24,20 @@ public struct ToggleCurrentPlayerEvent
 
 public struct ActiveSegmentHoveredEvent
 {
-    // add the connection data structure here.
+    public ConnectionUI connectionUI;
+
+    public ActiveSegmentHoveredEvent(ConnectionUI connectionUI)
+    {
+        this.connectionUI = connectionUI;
+    }
 }
 
 public struct NoSegmentsHoveredEvent
 {
+    public ConnectionUI connectionUI;
 
+    public NoSegmentsHoveredEvent (ConnectionUI connectionUI)
+    {
+        this.connectionUI = connectionUI;
+    }
 }

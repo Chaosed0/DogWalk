@@ -17,11 +17,18 @@ public class ConnectionUI : MonoBehaviour
     public bool activeConnection = true;
     public bool fadeStarted = false;
     public PathTendril tendril;
+    public PathGraph graph;
 
     void Awake()
     {
         img = GetComponent<Image>();
         img.color = Color.green;
+        graph = GameObject.Find("Graph").GetComponent<PathGraph>();
+    }
+
+    void Start()
+    {
+        tendril = connection.GetTendril();
     }
 
     public void OnPointerEnter (PointerEventData eventData)
@@ -29,7 +36,7 @@ public class ConnectionUI : MonoBehaviour
         if (!fadeStarted)
         {
             img.color = Color.blue;
-            EventBus.PublishEvent(new ActiveSegmentHoveredEvent());
+            EventBus.PublishEvent(new ActiveSegmentHoveredEvent(this));
         }
     }
 
@@ -38,7 +45,7 @@ public class ConnectionUI : MonoBehaviour
         if (!fadeStarted)
         {
             img.color = Color.green;
-            EventBus.PublishEvent(new NoSegmentsHoveredEvent());
+            EventBus.PublishEvent(new NoSegmentsHoveredEvent(this));
         }
     }
 
@@ -47,10 +54,17 @@ public class ConnectionUI : MonoBehaviour
         if (!fadeStarted)
         {
             activeConnection = !activeConnection;
-            Debug.Log("CLICKED!");
-            // activate/deactivate the connection
             connection.ToggleConnection();
         }
+    }
+
+    public Vector3 GetTrapPosition()
+    {
+        float t = connection.GetInterpolationAmount();
+        PathEdge edge = graph.tendrilToEdge[tendril];
+        PathNeuronNode start = connection.node1.GetComponent<PathNeuronNode>();
+
+        return edge.GetPointAlongPath(start, t);
     }
 
     [SubscribeGlobal]

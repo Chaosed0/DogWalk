@@ -52,6 +52,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ffed22f289783042a22ea068b675f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  connection: {fileID: 0}
+  activeConnection: 1
+  fadeStarted: 0
+  tendril: {fileID: 0}
+  graph: {fileID: 0}
 --- !u!114 &114749223670610434
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -64,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0.25517225, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

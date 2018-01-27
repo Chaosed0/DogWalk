@@ -51,16 +51,5 @@ public class DraggableMenuIcon : MonoBehaviour, IPointerDownHandler, IPointerUpH
 
     public void OnPointerUp (PointerEventData eventData)
     {
-        Destroy(imageIcon.gameObject);
     }
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

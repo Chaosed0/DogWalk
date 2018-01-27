@@ -7,16 +7,23 @@ public class DraggableIcon : MonoBehaviour {
 
     Image img;
     Color originalColor;
+    ConnectionUI currentConnectionUI;
 
     [SubscribeGlobal]
     public void HandleActiveSegmentHoveredEvent(ActiveSegmentHoveredEvent e)
     {
+        currentConnectionUI = e.connectionUI;
         img.color = Color.yellow;
     }
 
     [SubscribeGlobal]
     public void HandleActiveSegmentHoveredEvent (NoSegmentsHoveredEvent e)
     {
+        if (currentConnectionUI == e.connectionUI)
+        {
+            currentConnectionUI = null;
+        }
+
         img.color = originalColor;
     }
 
@@ -24,7 +31,9 @@ public class DraggableIcon : MonoBehaviour {
     {
         if (Input.GetMouseButtonUp(0))
         {
-            Debug.Log("placin dat trap doe");
+            Vector3 trapPosition = currentConnectionUI.GetTrapPosition();
+            Instantiate(Resources.Load<GameObject>("TestTrap"), trapPosition, Quaternion.identity);
+            Destroy(gameObject);
         }
     }
 
