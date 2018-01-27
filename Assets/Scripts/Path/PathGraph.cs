@@ -52,17 +52,20 @@ public class PathGraph : MonoBehaviour
 
         foreach (KeyValuePair<PathNeuronNode, List<PathEdge>> pair in nodeToEdge)
         {
-            // Sort by angle relative to north, i.e. what's clockwise
-            pair.Value.Sort((PathEdge edge1, PathEdge edge2) => {
-                Vector3 next1 = GetOtherNode(pair.Key, edge1).transform.position;
-                Vector3 next2 = GetOtherNode(pair.Key, edge2).transform.position;
-                Vector3 rel1 = next1 - pair.Key.transform.position;
-                Vector3 rel2 = next2 - pair.Key.transform.position;
-                float ang1 = GetClockwiseAngle(rel1.z, rel1.x);
-                float ang2 = GetClockwiseAngle(rel2.z, rel2.x);
-                return ang2.CompareTo(ang1);
-            });
+            // Sort by angle clockwise relative to north
+            pair.Value.Sort((e1, e2) => CompareAnglesOfEdges(pair.Key, e1, e2));
         }
+    }
+
+    public int CompareAnglesOfEdges(PathNeuronNode start, PathEdge edge1, PathEdge edge2)
+    {
+        Vector3 next1 = GetOtherNode(start, edge1).transform.position;
+        Vector3 next2 = GetOtherNode(start, edge2).transform.position;
+        Vector3 rel1 = next1 - start.transform.position;
+        Vector3 rel2 = next2 - start.transform.position;
+        float ang1 = GetClockwiseAngle(rel1.z, rel1.x);
+        float ang2 = GetClockwiseAngle(rel2.z, rel2.x);
+        return ang2.CompareTo(ang1);
     }
 
     public bool DoesPathExist(PathNeuronNode startNode, PathNeuronNode endNode)
@@ -101,7 +104,7 @@ public class PathGraph : MonoBehaviour
         return pathExists;
     }
 
-    float GetClockwiseAngle(float z, float x)
+    public static float GetClockwiseAngle(float z, float x)
     {
         float angle = Mathf.Atan2(z, x);
         if (angle < 0)

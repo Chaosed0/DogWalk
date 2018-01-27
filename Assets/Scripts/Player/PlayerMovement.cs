@@ -51,14 +51,24 @@ public class PlayerMovement: MonoBehaviour
 
         currentSegmentDistance += currentMoveSpeed * Time.deltaTime;
         Vector3 nextPosition = GetNextPosition();
-        rigidbody.MovePosition(nextPosition);
-        rigidbody.MoveRotation(Quaternion.LookRotation(currentFacing));
+        SetPosition(nextPosition);
+        SetFacing(currentFacing);
 
         if (nextPosition == currentPath[currentPath.Count - 1])
         {
             isMoving = false;
             this.gameObject.PublishEvent(new StoppedMovingEvent());
         }
+    }
+
+    public void SetPosition(Vector3 position)
+    {
+        rigidbody.MovePosition(position);
+    }
+
+    public void SetFacing(Vector3 facing)
+    {
+        rigidbody.MoveRotation(Quaternion.LookRotation(facing));
     }
 
     public bool IsMoving()

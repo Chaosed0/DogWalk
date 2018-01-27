@@ -23,13 +23,18 @@ public class Player: MonoBehaviour
     void Start()
     {
         SetCurrentNode(startNode);
-        //facing = pathGraph.GetNext(startNode, availablePaths[pathIndex]);
+        SetCurrentPathIndex(0);
+        playerMovement.SetPosition(startNode.transform.position);
     }
 
-    public void SelectNextPath(bool increment)
+    public void SelectNextPath(bool clockwise)
     {
         int newIndex = 0;
-        if (increment)
+        if (pathIndex < 0)
+        {
+            newIndex = SelectNextPathAccordingToFacing(clockwise);
+        }
+        else if (clockwise)
         {
             newIndex = (pathIndex+1)%availablePaths.Count;
         }
@@ -40,8 +45,37 @@ public class Player: MonoBehaviour
 
         DeselectCurrentPath();
         SetCurrentPathIndex(newIndex);
+    }
 
-        //facing = pathGraph.GetNext(startNode, availablePaths[pathIndex]);
+    public int SelectNextPathAccordingToFacing(bool clockwise)
+    {
+        float angle = PathGraph.GetClockwiseAngle(transform.forward.z, transform.forward.x);
+        int firstLesserPath = 0;
+        for (int i = 0; i < availablePaths.Count; i++)
+        {
+            Vector3 next = pathGraph.GetOtherNode(currentNode, availablePaths[i]).transform.position;
+            Vector3 rel = next - currentNode.transform.position;
+            float nodeAngle = PathGraph.GetClockwiseAngle(rel.z, rel.x);
+            if (nodeAngle < angle)
+            {
+                firstLesserPath = i;
+                break;
+            }
+        }
+
+        if (clockwise)
+        {
+            return firstLesserPath;
+        }
+        else
+        {
+            return (firstLesserPath-1 + availablePaths.Count)%availablePaths.Count;
+        }
+    }
+
+    public bool CanTraversePath()
+    {
+        return pathIndex >= 0 && !playerMovement.IsMoving();
     }
 
     public void TraversePath()
@@ -56,21 +90,19 @@ public class Player: MonoBehaviour
     {
         PathEdge previousPath = availablePaths[pathIndex];
         SetCurrentNode(pathGraph.GetOtherNode(currentNode, previousPath));
+        pathIndex = -1;
     }
 
     void SetCurrentNode(PathNeuronNode node)
     {
-        transform.position = node.transform.position;
-
         currentNode = node;
         availablePaths = pathGraph.GetAvailablePathsForNode(currentNode);
-        SetCurrentPathIndex(0);
     }
 
     void DeselectCurrentPath()
     {
-        if (this.pathIndex >= 0) {
-            availablePaths[this.pathIndex].tendril.SetSelected(false);
+        if (pathIndex >= 0) {
+            availablePaths[pathIndex].tendril.SetSelected(false);
         }
     }
 
@@ -83,6 +115,6 @@ public class Player: MonoBehaviour
         availablePaths[this.pathIndex].tendril.SetSelected(true);
 
         Vector3 facing = pathGraph.GetOtherNode(currentNode, availablePaths[pathIndex]).transform.position - currentNode.transform.position;
-        GetComponent<Rigidbody>().MoveRotation(Quaternion.LookRotation(facing));
+        playerMovement.SetFacing(facing);
     }
 }

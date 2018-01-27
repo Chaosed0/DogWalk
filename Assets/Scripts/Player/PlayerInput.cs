@@ -28,7 +28,7 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        if (!playerMovement.IsMoving())
+        if (player.CanTraversePath())
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
@@ -44,7 +44,10 @@ public class PlayerInput : MonoBehaviour
                 playerMovement.SetCharge(currentCharge);
                 player.TraversePath();
             }
+        }
 
+        if (!playerMovement.IsMoving())
+        {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 player.SelectNextPath(false);

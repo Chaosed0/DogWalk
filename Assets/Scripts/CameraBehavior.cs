@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraBehavior : MonoBehaviour {
 
+    public PlayerInput playerInput;
+
     public float raceStartMovementSpeed;
     public float raceStartRotationSpeed;
     public Vector3 levelCreationCamPosition;
@@ -24,6 +26,7 @@ public class CameraBehavior : MonoBehaviour {
     {
         playerCameraBehavior = GetComponent<PlayerCameraBehavior>();
         playerCameraBehavior.enabled = false;
+        playerInput.enabled = false;
     }
 
 	void Start ()
@@ -36,7 +39,10 @@ public class CameraBehavior : MonoBehaviour {
         StartCoroutine(LerpToPos(playerCameraBehavior.GetTargetPosition(), raceStartMovementSpeed));
         StartCoroutine(LerpToRot(playerCameraBehavior.GetTargetRotation(), raceStartRotationSpeed));
 
-        OnCoroutinesStopped = () => { playerCameraBehavior.enabled = true; };
+        OnCoroutinesStopped = () => {
+            playerCameraBehavior.enabled = true;
+            playerInput.enabled = true;
+        };
     }
 
     void Update()
