@@ -34,6 +34,7 @@ public class PathGraph : MonoBehaviour
     public List<PathEdge> edges = new List<PathEdge>();
 
     public Dictionary<PathNeuronNode, List<PathEdge>> nodeToEdge = new Dictionary<PathNeuronNode, List<PathEdge>>();
+    public Dictionary<PathTendril, PathEdge> tendrilToEdge = new Dictionary<PathTendril, PathEdge>();
 
     void Awake()
     {
@@ -43,6 +44,8 @@ public class PathGraph : MonoBehaviour
             List<PathEdge> n2Edges = GetOrInsertEdgesForNode(edge.node2);
             n1Edges.Add(edge);
             n2Edges.Add(edge);
+
+            tendrilToEdge[edge.tendril] = edge;
         }
 
         foreach (KeyValuePair<PathNeuronNode, List<PathEdge>> pair in nodeToEdge)

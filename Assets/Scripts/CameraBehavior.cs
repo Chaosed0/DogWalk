@@ -7,8 +7,6 @@ public class CameraBehavior : MonoBehaviour {
     public float raceStartMovementSpeed;
     public float raceStartRotationSpeed;
     public Vector3 levelCreationCamPosition;
-    public Vector3 raceStartPosition;
-    public Vector3 raceStartRotation;
 
     public float dogTransitionMovementSpeed;
     public float dogTransitionRotationSpeed;
@@ -17,6 +15,17 @@ public class CameraBehavior : MonoBehaviour {
 
     public float skyboxLerpRate;
 
+    PlayerCameraBehavior playerCameraBehavior;
+
+    int runningCoroutines = 0;
+    System.Action OnCoroutinesStopped;
+
+    void Awake()
+    {
+        playerCameraBehavior = GetComponent<PlayerCameraBehavior>();
+        playerCameraBehavior.enabled = false;
+    }
+
 	void Start ()
     {
         transform.position = levelCreationCamPosition;
@@ -24,22 +33,27 @@ public class CameraBehavior : MonoBehaviour {
 
     public void LerpToRaceStart()
     {
-        StartCoroutine(LerpToPos(raceStartPosition, raceStartMovementSpeed));
-        StartCoroutine(LerpToRot(raceStartRotation, raceStartRotationSpeed));
+        StartCoroutine(LerpToPos(playerCameraBehavior.GetTargetPosition(), raceStartMovementSpeed));
+        StartCoroutine(LerpToRot(playerCameraBehavior.GetTargetRotation(), raceStartRotationSpeed));
+
+        OnCoroutinesStopped = () => { playerCameraBehavior.enabled = true; };
     }
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            playerCameraBehavior.enabled = false;
+
             StartCoroutine(LerpToPos(dogViewPosition, dogTransitionMovementSpeed));
-            StartCoroutine(LerpToRot(dogViewRotation, dogTransitionRotationSpeed));
+            StartCoroutine(LerpToRot(Quaternion.Euler(dogViewRotation), dogTransitionRotationSpeed));
             StartCoroutine(LerpSky());
         }
     }
 
     IEnumerator LerpToPos(Vector3 targetPos, float speed)
     {
+        ++runningCoroutines;
         float t = 0;
         Vector3 startPos = transform.position;
 
@@ -50,13 +64,16 @@ public class CameraBehavior : MonoBehaviour {
 
             yield return null;
         }
+
+        CoroutineStopped();
     }
 
-    IEnumerator LerpToRot(Vector3 targetRotation, float speed)
+    IEnumerator LerpToRot(Quaternion targetRotation, float speed)
     {
+        ++runningCoroutines;
         float t = 0;
         Quaternion startRot = transform.rotation;
-        Quaternion targetRot = Quaternion.Euler(targetRotation);
+        Quaternion targetRot = targetRotation;
 
         while (t < 1)
         {
@@ -64,10 +81,13 @@ public class CameraBehavior : MonoBehaviour {
             transform.rotation = Quaternion.Slerp(startRot, targetRot, t);
             yield return null;
         }
+
+        CoroutineStopped();
     }
 
     IEnumerator LerpSky()
     {
+        ++runningCoroutines;
         float t = 0;
 
         while (t < 1)
@@ -75,6 +95,18 @@ public class CameraBehavior : MonoBehaviour {
             t += Mathf.Clamp01(Time.deltaTime * skyboxLerpRate);
             RenderSettings.skybox.SetFloat("_Blend", t);
             yield return null;
+        }
+
+        CoroutineStopped();
+    }
+
+    void CoroutineStopped()
+    {
+        --runningCoroutines;
+        if (runningCoroutines <= 0 && OnCoroutinesStopped != null)
+        {
+            OnCoroutinesStopped();
+            OnCoroutinesStopped = null;
         }
     }
 

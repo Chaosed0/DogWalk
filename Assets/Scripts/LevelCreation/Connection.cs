@@ -3,12 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(PathTendril))]
 public class Connection : MonoBehaviour {
-    public GameObject node1;
-    public GameObject node2;
+    GameObject node1;
+    GameObject node2;
 
+    PathTendril tendril;
+    PathGraph graph;
     Canvas levelCreationCanvas;
     Image testImage;
+
+    void Awake()
+    {
+        tendril = GetComponent<PathTendril>();
+        graph = GameObject.FindObjectOfType<PathGraph>();
+        PathEdge edge = graph.tendrilToEdge[tendril];
+        node1 = edge.node1.gameObject;
+        node2 = edge.node2.gameObject;
+    }
 
     void Start()
     {

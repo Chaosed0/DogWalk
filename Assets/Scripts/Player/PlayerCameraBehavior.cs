@@ -10,8 +10,18 @@ public class PlayerCameraBehavior : MonoBehaviour {
 
     void Update()
     {
+        transform.position = Vector3.SmoothDamp(transform.position, GetTargetPosition(), ref refvel, 0.1f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, GetTargetRotation(), Time.deltaTime * 10.0f);
+    }
+
+    public Vector3 GetTargetPosition()
+    {
+        return followPoint.transform.position;
+    }
+
+    public Quaternion GetTargetRotation()
+    {
         Vector3 direction = lookAt.transform.position - followPoint.transform.position;
-        transform.position = Vector3.SmoothDamp(transform.position, followPoint.transform.position, ref refvel, 0.1f);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction.normalized), Time.deltaTime * 10.0f);
+        return Quaternion.LookRotation(direction.normalized);
     }
 }
