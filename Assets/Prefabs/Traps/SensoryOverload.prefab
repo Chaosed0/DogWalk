@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d48892606d52d1346815dbfdd96be85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 10
+  cost: 20
 --- !u!114 &114168602634178444
 MonoBehaviour:
   m_ObjectHideFlags: 1
