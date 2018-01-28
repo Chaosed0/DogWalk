@@ -46,6 +46,7 @@ public class ConnectionUI : MonoBehaviour
     void Start()
     {
         tendril = connection.GetTendril();
+        ConfigureImage();
     }
 
     public void OnPointerEnter (PointerEventData eventData)
@@ -71,6 +72,20 @@ public class ConnectionUI : MonoBehaviour
         Cursor.SetCursor(image, cursorSize * .2f, CursorMode.ForceSoftware);
     }
 
+    public void ConfigureImage()
+    {
+        if (activeConnection)
+        {
+            img.sprite = tendrilImage;
+            img.type = Image.Type.Simple;
+        }
+        else
+        {
+            img.sprite = dottedLineImage;
+            img.type = Image.Type.Tiled;
+        }
+    }
+
     public void OnPointerExit (PointerEventData eventData)
     {
         img.color = Color.white;
@@ -90,15 +105,12 @@ public class ConnectionUI : MonoBehaviour
             if (!activeConnection)
             {
                 SetCursor(addAxonCursor);
-                img.sprite = dottedLineImage;
-                img.type = Image.Type.Tiled;
             }
             else
             {
                 SetCursor(removeAxonCursor);
-                img.sprite = tendrilImage;
-                img.type = Image.Type.Simple;
             }
+            ConfigureImage();
 
             // TODO: only remove the axon if this returns true
             bool success = connection.ToggleConnection();
