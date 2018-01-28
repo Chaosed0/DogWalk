@@ -13,13 +13,15 @@ public class ConnectionUI : MonoBehaviour
     Image img;
 
     public Connection connection; // TODO: enable/disable connections based on click actions
-    public bool activeConnection = true;
+    public bool activeConnection = false;
     public bool fadeStarted = false;
     public PathTendril tendril;
     public PathGraph graph;
     public Texture2D defaultCursor;
     public Texture2D addAxonCursor;
     public Texture2D removeAxonCursor;
+    public Sprite dottedLineImage;
+    public Sprite tendrilImage;
 
     Color hoverColor = new Color(1, .42f, .88f);
     Vector2 cursorSize;
@@ -33,6 +35,8 @@ public class ConnectionUI : MonoBehaviour
         defaultCursor = Resources.Load<Texture2D>("cursor_regular");
         addAxonCursor = Resources.Load<Texture2D>("cursor_add_syringe");
         removeAxonCursor = Resources.Load<Texture2D>("cursor_remove_scissors");
+        dottedLineImage = Resources.Load<Sprite>("dotted_line");
+        tendrilImage = Resources.Load<Sprite>("short1");
 
         cursorSize = new Vector2(defaultCursor.width, defaultCursor.height);
         img.color = Color.white;
@@ -51,11 +55,11 @@ public class ConnectionUI : MonoBehaviour
         {
             if (activeConnection)
             {
-                SetCursor(addAxonCursor);
+                SetCursor(removeAxonCursor);
             }
             else
             {
-                SetCursor(removeAxonCursor);
+                SetCursor(addAxonCursor);
             }
 
             EventBus.PublishEvent(new ActiveSegmentHoveredEvent(this));
@@ -73,7 +77,6 @@ public class ConnectionUI : MonoBehaviour
         SetCursor(defaultCursor);
         if (!fadeStarted)
         {
-            //img.color = Color.green;
             EventBus.PublishEvent(new NoSegmentsHoveredEvent(this));
         }
     }
@@ -83,7 +86,22 @@ public class ConnectionUI : MonoBehaviour
         if (!fadeStarted)
         {
             activeConnection = !activeConnection;
-            connection.ToggleConnection();
+
+            if (!activeConnection)
+            {
+                SetCursor(addAxonCursor);
+                img.sprite = dottedLineImage;
+                img.type = Image.Type.Tiled;
+            }
+            else
+            {
+                SetCursor(removeAxonCursor);
+                img.sprite = tendrilImage;
+                img.type = Image.Type.Simple;
+            }
+
+            // TODO: only remove the axon if this returns true
+            bool success = connection.ToggleConnection();
         }
     }
 
