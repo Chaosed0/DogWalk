@@ -13,7 +13,10 @@ public class PlayerMovement: MonoBehaviour
     public float burstChargeMin = 0.93f;
     public float burstChargeMax = 1.0f;
 
+    public LayerMask trapLayer;
+
     bool isMoving = false;
+    bool moveForward = true;
     int currentSegment = -1;
     List<Vector3> currentPath;
     Vector3 currentFacing;
@@ -48,15 +51,15 @@ public class PlayerMovement: MonoBehaviour
     void Update()
     {
         if (!isMoving) return;
-
-        currentSegmentDistance += currentMoveSpeed * Time.deltaTime;
-        Vector3 nextPosition = GetNextPosition();
+        
+        currentSegmentDistance += moveForward ? currentMoveSpeed * Time.deltaTime : -currentMoveSpeed * Time.deltaTime;
+        Vector3 nextPosition = moveForward ? GetNextPosition() : GetPreviousPosition();
         SetPosition(nextPosition);
         SetFacing(currentFacing);
-
-        if (nextPosition == currentPath[currentPath.Count - 1])
+        if (moveForward && nextPosition == currentPath[currentPath.Count - 1] || !moveForward && nextPosition == currentPath[0])
         {
             this.gameObject.PublishEvent(new StoppedMovingEvent());
+            moveForward = true;
             isMoving = false;
         }
     }
@@ -98,8 +101,39 @@ public class PlayerMovement: MonoBehaviour
         return currentPath[currentSegment] + direction * currentSegmentDistance;
     }
 
+    Vector3 GetPreviousPosition()
+    {
+        if (currentSegment <= 0)
+        {
+            return currentPath[0];
+        }
+
+        Vector3 direction = currentPath[currentSegment + 1] - currentPath[currentSegment];
+        float segmentDistance = direction.magnitude;
+        direction = direction.normalized;
+        this.currentFacing = direction;
+        
+        if (currentSegmentDistance < 0)
+        {
+            currentSegmentDistance += segmentDistance;
+            currentSegment--;
+            return GetPreviousPosition();
+        }
+
+        return currentPath[currentSegment] + direction * currentSegmentDistance;
+    }
+
     Vector3 GetCurrentFacing()
     {
         return currentPath[currentSegment+1] - currentPath[currentSegment];
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if ((1 << other.gameObject.layer) == trapLayer.value)
+        {
+            Debug.Log("Hit Trap!");
+            moveForward = false;
+        }
     }
 }

@@ -807,6 +807,9 @@ MonoBehaviour:
   burstMoveSpeed: 20
   burstChargeMin: 0.93
   burstChargeMax: 1
+  trapLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &819393978
 MonoBehaviour:
   m_ObjectHideFlags: 0
