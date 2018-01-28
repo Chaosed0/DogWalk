@@ -131,7 +131,7 @@ public class PathGraph : MonoBehaviour
         {
             if (!closedEdgeSet.Keys.Contains(currentNode))
             {
-                closedEdgeSet.Add(startNode, new HashSet<PathEdge>());
+                closedEdgeSet.Add(currentNode, new HashSet<PathEdge>());
             }
             List<PathEdge> availableEdges = nodeToEdge[currentNode].Where(x => !closedEdgeSet[currentNode].Contains(x)
                                                                             && !closedNodeSet.Contains(GetOtherNode(currentNode, x))).ToList();
