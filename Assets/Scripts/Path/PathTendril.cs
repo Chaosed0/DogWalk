@@ -7,9 +7,12 @@ public class PathTendril : MonoBehaviour {
     MeshRenderer meshRenderer;
     public bool isTraversable = true;
 
+    Color tendrilColor;
+
     void Awake()
     {
         meshRenderer = GetComponent<MeshRenderer>();
+        tendrilColor = meshRenderer.material.color;
     }
 
     public PathTendrilNode GetFirst()
@@ -62,7 +65,7 @@ public class PathTendril : MonoBehaviour {
         }
         else
         {
-            color = Color.white;
+            color = tendrilColor;
         }
 
         float alpha = meshRenderer.material.color.a;

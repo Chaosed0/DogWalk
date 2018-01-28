@@ -810,7 +810,7 @@ MonoBehaviour:
   burstChargeMax: 1
   trapLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
 --- !u!114 &819393978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4441,6 +4441,16 @@ Prefab:
         type: 2}
       propertyPath: randomSeed
       value: -158145189
+      objectReference: {fileID: 0}
+    - target: {fileID: 199607803873020624, guid: c0e6f9c7585114244a0cf604a9c2a054,
+        type: 2}
+      propertyPath: m_SortingFudge
+      value: -10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 199250978202772276, guid: c0e6f9c7585114244a0cf604a9c2a054,
+        type: 2}
+      propertyPath: m_SortingFudge
+      value: -1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0e6f9c7585114244a0cf604a9c2a054, type: 2}
