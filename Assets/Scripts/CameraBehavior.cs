@@ -117,7 +117,7 @@ public class CameraBehavior : MonoBehaviour {
     [SubscribeGlobal]
     public void HandleRoundStart(RoundStartEvent e)
     {
-        LerpToRaceStart();
+        Invoke("LerpToRaceStart", 1.0f);
     }
 
     [SubscribeGlobal]
