@@ -8,9 +8,15 @@ using UnityEngine.UI;
 public class NeuronUI : MonoBehaviour
 {
     [Subscribe]
-    public void HandleFadeEnd(LevelConstructionElement.LevelFadeEnded e)
+    public void HandleFadeEnd (LevelConstructionElement.LevelFadeEnded e)
     {
-        Destroy(this.gameObject);
+        GetComponent<CanvasGroup>().interactable = false;
+    }
+
+    [SubscribeGlobal]
+    public void HandleLevelCreationStartEvent (LevelCreationStartEvent e)
+    {
+        GetComponent<CanvasGroup>().interactable = true;
     }
 }
 

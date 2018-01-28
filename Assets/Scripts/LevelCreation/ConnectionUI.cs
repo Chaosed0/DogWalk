@@ -139,7 +139,14 @@ public class ConnectionUI : MonoBehaviour
     [Subscribe]
     public void HandleFadeEnd(LevelConstructionElement.LevelFadeEnded e)
     {
-        Destroy(this.gameObject);
+        GetComponent<CanvasGroup>().interactable = false;
+        fadeStarted = false;
+    }
+
+    [SubscribeGlobal]
+    public void HandleLevelCreationStartEvent(LevelCreationStartEvent e)
+    {
+        GetComponent<CanvasGroup>().interactable = true;
     }
 
     /*

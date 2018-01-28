@@ -38,8 +38,13 @@ public class Connection : MonoBehaviour {
     void InitializeConnection()
     {
         levelCreationCanvas = GameObject.Find("LevelCreationUI").GetComponent<Canvas>();
-        tendrilImage = Instantiate(Resources.Load("ConnectionImg") as GameObject).GetComponent<Image>();
-        tendrilImage.rectTransform.SetParent(levelCreationCanvas.transform);
+
+        if (tendrilImage == null)
+        {
+            tendrilImage = Instantiate(Resources.Load("ConnectionImg") as GameObject).GetComponent<Image>();
+            tendrilImage.rectTransform.SetParent(GameObject.Find("AxonContainer").transform);
+        }
+
         tendrilImage.gameObject.GetComponent<ConnectionUI>().connection = this;
 
         Vector3 pos1 = Camera.main.WorldToViewportPoint(node1.transform.position);
@@ -64,7 +69,7 @@ public class Connection : MonoBehaviour {
 
     void InitNodes()
     {
-        if (nodeUI1 == null)
+        if (nodeUI1 == null && node1.GetComponent<PathNeuronNode>() && node1.GetComponent<PathNeuronNode>().nodeImage)
         {
             nodeUI1 = node1.GetComponent<PathNeuronNode>().nodeImage.GetComponent<NodeUI>();
             nodeUI2 = node2.GetComponent<PathNeuronNode>().nodeImage.GetComponent<NodeUI>();
