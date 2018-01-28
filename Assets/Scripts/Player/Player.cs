@@ -28,6 +28,7 @@ public class Player: MonoBehaviour
         SetCurrentPathIndex(0);
         playerMovement.SetPosition(startNode.transform.position);
         playerMovement.gameObject.Subscribe<PlayerMovement.StoppedMovingEvent>((x) => OnStoppedMoving());
+        playerMovement.gameObject.Subscribe<PlayerMovement.ReversedMovementEvent>((x) => OnReversedMovement());
     }
 
     public void SelectNextPath(bool clockwise)
@@ -89,6 +90,11 @@ public class Player: MonoBehaviour
         playerMovement.StartFollowingPath(pathToFollow.GetPath(currentNode));
         PathEdge previousPath = availablePaths[pathIndex];
         nextNode = pathGraph.GetOtherNode(currentNode, previousPath);
+    }
+
+    public void OnReversedMovement()
+    {
+        nextNode = currentNode;
     }
 
     public void OnStoppedMoving()

@@ -25,6 +25,7 @@ public class PlayerMovement: MonoBehaviour
     float currentMoveSpeed = 10.0f;
 
     public class StoppedMovingEvent { }
+    public class ReversedMovementEvent { }
 
     void Awake()
     {
@@ -133,6 +134,7 @@ public class PlayerMovement: MonoBehaviour
         if ((1 << other.gameObject.layer) == trapLayer.value)
         {
             Debug.Log("Hit Trap!");
+            this.gameObject.PublishEvent(new ReversedMovementEvent());
             moveForward = false;
         }
     }
