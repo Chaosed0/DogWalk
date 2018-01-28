@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour {
         int winner = GetPlayerWhoWon();
         if (winner < 0)
         {
-            EventBus.PublishEvent(new LevelCreationStartEvent());
+            EventBus.PublishEvent(new WinrarEvent(winner));
         }
         else
         {
