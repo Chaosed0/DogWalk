@@ -9,6 +9,7 @@ public class PlayerSound : MonoBehaviour {
     public AudioSource chargeUpSource;
     public AudioSource axonSwitchingSource;
     public AudioSource adrenalineSource;
+    public AudioSource chargeBonusSource;
 
     private void Awake()
     {
@@ -27,6 +28,9 @@ public class PlayerSound : MonoBehaviour {
         // Adrenaline events
         this.gameObject.Subscribe<Player.GetHypedEvent>((x) => OnGetHyped());
         this.gameObject.Subscribe<Player.StopHypedEvent>((x) => OnStopHyped());
+
+        // Charge Bonus events
+        this.gameObject.Subscribe<PlayerMovement.ChargeBonusEvent>((x) => OnChargeBonus());
     }
 
     // Axon Riding Sounds
@@ -95,6 +99,15 @@ public class PlayerSound : MonoBehaviour {
         if (adrenalineSource != null && adrenalineSource.clip != null)
         {
             adrenalineSource.Stop();
+        }
+    }
+
+    // Charge Bonus Sounds
+    void OnChargeBonus()
+    {
+        if (chargeBonusSource != null && chargeBonusSource.clip != null)
+        {
+            chargeBonusSource.PlayOneShot(chargeBonusSource.clip);
         }
     }
 }

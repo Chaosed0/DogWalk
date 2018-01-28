@@ -32,6 +32,7 @@ public class PlayerMovement: MonoBehaviour
     public class StartedMovingEvent { }
     public class StoppedMovingEvent { }
     public class ReversedMovementEvent { }
+    public class ChargeBonusEvent { }
 
     void Awake()
     {
@@ -44,6 +45,7 @@ public class PlayerMovement: MonoBehaviour
         if (charge >= burstChargeMin && charge <= burstChargeMax)
         {
             currentMoveSpeed = burstMoveSpeed;
+            this.gameObject.PublishEvent(new ChargeBonusEvent());
         }
         currentMoveSpeed *= currentSpeedFactor;
     }
