@@ -115,7 +115,14 @@ public class PathGraph : MonoBehaviour
         float ang2 = GetClockwiseAngle(rel2.z, rel2.x);
         return ang2.CompareTo(ang1);
     }
-    
+
+    [SubscribeGlobal]
+    public void HandleRoundStart(RoundStartEvent e)
+    {
+        List<PathEdge> randomPath = GetRandomPath((int)(nodeToEdge.Keys.Count / 4f));
+        // TODO: foreach edge on randomPath, toggle path to active
+    }
+
     public List<PathEdge> GetRandomPath(int targetPathLength)
     {
         List<PathEdge> pathEdges = new List<PathEdge>();
@@ -160,9 +167,8 @@ public class PathGraph : MonoBehaviour
 
     public bool CanReachFinishIf(PathTendril tendril, bool tentativeState)
     {
-        tendril.SetTraversable(tentativeState);
-        bool canReachFinish = CanReachFinish();
-        tendril.SetTraversable(!tentativeState);
+        PathEdge edgeException = tentativeState ? null : tendrilToEdge[tendril];
+        bool canReachFinish = DoesPathExist(gameManager.startNode, gameManager.finishNode, edgeException, tentativeState);
         return canReachFinish;
     }
 
@@ -170,12 +176,12 @@ public class PathGraph : MonoBehaviour
     {
         if (gameManager.startNode == null || gameManager.finishNode == null)
         {
-            Debug.LogError("Set start and finish in MainCamera/GameManager");
+            Debug.LogError("Set start and finish in GameManager");
         }
         return DoesPathExist(gameManager.startNode, gameManager.finishNode);
     }
 
-    public bool DoesPathExist(PathNeuronNode startNode, PathNeuronNode endNode)
+    public bool DoesPathExist(PathNeuronNode startNode, PathNeuronNode endNode, PathEdge edgeException = null, bool exceptionState = true)
     {
         bool pathExists = false;
         
@@ -193,7 +199,7 @@ public class PathGraph : MonoBehaviour
 
                 if (!closedSet.Contains(otherNode))
                 {
-                    if (edge.tendril.isTraversable)
+                    if (edge == edgeException ? exceptionState : edge.tendril.isTraversable)
                     {
                         if (otherNode == endNode)
                         {

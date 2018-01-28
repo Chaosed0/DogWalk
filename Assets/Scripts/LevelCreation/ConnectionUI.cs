@@ -138,5 +138,17 @@ public class ConnectionUI : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
+
+    /*
+    [SubscribeGlobal]
+    public void HandleTendrilToggled(ToggleTendrilEvent e)
+    {
+        if (e.tendril == this.tendril)
+        {
+            Debug.Log("HandleTendrilToggled");
+            activeConnection = e.tendril.isTraversable;
+        }
+    }
+    */
 }
 

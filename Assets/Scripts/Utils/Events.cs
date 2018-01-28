@@ -41,3 +41,13 @@ public struct NoSegmentsHoveredEvent
         this.connectionUI = connectionUI;
     }
 }
+
+public struct ToggleTendrilEvent
+{
+    public PathTendril tendril;
+
+    public ToggleTendrilEvent(PathTendril tendril)
+    {
+        this.tendril = tendril;
+    }
+}

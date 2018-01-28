@@ -109,6 +109,7 @@ public class Connection : MonoBehaviour {
     public bool ToggleConnection()
     {
         bool canFinishIfToggled = graph.CanReachFinishIf(tendril, !tendril.isTraversable);
+        // Debug.Log("canFinishIfToggled: " + canFinishIfToggled);
         if (canFinishIfToggled)
         {
             tendril.TogglePath();

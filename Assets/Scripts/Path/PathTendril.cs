@@ -5,7 +5,7 @@ using UnityEngine;
 public class PathTendril : MonoBehaviour {
     public List<PathTendrilNode> pathTendrilNodes = new List<PathTendrilNode>();
     MeshRenderer meshRenderer;
-    public bool isTraversable = true;
+    public bool isTraversable = false;
 
     Color tendrilColor;
 
@@ -31,6 +31,8 @@ public class PathTendril : MonoBehaviour {
 
     public void TogglePath()
     {
+        // Debug.Log("this tendril: " + gameObject.name);
+        // Debug.Log("isTraversable: " + isTraversable);
         if (isTraversable)
         {
             DisablePath();
@@ -39,25 +41,27 @@ public class PathTendril : MonoBehaviour {
         {
             EnablePath();
         }
+        // Debug.Log("isTraversable: " + isTraversable);
+        EventBus.PublishEvent(new ToggleTendrilEvent(this));
     }
 
     public void EnablePath()
     {
+        // Debug.Log("EnablePath()");
         SetTraversable(true);
     }
 
     public void DisablePath()
     {
+        // Debug.Log("DisablePath()");
         SetTraversable(false);
     }
 
     public void SetTraversable(bool canTraverse)
     {
+        // Debug.Log("SetTraversable( " + canTraverse + " )");
         isTraversable = canTraverse;
-        if (!isTraversable)
-        {
-            this.gameObject.SetActive(false);
-        }
+        this.gameObject.SetActive(canTraverse);
     }
 
     public void SetSelected(bool selected)
