@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.15048853, g: 0.0009493807, b: 0.14168274, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -107453,9 +107453,6 @@ MonoBehaviour:
   - node1: {fileID: 1088677479}
     node2: {fileID: 1088677476}
     tendril: {fileID: 1088677435}
-  - node1: {fileID: 1088677486}
-    node2: {fileID: 1088677481}
-    tendril: {fileID: 1088677437}
   - node1: {fileID: 1088677481}
     node2: {fileID: 1088677474}
     tendril: {fileID: 1088677450}

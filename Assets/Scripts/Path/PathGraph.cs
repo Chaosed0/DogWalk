@@ -99,6 +99,7 @@ public class PathGraph : MonoBehaviour
             n1Edges.Add(edge);
             n2Edges.Add(edge);
 
+            Debug.Assert(!tendrilToEdge.ContainsKey(edge.tendril), "Axon " + edge.tendril + " is in " + this + " twice!");
             tendrilToEdge[edge.tendril] = edge;
         }
 

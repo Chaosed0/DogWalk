@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour {
     public void InitializeStartingPath()
     {
         int seed = (int)(System.DateTime.Now - new System.DateTime(2017, 1, 1)).TotalSeconds;
-        //int seed = 33914562;
+        //int seed = 33923864;
         Random.InitState(seed);
         Debug.Log(seed);
 
