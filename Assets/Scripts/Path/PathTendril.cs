@@ -55,14 +55,19 @@ public class PathTendril : MonoBehaviour {
 
     public void SetSelected(bool selected)
     {
+        Color color;
         if (selected)
         {
-            meshRenderer.material.color = Color.red;
+            color = Color.red;
         }
         else
         {
-            meshRenderer.material.color = Color.white;
+            color = Color.white;
         }
+
+        float alpha = meshRenderer.material.color.a;
+        color.a = alpha;
+        meshRenderer.material.color = color;
     }
 
     void OnDrawGizmos()
