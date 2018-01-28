@@ -44,7 +44,9 @@ public class Connection : MonoBehaviour {
             tendrilImage.rectTransform.SetParent(GameObject.Find("AxonContainer").transform);
         }
 
-        tendrilImage.gameObject.GetComponent<ConnectionUI>().connection = this;
+        ConnectionUI connUI = tendrilImage.gameObject.GetComponent<ConnectionUI>();
+        connUI.connection = this;
+        connUI.tendril = GetTendril();
 
         Vector3 pos1 = Camera.main.WorldToViewportPoint(node1.transform.position);
         Vector3 pos2 = Camera.main.WorldToViewportPoint(node2.transform.position);

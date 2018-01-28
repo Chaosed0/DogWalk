@@ -45,7 +45,6 @@ public class ConnectionUI : MonoBehaviour
 
     void Start()
     {
-        tendril = connection.GetTendril();
         ConfigureImage();
     }
 
@@ -75,7 +74,6 @@ public class ConnectionUI : MonoBehaviour
 
     public void ConfigureImage()
     {
-        // if (activeConnection)
         if (tendril.isTraversable)
         {
             img.sprite = tendrilImage;
