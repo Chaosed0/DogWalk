@@ -27,33 +27,52 @@ public class PlayerSound : MonoBehaviour {
     // Axon Riding Sounds
     void OnStartedMoving()
     {
-        axonRidingSource.Play();
+        if (axonRidingSource != null && axonRidingSource.clip != null)
+        {
+            axonRidingSource.Play();
+        }
     }
 
     void OnStoppedMoving()
     {
-        axonRidingSource.Stop();
+        if (axonRidingSource != null && axonRidingSource.clip != null)
+        {
+            axonRidingSource.Stop();
+        }
     }
 
     // Charging Sounds
     void OnStartedCharging()
     {
-        chargeUpSource.PlayOneShot(chargeUpSource.clip);
+        if (chargeUpSource != null && chargeUpSource.clip != null)
+        {
+            chargeUpSource.PlayOneShot(chargeUpSource.clip);
+        }
     }
 
     void OnChargeRecycled()
     {
-        chargeUpSource.Stop();
-        chargeUpSource.PlayOneShot(chargeUpSource.clip);
+        if (chargeUpSource != null && chargeUpSource.clip != null)
+        {
+            chargeUpSource.Stop();
+            chargeUpSource.PlayOneShot(chargeUpSource.clip);
+        }
     }
 
     void OnStoppedCharging()
     {
-        chargeUpSource.Stop();
+        if (chargeUpSource != null && chargeUpSource.clip != null)
+        {
+            chargeUpSource.Stop();
+        }
     }
 
+    // Axon Switching Sounds (Select Path)
     void OnSelectPath()
     {
-        axonSwitchingSource.PlayOneShot(axonSwitchingSource.clip);
+        if (axonSwitchingSource != null && axonSwitchingSource.clip != null)
+        {
+            axonSwitchingSource.PlayOneShot(axonSwitchingSource.clip);
+        }
     }
 }

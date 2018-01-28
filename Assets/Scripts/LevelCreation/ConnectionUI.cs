@@ -27,6 +27,7 @@ public class ConnectionUI : MonoBehaviour
 
     public struct AxonAddEvent { }
     public struct AxonCutEvent { }
+    public struct ActionNotAllowedEvent { }
 
     void Awake()
     {

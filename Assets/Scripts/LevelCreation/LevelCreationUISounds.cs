@@ -6,20 +6,36 @@ public class LevelCreationUISounds : MonoBehaviour {
 
     public AudioSource addAxonSource;
     public AudioSource cutAxonSource;
+    public AudioSource actionNotAllowedSource;
 
     private void Awake()
     {
         EventBus.Subscribe<ConnectionUI.AxonAddEvent>((x) => OnAddAxon());
         EventBus.Subscribe<ConnectionUI.AxonCutEvent>((x) => OnCutAxon());
+        EventBus.Subscribe<ConnectionUI.ActionNotAllowedEvent>((x) => OnActionNotAllowed());
     }
 
     void OnAddAxon()
     {
-        addAxonSource.PlayOneShot(addAxonSource.clip);
+        if (addAxonSource != null && addAxonSource.clip != null)
+        {
+            addAxonSource.PlayOneShot(addAxonSource.clip);
+        }
     }
 
     void OnCutAxon()
     {
-        cutAxonSource.PlayOneShot(cutAxonSource.clip);
+        if (cutAxonSource != null && cutAxonSource.clip != null)
+        {
+            cutAxonSource.PlayOneShot(cutAxonSource.clip);
+        }
+    }
+
+    void OnActionNotAllowed()
+    {
+        if (actionNotAllowedSource != null && cutAxonSource.clip != null)
+        {
+            actionNotAllowedSource.PlayOneShot(actionNotAllowedSource.clip);
+        }
     }
 }
