@@ -35,6 +35,11 @@ public class PathNeuronNode : MonoBehaviour {
         StartCoroutine(Util.DeferForOneFrame(InitializeUINode));
     }
 
+    private void OnDestroy ()
+    {
+        Destroy(nodeImage.gameObject);
+    }
+
     void InitializeUINode()
     {
         levelCreationCanvas = GameObject.Find("LevelCreationUI").GetComponent<Canvas>();

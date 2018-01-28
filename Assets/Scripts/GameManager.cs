@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour {
 
     public int targetPathLength = 5;
 
+    public int currentLevel = 0;
+    public List<GameObject> levels;
+
     private void Start()
     {
         InitializeStartingPath();
@@ -38,6 +41,20 @@ public class GameManager : MonoBehaviour {
     [SubscribeGlobal]
     public void HandleLevelCreationStart(LevelCreationStartEvent e)
     {
+        if (currentPlayer == 1)
+        {
+            if (!(currentLevel == levels.Count - 1))
+            {
+                Destroy(levels[currentLevel]);
+                currentLevel++;
+                //levels[currentLevel].SetActive(true);
+            }
+            else
+            {
+                Debug.Log("game is over yo");
+            }
+
+        }
         InitializeStartingPath();
     }
 

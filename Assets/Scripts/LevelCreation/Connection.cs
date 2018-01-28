@@ -13,7 +13,6 @@ public class Connection : MonoBehaviour {
     Canvas levelCreationCanvas;
     public Image tendrilImage;
     Vector3 pos1Canvas;
-    Vector3 pos2Canvas;
     NodeUI nodeUI1;
     NodeUI nodeUI2;
     float length;
@@ -137,5 +136,10 @@ public class Connection : MonoBehaviour {
     public PathTendril GetTendril()
     {
         return tendril;
+    }
+
+    private void OnDestroy ()
+    {
+        Destroy(tendrilImage.gameObject);
     }
 }
