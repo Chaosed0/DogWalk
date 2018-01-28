@@ -21,11 +21,12 @@ public class ConnectionUI : MonoBehaviour
     public Texture2D addAxonCursor;
     public Texture2D removeAxonCursor;
 
+    Color hoverColor = new Color(1, .42f, .88f);
     Vector2 cursorSize;
 
     void Awake()
     {
-        img = GetComponent<Image>();
+        img = transform.GetChild(0).GetComponent<Image>();
         graph = GameObject.Find("Graph").GetComponent<PathGraph>();
 
         // inefficient as fuck but whatever
@@ -34,7 +35,7 @@ public class ConnectionUI : MonoBehaviour
         removeAxonCursor = Resources.Load<Texture2D>("cursor_remove_scissors");
 
         cursorSize = new Vector2(defaultCursor.width, defaultCursor.height);
-
+        img.color = Color.white;
         SetCursor(defaultCursor);
     }
 
@@ -45,6 +46,7 @@ public class ConnectionUI : MonoBehaviour
 
     public void OnPointerEnter (PointerEventData eventData)
     {
+        img.color = hoverColor;
         if (!fadeStarted)
         {
             if (activeConnection)
@@ -67,6 +69,7 @@ public class ConnectionUI : MonoBehaviour
 
     public void OnPointerExit (PointerEventData eventData)
     {
+        img.color = Color.white;
         SetCursor(defaultCursor);
         if (!fadeStarted)
         {
