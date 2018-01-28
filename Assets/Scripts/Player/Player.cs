@@ -36,6 +36,19 @@ public class Player: MonoBehaviour
         playerMovement.gameObject.Subscribe<PlayerMovement.ReversedMovementEvent>((x) => OnReversedMovement());
     }
 
+    [SubscribeGlobal]
+    public void HandleLevelCreationStart(LevelCreationStartEvent e)
+    {
+        if (pathGraph.startNode != null)
+        {
+            Initialize();
+        }
+        else
+        {
+            StartCoroutine(Util.DeferForOneFrame(Initialize));
+        }
+    }
+
     void Initialize()
     {
         SetCurrentNode(pathGraph.startNode);

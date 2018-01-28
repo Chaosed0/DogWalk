@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour {
         graph.finishNode = randomPath.finishNode;
         foreach (PathEdge edge in graph.edges)
         {
+            edge.tendril.gameObject.SetActive(true);
             if (randomPath.pathEdges.Contains(edge))
             {
                 edge.tendril.SetTraversable(true);
@@ -63,6 +64,10 @@ public class GameManager : MonoBehaviour {
     [SubscribeGlobal]
     public void HandleRoundEnd(RoundEndEvent e)
     {
+        PathGraph graph = FindObjectOfType<PathGraph>();
+        graph.startNode = null;
+        graph.finishNode = null;
+
         // ghetto score heuristic - tweak later
         float scoreBonus = e.remainingTime / timer.raceTime;
         playerOneScore += currentPlayer == 1 ? scoreBonus : 0;

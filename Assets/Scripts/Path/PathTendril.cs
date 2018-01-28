@@ -70,12 +70,6 @@ public class PathTendril : MonoBehaviour {
         gameObject.SetActive(isTraversable);
     }
 
-    [SubscribeGlobal]
-    public void HandleRoundEnd(RoundEndEvent e)
-    {
-        gameObject.SetActive(true);
-    }
-
     public void SetSelected(bool selected)
     {
         Color color;
