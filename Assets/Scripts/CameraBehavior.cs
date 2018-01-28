@@ -14,6 +14,10 @@ public class CameraBehavior : MonoBehaviour {
     public Transform dogViewTransform;
 
     public float skyboxLerpRate;
+    public Light light;
+
+    public Color brainLightColor;
+    public Color outdoorLightColor;
 
     PlayerCameraBehavior playerCameraBehavior;
 
@@ -23,6 +27,7 @@ public class CameraBehavior : MonoBehaviour {
     void Awake()
     {
         playerCameraBehavior = GetComponent<PlayerCameraBehavior>();
+        light = GameObject.Find("Directional Light").GetComponent<Light>();
     }
 
 	void Start ()
@@ -98,6 +103,7 @@ public class CameraBehavior : MonoBehaviour {
         {
             t += Mathf.Clamp01(Time.deltaTime * skyboxLerpRate);
             RenderSettings.skybox.SetFloat("_Blend", (lighten ? t : 1-t));
+            light.color = lighten ? Color.Lerp(brainLightColor, outdoorLightColor, t) : Color.Lerp(outdoorLightColor, brainLightColor, t);
             yield return null;
         }
 
