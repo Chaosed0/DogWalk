@@ -10,10 +10,11 @@ public class PlayerSound : MonoBehaviour {
     public AudioSource axonSwitchingSource;
     public AudioSource adrenalineSource;
     public AudioSource chargeBonusSource;
+    public AudioSource axonDegradedSource;
 
     private void Awake()
     {
-        // Axon Riding events
+        // Axon Riding & Axon Degraded events
         this.gameObject.Subscribe<PlayerMovement.StartedMovingEvent>((x) => OnStartedMoving());
         this.gameObject.Subscribe<PlayerMovement.StoppedMovingEvent>((x) => OnStoppedMoving());
 
@@ -33,12 +34,32 @@ public class PlayerSound : MonoBehaviour {
         this.gameObject.Subscribe<PlayerMovement.ChargeBonusEvent>((x) => OnChargeBonus());
     }
 
-    // Axon Riding Sounds
+    // Axon Riding & Axon Degraded Sounds
     void OnStartedMoving()
     {
-        if (axonRidingSource != null && axonRidingSource.clip != null)
+        if (GetComponent<PlayerMovement>().isOnSlowPath)
         {
-            axonRidingSource.Play();
+            if (axonRidingSource != null && axonRidingSource.clip != null)
+            {
+                axonRidingSource.Stop();
+            }
+
+            if (axonDegradedSource != null && axonDegradedSource.clip != null)
+            {
+                axonDegradedSource.Play();
+            }
+        }
+        else
+        {
+            if (axonDegradedSource != null && axonDegradedSource.clip != null)
+            {
+                axonDegradedSource.Stop();
+            }
+
+            if (axonRidingSource != null && axonRidingSource.clip != null)
+            {
+                axonRidingSource.Play();
+            }
         }
     }
 
@@ -47,6 +68,11 @@ public class PlayerSound : MonoBehaviour {
         if (axonRidingSource != null && axonRidingSource.clip != null)
         {
             axonRidingSource.Stop();
+        }
+
+        if (axonDegradedSource != null && axonDegradedSource.clip != null)
+        {
+            axonDegradedSource.Stop();
         }
     }
 

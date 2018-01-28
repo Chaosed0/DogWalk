@@ -27,7 +27,7 @@ public class PlayerMovement: MonoBehaviour
 
     float currentMoveSpeed = 10.0f;
     float currentSpeedFactor = 1.0f;
-    bool isOnSlowPath = false;
+    public bool isOnSlowPath = false;
 
     public class StartedMovingEvent { }
     public class StoppedMovingEvent { }
