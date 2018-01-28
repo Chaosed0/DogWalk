@@ -16,7 +16,7 @@ public class DraggableIcon : MonoBehaviour {
     [SubscribeGlobal]
     public void HandleActiveSegmentHoveredEvent(ActiveSegmentHoveredEvent e)
     {
-        if (!isMarker)
+        if (!isMarker && CanPlaceAtConnection(e.connectionUI))
         {
             currentConnectionUI = e.connectionUI;
             img.color = Color.yellow;
@@ -24,7 +24,7 @@ public class DraggableIcon : MonoBehaviour {
     }
 
     [SubscribeGlobal]
-    public void HandleActiveSegmentHoveredEvent (NoSegmentsHoveredEvent e)
+    public void HandleNoSegmentHoveredEvent (NoSegmentsHoveredEvent e)
     {
         if (!isMarker)
         {
@@ -43,15 +43,21 @@ public class DraggableIcon : MonoBehaviour {
         Destroy(gameObject);
     }
 
+    bool CanPlaceAtConnection(ConnectionUI connectionUI) {
+        return connectionUI &&
+            !connectionUI.hasTrap &&
+            connectionUI.tendril.isTraversable &&
+            MoneyManager.Instance.CanAfford(itemPrefab.GetComponent<PurchasableObject>().cost);
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonUp(0) && !isMarker)
         {
             // if (currentConnectionUI && currentConnectionUI.activeConnection)
-            if (currentConnectionUI &&
-                currentConnectionUI.tendril.isTraversable &&
-                MoneyManager.Instance.CanAfford(itemPrefab.GetComponent<PurchasableObject>().cost))
+            if (CanPlaceAtConnection(currentConnectionUI))
             {
+                currentConnectionUI.hasTrap = true;
                 Vector3 trapPosition = currentConnectionUI.GetTrapPosition();
                 GameObject trap = Instantiate(itemPrefab, trapPosition, GetItemQuaternion());
                 trap.GetComponent<Trap>().SetTendril(currentConnectionUI.tendril);

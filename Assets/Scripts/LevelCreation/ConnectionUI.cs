@@ -21,6 +21,8 @@ public class ConnectionUI : MonoBehaviour
     public Sprite dottedLineImage;
     public Sprite tendrilImage;
 
+    public bool hasTrap;
+
     Color hoverColor = new Color(1, .42f, .88f);
     Vector2 cursorSize;
 
