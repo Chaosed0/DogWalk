@@ -15,6 +15,7 @@ public class TrapSoundOneShot : MonoBehaviour {
     {
         if (trapSource != null && trapSource.clip != null)
         {
+            trapSource.Stop();
             trapSource.PlayOneShot(trapSource.clip);
         }
     }
