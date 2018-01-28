@@ -10,6 +10,7 @@ public class DraggableMenuIcon : MonoBehaviour, IPointerDownHandler, IPointerUpH
 {
     public GameObject itemDraggablePrefab;
     public GameObject itemPrefab;
+    public CanvasGroup tooltip;
 
     Image imageIcon;
     Vector3 localPointerPosition;
@@ -22,6 +23,7 @@ public class DraggableMenuIcon : MonoBehaviour, IPointerDownHandler, IPointerUpH
         img = GetComponent<Image>();
         levelCreationCanvas = GameObject.Find("LevelToolUI").GetComponent<Canvas>();
         levelCreationRectTransform = levelCreationCanvas.GetComponent<RectTransform>();
+        tooltip.alpha = 0.0f;
     }
 
     public void OnDrag (PointerEventData eventData)
@@ -49,10 +51,14 @@ public class DraggableMenuIcon : MonoBehaviour, IPointerDownHandler, IPointerUpH
 
     public void OnPointerEnter (PointerEventData eventData)
     {
+        img.color = Color.white * 0.7f;
+        tooltip.alpha = 1.0f;
     }
 
     public void OnPointerExit (PointerEventData eventData)
     {
+        img.color = Color.white;
+        tooltip.alpha = 0.0f;
     }
 
     public void OnPointerUp (PointerEventData eventData)
