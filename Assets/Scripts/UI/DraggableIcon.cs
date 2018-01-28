@@ -37,6 +37,12 @@ public class DraggableIcon : MonoBehaviour {
         }
     }
 
+    [SubscribeGlobal]
+    public void HandleRoundEndEvent (RoundEndEvent e)
+    {
+        Destroy(gameObject);
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonUp(0) && !isMarker)

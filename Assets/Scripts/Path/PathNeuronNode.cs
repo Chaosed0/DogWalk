@@ -40,7 +40,10 @@ public class PathNeuronNode : MonoBehaviour {
 
     private void OnDestroy ()
     {
-        Destroy(nodeImage.gameObject);
+        if (nodeImage)
+        {
+            Destroy(nodeImage.gameObject);
+        }
     }
 
     void InitializeUINode()

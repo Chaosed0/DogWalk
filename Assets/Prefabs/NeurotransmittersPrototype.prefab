@@ -386,6 +386,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4861735993950920}
   - component: {fileID: 114769822908625638}
+  - component: {fileID: 114263122381090494}
+  - component: {fileID: 114456555490080620}
   m_Layer: 0
   m_Name: NeurotransmittersPrototype
   m_TagString: Untagged
@@ -2459,6 +2461,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 10
+--- !u!114 &114263122381090494
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1632882348339948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe7a9573cbdd0fa4281c12bbd8322c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114270007290982374
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2584,6 +2597,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 10
+--- !u!114 &114456555490080620
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1632882348339948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 943ce67a26bf3ab4a84242d2f73f7eaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114493014255369410
 MonoBehaviour:
   m_ObjectHideFlags: 1
