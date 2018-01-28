@@ -1186,7 +1186,7 @@ GameObject:
   - component: {fileID: 1236003414}
   - component: {fileID: 1236003415}
   - component: {fileID: 1236003416}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: NeurotransmittersPrototype
   m_TagString: Untagged
   m_Icon: {fileID: 0}

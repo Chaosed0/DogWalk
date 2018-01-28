@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Neurotransmitters : MonoBehaviour {
+public class HoverXY : MonoBehaviour {
 
     float defaultX;
     float defaultY;
