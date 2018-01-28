@@ -23,33 +23,12 @@ public class Player: MonoBehaviour
 
     void Start()
     {
-        if (pathGraph.startNode != null)
-        {
-            Initialize();
-        }
-        else
-        {
-            StartCoroutine(Util.DeferForOneFrame(Initialize));
-        }
-
         playerMovement.gameObject.Subscribe<PlayerMovement.StoppedMovingEvent>((x) => OnStoppedMoving());
         playerMovement.gameObject.Subscribe<PlayerMovement.ReversedMovementEvent>((x) => OnReversedMovement());
     }
 
     [SubscribeGlobal]
-    public void HandleLevelCreationStart(LevelCreationStartEvent e)
-    {
-        if (pathGraph.startNode != null)
-        {
-            Initialize();
-        }
-        else
-        {
-            StartCoroutine(Util.DeferForOneFrame(Initialize));
-        }
-    }
-
-    void Initialize()
+    public void HandleRoundStart(RoundStartEvent e)
     {
         SetCurrentNode(pathGraph.startNode);
         SetCurrentPathIndex(0);
