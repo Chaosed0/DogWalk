@@ -43,17 +43,21 @@ public class PathTendril : MonoBehaviour {
 
     public void EnablePath()
     {
-        isTraversable = true;
+        SetTraversable(true);
     }
 
     public void DisablePath()
     {
-        isTraversable = false;
+        SetTraversable(false);
     }
 
     public void SetTraversable(bool canTraverse)
     {
         isTraversable = canTraverse;
+        if (!isTraversable)
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 
     public void SetSelected(bool selected)

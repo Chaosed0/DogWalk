@@ -878,6 +878,12 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &907016037 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114110302448499754, guid: 88a76e3941349604b91d1573d284ce69,
+    type: 2}
+  m_PrefabInternal: {fileID: 374065172}
+  m_Script: {fileID: 11500000, guid: 67a4ea5ca560cef49922a6c9a42e8761, type: 3}
 --- !u!1 &952892238
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,6 +1344,18 @@ Prefab:
     - target: {fileID: 400068, guid: e03d5d4946a7982439d0e32cea467b24, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 400168, guid: e03d5d4946a7982439d0e32cea467b24, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 400168, guid: e03d5d4946a7982439d0e32cea467b24, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 400168, guid: e03d5d4946a7982439d0e32cea467b24, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.37
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e03d5d4946a7982439d0e32cea467b24, type: 3}
@@ -3848,11 +3866,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPlayer: 1
-  startNode: {fileID: 0}
-  finishNode: {fileID: 0}
+  startNode: {fileID: 1088677483}
+  finishNode: {fileID: 1088677475}
   playerOneScore: 0
   playerTwoScore: 0
-  timer: {fileID: 0}
+  timer: {fileID: 907016037}
 --- !u!4 &1606766998
 Transform:
   m_ObjectHideFlags: 0

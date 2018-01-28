@@ -36,22 +36,31 @@ public class Player: MonoBehaviour
         int newIndex = 0;
         if (pathIndex < 0)
         {
-            newIndex = SelectNextPathAccordingToFacing(clockwise);
+            pathIndex = SelectPreviousPathAccordingToFacing(clockwise);
         }
-        else if (clockwise)
+
+        for (int i = 1; i < availablePaths.Count; i++)
         {
-            newIndex = (pathIndex+1)%availablePaths.Count;
-        }
-        else
-        {
-            newIndex = (pathIndex-1 + availablePaths.Count)%availablePaths.Count;
+            if (clockwise)
+            {
+                newIndex = (pathIndex+i)%availablePaths.Count;
+            }
+            else
+            {
+                newIndex = (pathIndex-i + availablePaths.Count)%availablePaths.Count;
+            }
+
+            if (availablePaths[newIndex].tendril.isTraversable)
+            {
+                break;
+            }
         }
 
         DeselectCurrentPath();
         SetCurrentPathIndex(newIndex);
     }
 
-    public int SelectNextPathAccordingToFacing(bool clockwise)
+    public int SelectPreviousPathAccordingToFacing(bool clockwise)
     {
         float angle = PathGraph.GetClockwiseAngle(transform.forward.z, transform.forward.x);
         int firstLesserPath = 0;
@@ -69,11 +78,11 @@ public class Player: MonoBehaviour
 
         if (clockwise)
         {
-            return firstLesserPath;
+            return (firstLesserPath-1 + availablePaths.Count)%availablePaths.Count;
         }
         else
         {
-            return (firstLesserPath-1 + availablePaths.Count)%availablePaths.Count;
+            return firstLesserPath;
         }
     }
 
