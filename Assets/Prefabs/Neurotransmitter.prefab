@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114099054212847188}
   - component: {fileID: 199998660688436894}
   - component: {fileID: 198592176088763476}
+  - component: {fileID: 114532711700298066}
   m_Layer: 0
   m_Name: Neurotransmitter
   m_TagString: Untagged
@@ -98,6 +99,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 10
+--- !u!114 &114532711700298066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1112021809371762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 943ce67a26bf3ab4a84242d2f73f7eaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114980724691532814
 MonoBehaviour:
   m_ObjectHideFlags: 1

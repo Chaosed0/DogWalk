@@ -13,6 +13,8 @@ public class PlayerMovement: MonoBehaviour
     public float burstChargeMin = 0.93f;
     public float burstChargeMax = 1.0f;
 
+    public float hypedSpeedFactor = 2.0f;
+
     public LayerMask trapLayer;
 
     bool isMoving = false;
@@ -23,6 +25,7 @@ public class PlayerMovement: MonoBehaviour
     float currentSegmentDistance = 0.0f;
 
     float currentMoveSpeed = 10.0f;
+    float currentSpeedFactor = 1.0f;
 
     public class StoppedMovingEvent { }
     public class ReversedMovementEvent { }
@@ -39,6 +42,7 @@ public class PlayerMovement: MonoBehaviour
         {
             currentMoveSpeed = burstMoveSpeed;
         }
+        currentMoveSpeed *= currentSpeedFactor;
     }
 
     public void StartFollowingPath(List<Vector3> path)
@@ -134,8 +138,26 @@ public class PlayerMovement: MonoBehaviour
         if ((1 << other.gameObject.layer) == trapLayer.value)
         {
             Debug.Log("Hit Trap!");
-            this.gameObject.PublishEvent(new ReversedMovementEvent());
-            moveForward = false;
+            Trap trap = other.GetComponent<Trap>();
+            trap.ApplyAffectsToPlayer(this.gameObject);
         }
+    }
+
+    public void ReverseMovement()
+    {
+        this.gameObject.PublishEvent(new PlayerMovement.ReversedMovementEvent());
+        moveForward = false;
+    }
+
+    [Subscribe]
+    void GetHyped(Player.GetHypedEvent e)
+    {
+        currentSpeedFactor = hypedSpeedFactor;
+    }
+
+    [Subscribe]
+    void StopHyped(Player.StopHypedEvent e)
+    {
+        currentSpeedFactor = 1.0f;
     }
 }

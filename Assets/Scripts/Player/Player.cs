@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class Player: MonoBehaviour
 {
     public PathGraph pathGraph;
+    public float hypedTime = 10.0f;
 
     PlayerMovement playerMovement;
 
@@ -15,6 +16,11 @@ public class Player: MonoBehaviour
 
     // For carrying over state between StartTraverse and StoppedMoving
     PathNeuronNode nextNode;
+
+    Coroutine hypedCoroutine;
+
+    public struct GetHypedEvent { }
+    public struct StopHypedEvent { }
 
     void Awake()
     {
@@ -136,5 +142,19 @@ public class Player: MonoBehaviour
 
         Vector3 facing = pathGraph.GetOtherNode(currentNode, availablePaths[pathIndex]).transform.position - currentNode.transform.position;
         playerMovement.SetFacing(facing);
+    }
+
+    public void GetHyped() {
+        this.gameObject.PublishEvent(new GetHypedEvent());
+        if (hypedCoroutine != null) {
+            StopCoroutine(hypedCoroutine);
+        }
+        hypedCoroutine = StartCoroutine(HypedTimer());
+    }
+
+    public IEnumerator HypedTimer()
+    {
+        yield return new WaitForSeconds(hypedTime);
+        this.gameObject.PublishEvent(new StopHypedEvent());
     }
 }

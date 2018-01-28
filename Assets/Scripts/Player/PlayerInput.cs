@@ -5,7 +5,10 @@ using UnityEngine.Events;
 
 public class PlayerInput : MonoBehaviour
 {
-    public float chargeTime = 1.0f;
+    public float normalChargeTime = 1.0f;
+    public float hypedChargeTime = 0.3f;
+
+    float chargeTime = 1.0f;
 
     Player player;
     PlayerMovement playerMovement;
@@ -25,6 +28,7 @@ public class PlayerInput : MonoBehaviour
         player = GetComponent<Player>();
         playerMovement = GetComponent<PlayerMovement>();
         this.enabled = false;
+        chargeTime = normalChargeTime;
 
         EventBus.Subscribe<RoundActuallyStartEvent>((x) => this.enabled = true);
         EventBus.Subscribe<RoundEndEvent>((x) => this.enabled = false);
@@ -72,6 +76,18 @@ public class PlayerInput : MonoBehaviour
             }
             this.gameObject.PublishEvent(new ChargeChangedEvent(currentCharge));
         }
+    }
+
+    [Subscribe]
+    void GetHyped(Player.GetHypedEvent e)
+    {
+        chargeTime = hypedChargeTime;
+    }
+
+    [Subscribe]
+    void StopHyped(Player.StopHypedEvent e)
+    {
+        chargeTime = normalChargeTime;
     }
 }
 
