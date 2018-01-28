@@ -61,20 +61,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connection: {fileID: 0}
-  activeConnection: 1
+  activeConnection: 0
   fadeStarted: 0
   tendril: {fileID: 0}
   graph: {fileID: 0}
   defaultCursor: {fileID: 2800000, guid: 03d5d766bc11d3643b45373c598ed5a1, type: 3}
   addAxonCursor: {fileID: 2800000, guid: fd79ba6c19f110743a1daa98c68acf6c, type: 3}
   removeAxonCursor: {fileID: 2800000, guid: 5f286c0ce716d0e439807b76f6e0bb07, type: 3}
+  dottedLineImage: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &114121510097861880
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1678219049938008}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -125,8 +127,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 0f5cf399b1cbdcc48b12d35d10721fac, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: e559628071b1b874e95babfa084ded12, type: 3}
+  m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
