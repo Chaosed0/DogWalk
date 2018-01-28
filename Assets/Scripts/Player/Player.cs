@@ -7,6 +7,7 @@ public class Player: MonoBehaviour
 {
     public PathGraph pathGraph;
     public float hypedTime = 10.0f;
+    public float confusedTime = 10.0f;
 
     PlayerMovement playerMovement;
 
@@ -18,9 +19,13 @@ public class Player: MonoBehaviour
     PathNeuronNode nextNode;
 
     Coroutine hypedCoroutine;
+    Coroutine confusedCoroutine;
 
     public struct GetHypedEvent { }
     public struct StopHypedEvent { }
+
+    public struct GetConfusedEvent { }
+    public struct StopConfusedEvent { }
 
     void Awake()
     {
@@ -156,5 +161,19 @@ public class Player: MonoBehaviour
     {
         yield return new WaitForSeconds(hypedTime);
         this.gameObject.PublishEvent(new StopHypedEvent());
+    }
+
+    public void GetConfused() {
+        this.gameObject.PublishEvent(new GetConfusedEvent());
+        if (confusedCoroutine != null) {
+            StopCoroutine(confusedCoroutine);
+        }
+        confusedCoroutine = StartCoroutine(ConfusedTimer());
+    }
+
+    public IEnumerator ConfusedTimer()
+    {
+        yield return new WaitForSeconds(confusedTime);
+        this.gameObject.PublishEvent(new StopConfusedEvent());
     }
 }

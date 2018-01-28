@@ -7,12 +7,17 @@ public class PlayerInput : MonoBehaviour
 {
     public float normalChargeTime = 1.0f;
     public float hypedChargeTime = 0.3f;
+    public float confusedAutoPickTime = 1.0f;
+    public float confusedAndHypedAutoPickTime = 0.5f;
 
     float chargeTime = 1.0f;
+    float confusedTimer = 0.0f;
+    float autoPickTime = 0.0f;
 
     Player player;
     PlayerMovement playerMovement;
 
+    bool isConfused = false;
     bool isCharging = false;
     float currentCharge = 0.0f;
 
@@ -25,6 +30,7 @@ public class PlayerInput : MonoBehaviour
 
     void Awake()
     {
+        autoPickTime = confusedAutoPickTime;
         player = GetComponent<Player>();
         playerMovement = GetComponent<PlayerMovement>();
         this.enabled = false;
@@ -56,14 +62,26 @@ public class PlayerInput : MonoBehaviour
 
         if (!playerMovement.IsMoving())
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (isConfused)
             {
-                player.SelectNextPath(false);
+                confusedTimer += Time.deltaTime;
+                if (confusedTimer >= autoPickTime)
+                {
+                    player.SelectNextPath(true);
+                    confusedTimer -= autoPickTime;
+                }
             }
-
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            else
             {
-                player.SelectNextPath(true);
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    player.SelectNextPath(false);
+                }
+
+                if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    player.SelectNextPath(true);
+                }
             }
         }
 
@@ -82,12 +100,26 @@ public class PlayerInput : MonoBehaviour
     void GetHyped(Player.GetHypedEvent e)
     {
         chargeTime = hypedChargeTime;
+        autoPickTime = confusedAndHypedAutoPickTime;
     }
 
     [Subscribe]
     void StopHyped(Player.StopHypedEvent e)
     {
         chargeTime = normalChargeTime;
+        autoPickTime = confusedAutoPickTime;
+    }
+
+    [Subscribe]
+    void GetConfused(Player.GetConfusedEvent e)
+    {
+        isConfused = true;
+    }
+
+    [Subscribe]
+    void StopConfused(Player.StopConfusedEvent e)
+    {
+        isConfused = false;
     }
 }
 

@@ -10,6 +10,7 @@ public class PlayerDisplayController: MonoBehaviour
     public Transform player;
     public ParticleSystem shocks;
     public ParticleSystem charge;
+    public ParticleSystem confusion;
 
     public Color hypedColor;
 
@@ -66,5 +67,17 @@ public class PlayerDisplayController: MonoBehaviour
             time -= Time.deltaTime;
             yield return null;
         }
+    }
+
+    [Subscribe]
+    void GetConfused(Player.GetConfusedEvent e)
+    {
+        confusion.Play();
+    }
+
+    [Subscribe]
+    void StopConfused(Player.StopConfusedEvent e)
+    {
+        confusion.Stop();
     }
 }

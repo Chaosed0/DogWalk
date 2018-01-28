@@ -772,7 +772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDraggablePrefab: {fileID: 1687718357515968, guid: aba62bcc501d8324b9e96e608075f992,
     type: 2}
-  itemPrefab: {fileID: 1112021809371762, guid: ca56715358c00144ca21da357a4492bd, type: 2}
+  itemPrefab: {fileID: 1673370264387410, guid: 7d2d5e3b8147c464fa7e169688ec735a, type: 2}
 --- !u!114 &114769331479405664
 MonoBehaviour:
   m_ObjectHideFlags: 1
