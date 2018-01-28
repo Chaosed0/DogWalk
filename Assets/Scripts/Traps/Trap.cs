@@ -18,7 +18,10 @@ public class Trap : MonoBehaviour {
 
     public void ApplyAffectsToPlayer(GameObject player)
     {
-        this.gameObject.PublishEvent(new PlayerRanIntoTrapEvent(player));
+        if (player.GetComponent<PlayerMovement>().IsMoving())
+        {
+            this.gameObject.PublishEvent(new PlayerRanIntoTrapEvent(player));
+        }
     }
 
     public void SetTendril(PathTendril tendril)

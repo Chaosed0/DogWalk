@@ -45,14 +45,14 @@ public class PlayerInput : MonoBehaviour
     {
         if (player.CanTraversePath())
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
             {
                 currentCharge = 0.0f;
                 isCharging = true;
                 this.gameObject.PublishEvent(new StartedChargingEvent());
             }
 
-            if (Input.GetKeyUp(KeyCode.UpArrow))
+            if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W))
             {
                 isCharging = false;
                 this.gameObject.PublishEvent(new StoppedChargingEvent());
@@ -74,12 +74,12 @@ public class PlayerInput : MonoBehaviour
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
                 {
                     player.SelectNextPath(false);
                 }
 
-                if (Input.GetKeyDown(KeyCode.RightArrow))
+                if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
                 {
                     player.SelectNextPath(true);
                 }
