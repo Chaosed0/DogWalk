@@ -6,8 +6,11 @@ public class PathTendril : MonoBehaviour {
     public List<PathTendrilNode> pathTendrilNodes = new List<PathTendrilNode>();
     MeshRenderer meshRenderer;
     public bool isTraversable = false;
+    public bool isDegraded = false;
 
     Color tendrilColor;
+    float colorFactor = 1.0f;
+    bool isSelected = false;
 
     void Awake()
     {
@@ -74,18 +77,33 @@ public class PathTendril : MonoBehaviour {
     public void HandleRoundStart(RoundStartEvent e)
     {
         gameObject.SetActive(isTraversable);
+
+        if (isDegraded)
+        {
+            colorFactor = 0.2f;
+            GetComponent<ParticleSystem>().Stop();
+        }
+        else
+        {
+            colorFactor = 1.0f;
+            GetComponent<ParticleSystem>().Play();
+        }
+
+        SetSelected(isSelected);
     }
 
     public void SetSelected(bool selected)
     {
+        this.isSelected = selected;
+
         Color color;
         if (selected)
         {
-            color = Color.red;
+            color = Color.red * colorFactor;
         }
         else
         {
-            color = tendrilColor;
+            color = tendrilColor * colorFactor;
         }
 
         float alpha = meshRenderer.material.color.a;

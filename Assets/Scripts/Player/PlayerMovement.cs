@@ -14,6 +14,7 @@ public class PlayerMovement: MonoBehaviour
     public float burstChargeMax = 1.0f;
 
     public float hypedSpeedFactor = 2.0f;
+    public float degradedPathSpeedFactor = 0.5f;
 
     public LayerMask trapLayer;
 
@@ -26,6 +27,7 @@ public class PlayerMovement: MonoBehaviour
 
     float currentMoveSpeed = 10.0f;
     float currentSpeedFactor = 1.0f;
+    bool isOnSlowPath = false;
 
     public class StoppedMovingEvent { }
     public class ReversedMovementEvent { }
@@ -45,25 +47,28 @@ public class PlayerMovement: MonoBehaviour
         currentMoveSpeed *= currentSpeedFactor;
     }
 
-    public void StartFollowingPath(List<Vector3> path)
+    public void StartFollowingPath(List<Vector3> path, bool isSlowPath = false)
     {
         currentSegment = 0;
         currentPath = path;
         currentSegmentDistance = 0.0f;
+        this.isOnSlowPath = isSlowPath;
         isMoving = true;
     }
 
     void Update()
     {
         if (!isMoving) return;
+        float moveSpeed = currentMoveSpeed * (isOnSlowPath ? degradedPathSpeedFactor : 1.0f);
         
-        currentSegmentDistance += moveForward ? currentMoveSpeed * Time.deltaTime : -currentMoveSpeed * Time.deltaTime;
+        currentSegmentDistance += moveForward ? moveSpeed * Time.deltaTime : -moveSpeed * Time.deltaTime;
         Vector3 nextPosition = moveForward ? GetNextPosition() : GetPreviousPosition();
         SetPosition(nextPosition);
         SetFacing(currentFacing);
         if (moveForward && nextPosition == currentPath[currentPath.Count - 1] || !moveForward && nextPosition == currentPath[0])
         {
             this.gameObject.PublishEvent(new StoppedMovingEvent());
+            isOnSlowPath = false;
             moveForward = true;
             isMoving = false;
         }

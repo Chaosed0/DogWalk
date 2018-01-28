@@ -41,9 +41,9 @@ public class Player: MonoBehaviour
     [SubscribeGlobal]
     public void HandleRoundStart(RoundStartEvent e)
     {
+        playerMovement.SetPosition(pathGraph.startNode.transform.position);
         SetCurrentNode(pathGraph.startNode);
         SetCurrentPathIndex(0);
-        playerMovement.SetPosition(pathGraph.startNode.transform.position);
     }
 
     [SubscribeGlobal]
@@ -102,7 +102,7 @@ public class Player: MonoBehaviour
         PathEdge pathToFollow = availablePaths[pathIndex];
 
         DeselectCurrentPath();
-        playerMovement.StartFollowingPath(pathToFollow.GetPath(currentNode));
+        playerMovement.StartFollowingPath(pathToFollow.GetPath(currentNode), pathToFollow.tendril.isDegraded);
         PathEdge previousPath = availablePaths[pathIndex];
         nextNode = pathGraph.GetOtherNode(currentNode, previousPath);
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Trap : MonoBehaviour {
+    PathTendril tendril;
 
     public struct PlayerRanIntoTrapEvent {
         public GameObject player;
@@ -18,5 +19,15 @@ public class Trap : MonoBehaviour {
     public void ApplyAffectsToPlayer(GameObject player)
     {
         this.gameObject.PublishEvent(new PlayerRanIntoTrapEvent(player));
+    }
+
+    public void SetTendril(PathTendril tendril)
+    {
+        this.tendril = tendril;
+    }
+
+    public PathTendril GetTendril()
+    {
+        return this.tendril;
     }
 }
