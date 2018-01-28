@@ -29,6 +29,7 @@ public class PlayerMovement: MonoBehaviour
     float currentSpeedFactor = 1.0f;
     bool isOnSlowPath = false;
 
+    public class StartedMovingEvent { }
     public class StoppedMovingEvent { }
     public class ReversedMovementEvent { }
 
@@ -54,6 +55,7 @@ public class PlayerMovement: MonoBehaviour
         currentSegmentDistance = 0.0f;
         this.isOnSlowPath = isSlowPath;
         isMoving = true;
+        this.gameObject.PublishEvent(new StartedMovingEvent());
     }
 
     void Update()
