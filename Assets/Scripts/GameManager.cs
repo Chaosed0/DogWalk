@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -127,6 +129,28 @@ public class GameManager : MonoBehaviour {
         {
             EventBus.PublishEvent(new WinrarEvent(winner));
         }
+    }
+
+    [SubscribeGlobal]
+    public void HandleWinrarEvent(WinrarEvent e)
+    {
+        StartCoroutine(FadeToLevel());
+    }
+
+    // Copy and paste, bitches!
+    IEnumerator FadeToLevel ()
+    {
+        Image fadePanel = GameObject.Find("FadePanel").GetComponent<Image>();
+
+        while (fadePanel.color.a < 1)
+        {
+            Color col = fadePanel.color;
+            col.a += 2f * Time.deltaTime;
+            fadePanel.color = col;
+
+            yield return null;
+        }
+        SceneManager.LoadSceneAsync("Credits");
     }
 
     void TogglePlayerControl()
