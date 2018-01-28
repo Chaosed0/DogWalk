@@ -68,7 +68,7 @@ public class Connection : MonoBehaviour {
 
     void InitNodes()
     {
-        if (nodeUI1 == null && node1.GetComponent<PathNeuronNode>() && node1.GetComponent<PathNeuronNode>().nodeImage)
+        if (nodeUI1 == null && node1 && node1.GetComponent<PathNeuronNode>() && node1.GetComponent<PathNeuronNode>().nodeImage)
         {
             nodeUI1 = node1.GetComponent<PathNeuronNode>().nodeImage.GetComponent<NodeUI>();
             nodeUI2 = node2.GetComponent<PathNeuronNode>().nodeImage.GetComponent<NodeUI>();
