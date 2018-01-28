@@ -34,7 +34,7 @@ public class Connection : MonoBehaviour {
     void InitializeConnection()
     {
         levelCreationCanvas = GameObject.Find("LevelCreationUI").GetComponent<Canvas>();
-        tendrilImage = Instantiate(Resources.Load("ConnectionImage") as GameObject).GetComponent<Image>();
+        tendrilImage = Instantiate(Resources.Load("ConnectionImg") as GameObject).GetComponent<Image>();
         tendrilImage.rectTransform.SetParent(levelCreationCanvas.transform);
         tendrilImage.gameObject.GetComponent<ConnectionUI>().connection = this;
 
@@ -53,6 +53,9 @@ public class Connection : MonoBehaviour {
             (pos1.y - .5f) * levelCreationCanvas.pixelRect.height + length * Mathf.Sin(rads) / 2);
         tendrilImage.rectTransform.sizeDelta = new Vector2(length, tendrilImage.rectTransform.sizeDelta.y);
         tendrilImage.rectTransform.rotation = Quaternion.Euler(0, 0, rads * Mathf.Rad2Deg);
+
+        Image tendrilChild = tendrilImage.transform.GetChild(0).GetComponent<Image>();
+        tendrilChild.rectTransform.sizeDelta = new Vector2(length, 60);
     }
 
     [SubscribeGlobal]

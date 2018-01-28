@@ -17,11 +17,25 @@ public class ConnectionUI : MonoBehaviour
     public bool fadeStarted = false;
     public PathTendril tendril;
     public PathGraph graph;
+    public Texture2D defaultCursor;
+    public Texture2D addAxonCursor;
+    public Texture2D removeAxonCursor;
+
+    Vector2 cursorSize;
 
     void Awake()
     {
         img = GetComponent<Image>();
         graph = GameObject.Find("Graph").GetComponent<PathGraph>();
+
+        // inefficient as fuck but whatever
+        defaultCursor = Resources.Load<Texture2D>("cursor_regular");
+        addAxonCursor = Resources.Load<Texture2D>("cursor_add_syringe");
+        removeAxonCursor = Resources.Load<Texture2D>("cursor_remove_scissors");
+
+        cursorSize = new Vector2(defaultCursor.width, defaultCursor.height);
+
+        SetCursor(defaultCursor);
     }
 
     void Start()
@@ -33,13 +47,27 @@ public class ConnectionUI : MonoBehaviour
     {
         if (!fadeStarted)
         {
-            //img.color = Color.blue;
+            if (activeConnection)
+            {
+                SetCursor(addAxonCursor);
+            }
+            else
+            {
+                SetCursor(removeAxonCursor);
+            }
+
             EventBus.PublishEvent(new ActiveSegmentHoveredEvent(this));
         }
     }
 
+    void SetCursor(Texture2D image)
+    {
+        Cursor.SetCursor(image, cursorSize * .2f, CursorMode.ForceSoftware);
+    }
+
     public void OnPointerExit (PointerEventData eventData)
     {
+        SetCursor(defaultCursor);
         if (!fadeStarted)
         {
             //img.color = Color.green;
