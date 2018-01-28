@@ -27,6 +27,7 @@ public class PlayerInput : MonoBehaviour
         public ChargeChangedEvent(float charge) { this.charge = charge; }
     }
     public class StoppedChargingEvent { }
+    public class ChargeRecycledEvent { }
 
     void Awake()
     {
@@ -87,10 +88,15 @@ public class PlayerInput : MonoBehaviour
 
         if (isCharging)
         {
+            float previousChage = currentCharge;
             currentCharge += Time.deltaTime / chargeTime;
             if (currentCharge >= 1.0f)
             {
                 currentCharge -= 1.0f;
+            }
+            if (currentCharge < previousChage)
+            {
+                this.gameObject.PublishEvent(new ChargeRecycledEvent());
             }
             this.gameObject.PublishEvent(new ChargeChangedEvent(currentCharge));
         }

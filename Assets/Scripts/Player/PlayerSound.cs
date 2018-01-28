@@ -2,26 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
+
 public class PlayerSound : MonoBehaviour {
 
-    AudioSource source;
+    public AudioSource axonRidingSource;
+    public AudioSource chargeUpSource;
 
     private void Awake()
     {
-        source = GetComponent<AudioSource>();
-
+        // Axon Riding Sounds
         this.gameObject.Subscribe<PlayerMovement.StartedMovingEvent>((x) => OnStartedMoving());
         this.gameObject.Subscribe<PlayerMovement.StoppedMovingEvent>((x) => OnStoppedMoving());
+
+        // Charging Sounds
+        this.gameObject.Subscribe<PlayerInput.StartedChargingEvent>((x) => OnStartedCharging());
+        this.gameObject.Subscribe<PlayerInput.ChargeRecycledEvent>((x) => OnChargeRecycled());
+        this.gameObject.Subscribe<PlayerInput.StoppedChargingEvent>((x) => OnStoppedCharging());
     }
 
+    // Axon Riding Sounds
     void OnStartedMoving()
     {
-        source.Play();
+        axonRidingSource.Play();
     }
 
     void OnStoppedMoving()
     {
-        source.Stop();
+        axonRidingSource.Stop();
+    }
+
+    // Charging Sounds
+    void OnStartedCharging()
+    {
+        chargeUpSource.PlayOneShot(chargeUpSource.clip);
+    }
+
+    void OnChargeRecycled()
+    {
+        chargeUpSource.Stop();
+        chargeUpSource.PlayOneShot(chargeUpSource.clip);
+    }
+
+    void OnStoppedCharging()
+    {
+        chargeUpSource.Stop();
     }
 }
