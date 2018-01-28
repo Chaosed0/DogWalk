@@ -73,8 +73,8 @@ public class Connection : MonoBehaviour {
     {
         InitNodes();
 
-        Vector3 pos1 = Camera.main.WorldToViewportPoint(node1.transform.position + nodeUI1.GetOffset() * .15f);
-        Vector3 pos2 = Camera.main.WorldToViewportPoint(node2.transform.position + nodeUI2.GetOffset() * .15f);
+        Vector3 pos1 = Camera.main.WorldToViewportPoint(node1.transform.position + nodeUI1.GetOffset() * .1f);
+        Vector3 pos2 = Camera.main.WorldToViewportPoint(node2.transform.position + nodeUI2.GetOffset() * .1f);
 
         float canvasDistX = (pos2.x - pos1.x) * levelCreationCanvas.pixelRect.width;
         float canvasDistY = (pos2.y - pos1.y) * levelCreationCanvas.pixelRect.height;

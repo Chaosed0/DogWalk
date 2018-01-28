@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementAmount: 3
-  secondsPerCycle: 1.5
+  secondsPerCycle: 1.85
 --- !u!114 &114956445088525958
 MonoBehaviour:
   m_ObjectHideFlags: 1
