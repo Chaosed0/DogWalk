@@ -8,20 +8,25 @@ public class PlayerSound : MonoBehaviour {
     public AudioSource axonRidingSource;
     public AudioSource chargeUpSource;
     public AudioSource axonSwitchingSource;
+    public AudioSource adrenalineSource;
 
     private void Awake()
     {
-        // Axon Riding Sounds
+        // Axon Riding events
         this.gameObject.Subscribe<PlayerMovement.StartedMovingEvent>((x) => OnStartedMoving());
         this.gameObject.Subscribe<PlayerMovement.StoppedMovingEvent>((x) => OnStoppedMoving());
 
-        // Charging Sounds
+        // Charging events
         this.gameObject.Subscribe<PlayerInput.StartedChargingEvent>((x) => OnStartedCharging());
         this.gameObject.Subscribe<PlayerInput.ChargeRecycledEvent>((x) => OnChargeRecycled());
         this.gameObject.Subscribe<PlayerInput.StoppedChargingEvent>((x) => OnStoppedCharging());
 
-        // Axon Switching Sounds (Select Path)
+        // Axon Switching (Select Path) events
         this.gameObject.Subscribe<Player.SelectPathEvent>((x) => OnSelectPath());
+
+        // Adrenaline events
+        this.gameObject.Subscribe<Player.GetHypedEvent>((x) => OnGetHyped());
+        this.gameObject.Subscribe<Player.StopHypedEvent>((x) => OnStopHyped());
     }
 
     // Axon Riding Sounds
@@ -73,6 +78,23 @@ public class PlayerSound : MonoBehaviour {
         if (axonSwitchingSource != null && axonSwitchingSource.clip != null)
         {
             axonSwitchingSource.PlayOneShot(axonSwitchingSource.clip);
+        }
+    }
+
+    // Adrenaline Sounds
+    void OnGetHyped()
+    {
+        if (adrenalineSource != null && adrenalineSource.clip != null)
+        {
+            adrenalineSource.Play();
+        }
+    }
+
+    void OnStopHyped()
+    {
+        if (adrenalineSource != null && adrenalineSource.clip != null)
+        {
+            adrenalineSource.Stop();
         }
     }
 }
