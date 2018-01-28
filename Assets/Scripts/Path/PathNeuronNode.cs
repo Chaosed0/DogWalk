@@ -30,7 +30,7 @@ public class PathNeuronNode : MonoBehaviour {
     }
 
     [SubscribeGlobal]
-    public void HandleLevelCreationStart (LevelCreationStartEvent e)
+    public void HandleLevelCreationStart (LevelCreationActuallyStartEvent e)
     {
         StartCoroutine(Util.DeferForOneFrame(InitializeUINode));
     }

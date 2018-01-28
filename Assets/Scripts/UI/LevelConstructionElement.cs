@@ -28,7 +28,7 @@ public class LevelConstructionElement : MonoBehaviour
     }
 
     [SubscribeGlobal]
-    public void HandleLevelCreationStarted(LevelCreationStartEvent e)
+    public void HandleLevelCreationStarted(LevelCreationActuallyStartEvent e)
     {
         this.gameObject.PublishEvent(new LevelFadeStarted());
         StartCoroutine(FadeInOrOut(true));

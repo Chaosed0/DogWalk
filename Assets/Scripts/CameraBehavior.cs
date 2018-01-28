@@ -37,7 +37,7 @@ public class CameraBehavior : MonoBehaviour {
         StartCoroutine(LerpToRot(levelCreationTransform.rotation, raceStartRotationSpeed));
         StartCoroutine(LerpSky(false));
 
-        OnCoroutinesStopped = () => { EventBus.PublishEvent(new LevelCreationStartEvent()); };
+        OnCoroutinesStopped = () => { EventBus.PublishEvent(new LevelCreationActuallyStartEvent()); };
     }
 
     public void LerpToRaceStart()
@@ -125,7 +125,13 @@ public class CameraBehavior : MonoBehaviour {
     {
         LerpToDog();
 
-        OnCoroutinesStopped = () => { Invoke("LerpToLevelCreationStart", 2.0f); };
+        OnCoroutinesStopped = () => { EventBus.PublishEvent(new StartDogSequenceEvent()); };
+    }
+
+    [SubscribeGlobal]
+    public void HandleLevelCreationStart(LevelCreationStartEvent e)
+    {
+        LerpToLevelCreationStart();
     }
 
     void OnDestroy()

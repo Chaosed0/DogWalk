@@ -19,7 +19,7 @@ public class PlayerCameraBehavior : MonoBehaviour {
     void Update()
     {
         float rotationDamping = Time.deltaTime;
-        if (!playerMovement.IsMoving())
+        if (playerMovement != null && !playerMovement.IsMoving())
         {
             rotationDamping *= 10.0f;
         }

@@ -18,6 +18,8 @@ public class Connection : MonoBehaviour {
     NodeUI nodeUI2;
     float length;
 
+    bool shouldUpdate = true;
+
     void Awake()
     {
         tendril = GetComponent<PathTendril>();
@@ -71,6 +73,9 @@ public class Connection : MonoBehaviour {
 
     void Update()
     {
+        if (!shouldUpdate)
+            return;
+
         InitNodes();
 
         Vector3 pos1 = Camera.main.WorldToViewportPoint(node1.transform.position + nodeUI1.GetOffset() * .1f);
@@ -92,8 +97,15 @@ public class Connection : MonoBehaviour {
     }
 
     [SubscribeGlobal]
-    public void HandleLevelCreationStart (LevelCreationStartEvent e)
+    public void HandleRoundStart (RoundStartEvent e)
     {
+        shouldUpdate = false;
+    }
+
+    [SubscribeGlobal]
+    public void HandleLevelCreationStart (LevelCreationActuallyStartEvent e)
+    {
+        shouldUpdate = true;
         StartCoroutine(Util.DeferForOneFrame(InitializeConnection));
     }
 

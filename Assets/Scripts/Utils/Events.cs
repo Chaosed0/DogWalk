@@ -2,6 +2,13 @@
 
 public struct RoundActuallyStartEvent { }
 public struct LevelCreationStartEvent { }
+public struct LevelCreationActuallyStartEvent { }
+public struct StartDogSequenceEvent { }
+public struct EndDogSequenceEvent { }
+public struct WinrarEvent {
+    public int player;
+    public WinrarEvent(int player) { this.player = player; }
+}
 
 public struct RoundEndEvent {
     public float remainingTime;

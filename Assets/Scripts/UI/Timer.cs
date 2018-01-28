@@ -19,7 +19,7 @@ public class Timer : MonoBehaviour
 	}
 
     [SubscribeGlobal]
-    void HandleLevelCreationStartEvent(LevelCreationStartEvent e)
+    void HandleLevelCreationStartEvent(LevelCreationActuallyStartEvent e)
     {
         StartLevelSetupCountdown();
     }
