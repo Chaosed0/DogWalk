@@ -24,8 +24,9 @@ public static class EventBus
         Dictionary<GameObject, List<Delegate>> eventDict = events[t];
 
         eventTypeBeingProcessed = t;
-        foreach (List<Delegate> funcs in eventDict.Values)
+        foreach (KeyValuePair<GameObject, List<Delegate>> pair in eventDict)
         {
+            List<Delegate> funcs = pair.Value;
             // right now global events only work for monobehaviours
             GameObject obj = (funcs[0].Target as MonoBehaviour).gameObject;
 

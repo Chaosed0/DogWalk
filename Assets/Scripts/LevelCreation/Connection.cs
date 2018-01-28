@@ -58,7 +58,7 @@ public class Connection : MonoBehaviour {
     [SubscribeGlobal]
     public void HandleLevelCreationStart (LevelCreationStartEvent e)
     {
-        InitializeConnection();
+        StartCoroutine(Util.DeferForOneFrame(InitializeConnection));
     }
 
     public float GetInterpolationAmount()

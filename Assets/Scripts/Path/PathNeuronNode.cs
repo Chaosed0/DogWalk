@@ -29,6 +29,12 @@ public class PathNeuronNode : MonoBehaviour {
         InitializeUINode();
     }
 
+    [SubscribeGlobal]
+    public void HandleLevelCreationStart (LevelCreationStartEvent e)
+    {
+        StartCoroutine(Util.DeferForOneFrame(InitializeUINode));
+    }
+
     void InitializeUINode()
     {
         levelCreationCanvas = GameObject.Find("LevelCreationUI").GetComponent<Canvas>();

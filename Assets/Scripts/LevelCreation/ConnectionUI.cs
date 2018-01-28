@@ -10,7 +10,6 @@ public class ConnectionUI : MonoBehaviour
     , IPointerExitHandler
     , IPointerClickHandler
 {
-    float fadeRate = 1.25f;
     Image img;
 
     public Connection connection; // TODO: enable/disable connections based on click actions
@@ -66,26 +65,16 @@ public class ConnectionUI : MonoBehaviour
         return edge.GetPointAlongPath(start, t);
     }
 
-    [SubscribeGlobal]
-    public void HandleLevelCreated(RoundStartEvent e)
-    {
-        StartCoroutine(FadeOut());
-    }
-
-    IEnumerator FadeOut()
+    [Subscribe]
+    public void HandleFadeStart(LevelConstructionElement.LevelFadeStarted e)
     {
         fadeStarted = true;
-        float t = 0;
-        while (t < 1)
-        {
-            t += Time.deltaTime * fadeRate;
-            Color col = img.color;
-            col.a = 1f - t;
-            img.color = col;
+    }
 
-            yield return null;
-        }
-
-        Destroy(gameObject);
+    [Subscribe]
+    public void HandleFadeEnd(LevelConstructionElement.LevelFadeEnded e)
+    {
+        Destroy(this.gameObject);
     }
 }
+
