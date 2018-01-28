@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33204124899963142}
   - component: {fileID: 23354102521545520}
   - component: {fileID: 114980724691532814}
+  - component: {fileID: 114099054212847188}
   m_Layer: 0
   m_Name: Neurotransmitter
   m_TagString: Untagged
@@ -83,6 +84,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1112021809371762}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114099054212847188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1112021809371762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d48892606d52d1346815dbfdd96be85f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 10
 --- !u!114 &114980724691532814
 MonoBehaviour:
   m_ObjectHideFlags: 1

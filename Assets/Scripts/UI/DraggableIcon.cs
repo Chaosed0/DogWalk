@@ -11,6 +11,8 @@ public class DraggableIcon : MonoBehaviour {
     bool isMarker = false;
     float timeToShrink = .35f;
 
+    public GameObject itemPrefab;
+
     [SubscribeGlobal]
     public void HandleActiveSegmentHoveredEvent(ActiveSegmentHoveredEvent e)
     {
@@ -42,7 +44,8 @@ public class DraggableIcon : MonoBehaviour {
             if (currentConnectionUI && currentConnectionUI.activeConnection)
             {
                 Vector3 trapPosition = currentConnectionUI.GetTrapPosition();
-                Instantiate(Resources.Load<GameObject>("TestTrap"), trapPosition, Quaternion.identity);
+                Instantiate(itemPrefab, trapPosition, Quaternion.identity);
+                MoneyManager.Instance.RemoveMoney(itemPrefab.GetComponent<PurchasableObject>().cost);
                 isMarker = true;
                 StartCoroutine(ShrinkIcon());
             }

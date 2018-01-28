@@ -11,7 +11,7 @@ public class ConnectionUI : MonoBehaviour
     , IPointerClickHandler
 {
     Image img;
-
+    public static int tendrilFee = 10;
     public Connection connection; // TODO: enable/disable connections based on click actions
     public bool activeConnection = false;
     public bool fadeStarted = false;
@@ -100,20 +100,21 @@ public class ConnectionUI : MonoBehaviour
     {
         if (!fadeStarted)
         {
-            activeConnection = !activeConnection;
-
             if (!activeConnection)
             {
+                MoneyManager.Instance.AddMoney(tendrilFee);
+                SetCursor(removeAxonCursor);
+                activeConnection = true;
+                connection.ToggleConnection();
+            }
+            else if (MoneyManager.Instance.CanAfford(tendrilFee) && connection.ToggleConnection())
+            {
+                MoneyManager.Instance.RemoveMoney(tendrilFee);
+                activeConnection = false;
                 SetCursor(addAxonCursor);
             }
-            else
-            {
-                SetCursor(removeAxonCursor);
-            }
-            ConfigureImage();
 
-            // TODO: only remove the axon if this returns true
-            bool success = connection.ToggleConnection();
+            ConfigureImage();
         }
     }
 

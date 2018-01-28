@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class DraggableMenuIcon : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler,
     IPointerEnterHandler, IPointerExitHandler
 {
+    public GameObject itemDraggablePrefab;
     public GameObject itemPrefab;
 
     Image imageIcon;
@@ -36,8 +37,9 @@ public class DraggableMenuIcon : MonoBehaviour, IPointerDownHandler, IPointerUpH
     public void OnPointerDown (PointerEventData eventData)
     {
         GetPointerPosition(eventData);
-        imageIcon = (Instantiate(itemPrefab, localPointerPosition, Quaternion.identity,
+        imageIcon = (Instantiate(itemDraggablePrefab, localPointerPosition, Quaternion.identity,
             levelCreationCanvas.transform)).GetComponent<Image>();
+        imageIcon.GetComponent<DraggableIcon>().itemPrefab = itemPrefab;
         imageIcon.transform.position = localPointerPosition;
     }
 

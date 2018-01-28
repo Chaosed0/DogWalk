@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114106115709274280}
   - component: {fileID: 114635865891956016}
   - component: {fileID: 225669002573467842}
+  - component: {fileID: 114646386095604984}
   m_Layer: 5
   m_Name: Draggable
   m_TagString: Untagged
@@ -80,6 +81,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 922bafce87cf81c43984470cfa16dc01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 0}
+--- !u!114 &114646386095604984
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1687718357515968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a246889875fb64945a909b0d776b8c16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeRate: 1.25
 --- !u!222 &222257115985999500
 CanvasRenderer:
   m_ObjectHideFlags: 1
