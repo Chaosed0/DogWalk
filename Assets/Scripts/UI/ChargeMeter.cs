@@ -29,7 +29,7 @@ class ChargeMeter: MonoBehaviour
     void OnChargeChanged(PlayerInput.ChargeChangedEvent e)
     {
         // hack, it seems laggy
-        slider.value = e.charge + 0.05f;
+        slider.value = e.charge;
         sliderFill.color = Color.Lerp(initialColor, finalColor, e.charge);
 
         if (e.charge >= playerMovement.burstChargeMin && e.charge <= playerMovement.burstChargeMax)

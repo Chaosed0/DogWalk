@@ -82,7 +82,6 @@ public class GameManager : MonoBehaviour {
         int winner = GetPlayerWhoWon();
         if (winner < 0)
         {
-            TogglePlayerControl();
             EventBus.PublishEvent(new LevelCreationStartEvent());
         }
         else
