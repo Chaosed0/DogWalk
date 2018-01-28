@@ -1,4 +1,5 @@
 ﻿public struct RoundStartEvent {}
+public struct PlayerFinishedMapEvent { }
 
 public struct RoundActuallyStartEvent { }
 public struct LevelCreationStartEvent { }

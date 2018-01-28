@@ -46,5 +46,15 @@ public class PathNeuronNode : MonoBehaviour {
 
         nodeImage.rectTransform.SetParent(levelCreationCanvas.transform);
         nodeImage.rectTransform.anchoredPosition = posCanvas;
+
+        PathGraph graph = GameObject.FindObjectOfType<PathGraph>();
+        if (graph.startNode == this)
+        {
+            nodeImage.GetComponent<NodeUI>().SetStartNode();
+        }
+        else if (graph.finishNode == this)
+        {
+            nodeImage.GetComponent<NodeUI>().SetFinishNode();
+        }
     }
 }

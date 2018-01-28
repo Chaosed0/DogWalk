@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class NodeUI : MonoBehaviour
 {
-
     public float movementAmount;
     public float secondsPerCycle;
+
+    public CanvasGroup startImage;
+    public CanvasGroup finishImage;
 
     Vector3 initialPos;
     float roundStart;
@@ -14,6 +16,12 @@ public class NodeUI : MonoBehaviour
     float randomDirY;
     float randomAmountX;
     float randomAmountY;
+
+    void Awake()
+    {
+        startImage.alpha = 0.0f;
+        finishImage.alpha = 0.0f;
+    }
 
     void Start ()
     {
@@ -40,5 +48,15 @@ public class NodeUI : MonoBehaviour
     public Vector3 GetOffset()
     {
         return transform.position - initialPos;
+    }
+
+    public void SetStartNode()
+    {
+        startImage.alpha = 1.0f;
+    }
+
+    public void SetFinishNode()
+    {
+        finishImage.alpha = 1.0f;
     }
 }

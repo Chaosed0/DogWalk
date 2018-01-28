@@ -23,11 +23,24 @@ public class Player: MonoBehaviour
 
     void Start()
     {
+        if (pathGraph.startNode != null)
+        {
+            Initialize();
+        }
+        else
+        {
+            StartCoroutine(Util.DeferForOneFrame(Initialize));
+        }
+
+        playerMovement.gameObject.Subscribe<PlayerMovement.StoppedMovingEvent>((x) => OnStoppedMoving());
+        playerMovement.gameObject.Subscribe<PlayerMovement.ReversedMovementEvent>((x) => OnReversedMovement());
+    }
+
+    void Initialize()
+    {
         SetCurrentNode(pathGraph.startNode);
         SetCurrentPathIndex(0);
         playerMovement.SetPosition(pathGraph.startNode.transform.position);
-        playerMovement.gameObject.Subscribe<PlayerMovement.StoppedMovingEvent>((x) => OnStoppedMoving());
-        playerMovement.gameObject.Subscribe<PlayerMovement.ReversedMovementEvent>((x) => OnReversedMovement());
     }
 
     public void SelectNextPath(bool clockwise)
@@ -95,6 +108,11 @@ public class Player: MonoBehaviour
         SetCurrentNode(nextNode);
         this.pathIndex = -1;
         SetCurrentPathIndex(GetPathClosestToFacing());
+
+        if (currentNode == pathGraph.finishNode)
+        {
+            EventBus.PublishEvent(new PlayerFinishedMapEvent());
+        }
     }
 
     void SetCurrentNode(PathNeuronNode node)

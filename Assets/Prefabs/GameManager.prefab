@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4130678456809284}
   - component: {fileID: 114595276965049174}
   - component: {fileID: 114534528336654512}
+  - component: {fileID: 114869547053048764}
+  - component: {fileID: 114744830402757634}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -72,3 +74,34 @@ MonoBehaviour:
   playerOneScore: 0
   playerTwoScore: 0
   timer: {fileID: 0}
+--- !u!114 &114744830402757634
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1518262346487520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 943ce67a26bf3ab4a84242d2f73f7eaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114869547053048764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1518262346487520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 260106c7b99cd844c87d3f61d295116d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 114595276965049174}
+  time: 3
+  dogs:
+  - dog: {fileID: 0}
+    pathStart: {fileID: 0}
+    pathEnd: {fileID: 0}
+  - dog: {fileID: 0}
+    pathStart: {fileID: 0}
+    pathEnd: {fileID: 0}

@@ -10,6 +10,8 @@ public class Timer : MonoBehaviour
     Text timerText;
     bool stopEarly = false;
 
+    Coroutine raceCountdown;
+
 	void Awake ()
     {
         timerText = GetComponent<Text>();
@@ -31,7 +33,13 @@ public class Timer : MonoBehaviour
 
     public void StartRaceCountdown()
     {
-        StartCoroutine(StartRaceCountdownCoroutine());
+        raceCountdown = StartCoroutine(StartRaceCountdownCoroutine());
+    }
+
+    [SubscribeGlobal]
+    void HandlePlayerFinishedMap(PlayerFinishedMapEvent e)
+    {
+        stopEarly = true;
     }
 
     public void FinishLevelSetupEarly()
