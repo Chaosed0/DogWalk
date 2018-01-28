@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
 
     public Timer timer;
 
-    public int targetPathLength = 5;
+    public int targetPathLength = 6;
 
     public int currentLevel = 0;
     public List<GameObject> levels;
@@ -78,11 +78,14 @@ public class GameManager : MonoBehaviour {
         PathGraph.RandomPath randomPath = graph.GetRandomPath(targetPathLength);
         graph.startNode = randomPath.startNode;
         graph.finishNode = randomPath.finishNode;
+        // Debug.Log("CanReachFinish: " + graph.CanReachFinish());
+        // Debug.Log("pathEdges: " + randomPath.pathEdges.Count);
         foreach (PathEdge edge in graph.edges)
         {
             edge.tendril.gameObject.SetActive(true);
             if (randomPath.pathEdges.Contains(edge))
             {
+                // Debug.Log("edge" + edge.tendril);
                 edge.tendril.SetTraversable(true);
             }
             else

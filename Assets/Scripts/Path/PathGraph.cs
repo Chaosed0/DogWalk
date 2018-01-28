@@ -145,8 +145,10 @@ public class PathGraph : MonoBehaviour
             {
                 closedEdgeSet.Add(currentNode, new HashSet<PathEdge>());
             }
-            List<PathEdge> availableEdges = nodeToEdge[currentNode].Where(x => !closedEdgeSet[currentNode].Contains(x)
-                                                                            && !closedNodeSet.Contains(GetOtherNode(currentNode, x))).ToList();
+            HashSet<PathEdge> availableEdges = new HashSet<PathEdge>(
+                                                    nodeToEdge[currentNode].Where(x => !closedEdgeSet[currentNode].Contains(x)
+                                                                                    && !closedNodeSet.Contains(GetOtherNode(currentNode, x))
+                                                                                    && !pathEdges.Contains(x)).ToList());
             // Back-track if we've reached a dead end
             if (availableEdges.Count == 0)
             {
@@ -161,9 +163,9 @@ public class PathGraph : MonoBehaviour
                 currentNode = previousNode;
                 continue;
             }
-
-            PathEdge nextEdge = availableEdges[Random.Range(0, availableEdges.Count)];
+            PathEdge nextEdge = availableEdges.ToList<PathEdge>()[Random.Range(0, availableEdges.Count)];
             pathEdges.Add(nextEdge);
+            closedNodeSet.Add(currentNode);
             currentNode = GetOtherNode(currentNode, nextEdge);
         }
 
