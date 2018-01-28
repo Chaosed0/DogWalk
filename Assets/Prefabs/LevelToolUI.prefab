@@ -217,6 +217,9 @@ GameObject:
   - component: {fileID: 222469966024868250}
   - component: {fileID: 114151946482470434}
   - component: {fileID: 114516816654171908}
+  - component: {fileID: 114566053535720682}
+  - component: {fileID: 225966857660412294}
+  - component: {fileID: 114153415777624052}
   m_Layer: 5
   m_Name: FinishButton
   m_TagString: Untagged
@@ -457,6 +460,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114153415777624052
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1533427198909882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a246889875fb64945a909b0d776b8c16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeRate: 1.25
 --- !u!114 &114179620582096792
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -856,6 +871,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeRate: 1.25
+--- !u!114 &114566053535720682
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1533427198909882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 943ce67a26bf3ab4a84242d2f73f7eaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114573370158026172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1897,4 +1923,15 @@ CanvasGroup:
   m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!225 &225966857660412294
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1533427198909882}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
