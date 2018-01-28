@@ -62,14 +62,36 @@ public class PathNeuronNode : MonoBehaviour {
         nodeImage.rectTransform.SetParent(GameObject.Find("NeuronContainer").transform);
         nodeImage.rectTransform.anchoredPosition = posCanvas;
 
-        PathGraph graph = GameObject.FindObjectOfType<PathGraph>();
+        ConfigureNode(FindObjectOfType<PathGraph>());
+    }
+
+    [SubscribeGlobal]
+    void HandleGraphConfiguredEvent(GraphConfiguredEvent e)
+    {
+        if (nodeImage == null)
+        {
+            return;
+        }
+        ConfigureNode(e.graph);
+    }
+
+    void ConfigureNode(PathGraph graph)
+    {
+        NodeUI nodeUi = nodeImage.GetComponent<NodeUI>();
         if (graph.startNode == this)
         {
-            nodeImage.GetComponent<NodeUI>().SetStartNode();
+            nodeUi.SetStartNode();
+            nodeUi.ClearFinishNode();
         }
         else if (graph.finishNode == this)
         {
-            nodeImage.GetComponent<NodeUI>().SetFinishNode();
+            nodeUi.SetFinishNode();
+            nodeUi.ClearStartNode();
+        }
+        else
+        {
+            nodeUi.ClearStartNode();
+            nodeUi.ClearFinishNode();
         }
     }
 }

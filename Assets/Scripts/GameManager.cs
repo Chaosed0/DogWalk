@@ -74,6 +74,11 @@ public class GameManager : MonoBehaviour {
 
     public void InitializeStartingPath()
     {
+        int seed = (int)(System.DateTime.Now - new System.DateTime(2017, 1, 1)).TotalSeconds;
+        //int seed = 33914562;
+        Random.InitState(seed);
+        Debug.Log(seed);
+
         PathGraph graph = FindObjectOfType<PathGraph>();
         PathGraph.RandomPath randomPath = graph.GetRandomPath(targetPathLength);
         graph.startNode = randomPath.startNode;
@@ -83,16 +88,14 @@ public class GameManager : MonoBehaviour {
         foreach (PathEdge edge in graph.edges)
         {
             edge.tendril.gameObject.SetActive(true);
-            if (randomPath.pathEdges.Contains(edge))
-            {
-                // Debug.Log("edge" + edge.tendril);
-                edge.tendril.SetTraversable(true);
-            }
-            else
-            {
-                edge.tendril.SetTraversable(false);
-            }
+            edge.tendril.SetTraversable(false);
         }
+
+        foreach (PathEdge edge in randomPath.pathEdges)
+        {
+            edge.tendril.SetTraversable(true);
+        }
+
 
         EventBus.PublishEvent(new GraphConfiguredEvent(graph));
     }

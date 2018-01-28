@@ -12,13 +12,5 @@ public class NeuronUI : MonoBehaviour
     {
         GetComponent<CanvasGroup>().interactable = true;
     }
-
-    [SubscribeGlobal]
-    public void HandleRoundStartEvent(RoundActuallyStartEvent e)
-    {
-        NodeUI node = GetComponent<NodeUI>();
-        node.ClearStartNode();
-        node.ClearFinishNode();
-    }
 }
 
