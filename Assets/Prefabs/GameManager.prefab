@@ -55,8 +55,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyText: {fileID: 0}
-  defaultStartingMoney: 50
-  currentMoney: 50
+  defaultStartingMoney: 75
+  currentMoney: 75
 --- !u!114 &114595276965049174
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -69,11 +69,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPlayer: 1
-  startNode: {fileID: 0}
-  finishNode: {fileID: 0}
   playerOneScore: 0
   playerTwoScore: 0
   timer: {fileID: 0}
+  targetPathLength: 6
+  currentLevel: 0
+  levels:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &114744830402757634
 MonoBehaviour:
   m_ObjectHideFlags: 1

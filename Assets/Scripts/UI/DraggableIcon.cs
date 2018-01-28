@@ -48,7 +48,9 @@ public class DraggableIcon : MonoBehaviour {
         if (Input.GetMouseButtonUp(0) && !isMarker)
         {
             // if (currentConnectionUI && currentConnectionUI.activeConnection)
-            if (currentConnectionUI && currentConnectionUI.tendril.isTraversable)
+            if (currentConnectionUI &&
+                currentConnectionUI.tendril.isTraversable &&
+                MoneyManager.Instance.CanAfford(itemPrefab.GetComponent<PurchasableObject>().cost))
             {
                 Vector3 trapPosition = currentConnectionUI.GetTrapPosition();
                 GameObject trap = Instantiate(itemPrefab, trapPosition, GetItemQuaternion());

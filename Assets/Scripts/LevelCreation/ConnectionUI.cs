@@ -11,7 +11,7 @@ public class ConnectionUI : MonoBehaviour
     , IPointerClickHandler
 {
     Image img;
-    public static int tendrilFee = 10;
+    public static int tendrilFee = 5;
     public Connection connection;
     public bool fadeStarted = false;
     public PathTendril tendril;
@@ -103,14 +103,17 @@ public class ConnectionUI : MonoBehaviour
         {
             if (!tendril.isTraversable)
             {
-                MoneyManager.Instance.AddMoney(tendrilFee);
-                SetCursor(removeAxonCursor);
-                connection.ToggleConnection();
-                EventBus.PublishEvent(new AxonAddEvent());
+                if (MoneyManager.Instance.CanAfford(tendrilFee))
+                {
+                    MoneyManager.Instance.RemoveMoney(tendrilFee);
+                    SetCursor(removeAxonCursor);
+                    connection.ToggleConnection();
+                    EventBus.PublishEvent(new AxonAddEvent());
+                }
             }
-            else if (MoneyManager.Instance.CanAfford(tendrilFee) && connection.ToggleConnection())
+            else if (connection.ToggleConnection())
             {
-                MoneyManager.Instance.RemoveMoney(tendrilFee);
+                MoneyManager.Instance.AddMoney(tendrilFee);
                 SetCursor(addAxonCursor);
                 EventBus.PublishEvent(new AxonCutEvent());
             }

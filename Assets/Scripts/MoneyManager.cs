@@ -10,6 +10,8 @@ public class MoneyManager : MonoBehaviour {
     [SerializeField]
     int currentMoney;
 
+    public struct OnMoneyChangedEvent { }
+
     void Awake()
     {
         if (Instance == null)
@@ -38,12 +40,14 @@ public class MoneyManager : MonoBehaviour {
     {
         currentMoney += amount;
         SetText();
+        this.gameObject.PublishEvent(new OnMoneyChangedEvent());
     }
 
     public void RemoveMoney(int amount)
     {
         currentMoney -= amount;
         SetText();
+        this.gameObject.PublishEvent(new OnMoneyChangedEvent());
     }
 
     void SetText()

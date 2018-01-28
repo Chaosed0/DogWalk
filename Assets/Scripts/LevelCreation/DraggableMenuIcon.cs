@@ -18,6 +18,8 @@ public class DraggableMenuIcon : MonoBehaviour, IPointerDownHandler, IPointerUpH
     RectTransform levelCreationRectTransform;
     Image img;
 
+    bool canAffordThis = true;
+
     void Awake()
     {
         img = GetComponent<Image>();
@@ -26,8 +28,16 @@ public class DraggableMenuIcon : MonoBehaviour, IPointerDownHandler, IPointerUpH
         tooltip.alpha = 0.0f;
     }
 
+    void Start()
+    {
+        MoneyManager.Instance.gameObject.Subscribe<MoneyManager.OnMoneyChangedEvent>(OnMoneyChanged);
+    }
+
     public void OnDrag (PointerEventData eventData)
     {
+        if (!canAffordThis)
+            return;
+
         GetPointerPosition(eventData);
         imageIcon.transform.position = localPointerPosition;
     }
@@ -40,6 +50,9 @@ public class DraggableMenuIcon : MonoBehaviour, IPointerDownHandler, IPointerUpH
 
     public void OnPointerDown (PointerEventData eventData)
     {
+        if (!canAffordThis)
+            return;
+
         GetPointerPosition(eventData);
         imageIcon = (Instantiate(itemDraggablePrefab, localPointerPosition, Quaternion.identity,
             levelCreationCanvas.transform)).GetComponent<Image>();
@@ -49,15 +62,34 @@ public class DraggableMenuIcon : MonoBehaviour, IPointerDownHandler, IPointerUpH
         imageIcon.transform.position = localPointerPosition;
     }
 
+    void OnMoneyChanged(MoneyManager.OnMoneyChangedEvent e)
+    {
+        canAffordThis = MoneyManager.Instance.CanAfford(itemPrefab.GetComponent<PurchasableObject>().cost);
+        if (!canAffordThis)
+        {
+            img.color = Color.white * 0.3f;
+        }
+        else
+        {
+            img.color = Color.white;
+        }
+    }
+
     public void OnPointerEnter (PointerEventData eventData)
     {
-        img.color = Color.white * 0.7f;
+        if (canAffordThis)
+        {
+            img.color = Color.white * 0.7f;
+        }
         tooltip.alpha = 1.0f;
     }
 
     public void OnPointerExit (PointerEventData eventData)
     {
-        img.color = Color.white;
+        if (canAffordThis)
+        {
+            img.color = Color.white;
+        }
         tooltip.alpha = 0.0f;
     }
 
