@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -223,7 +224,8 @@ public class PathGraph : MonoBehaviour
 
     public List<PathEdge> GetAvailablePathsForNode(PathNeuronNode node)
     {
-        return nodeToEdge[node];
+        List<PathEdge> availablePaths = nodeToEdge[node];
+        return availablePaths.Where((edge) => edge.tendril.isTraversable).ToList();
     }
 
     void OnDrawGizmos()

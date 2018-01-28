@@ -36,54 +36,39 @@ public class Player: MonoBehaviour
         int newIndex = 0;
         if (pathIndex < 0)
         {
-            pathIndex = SelectPreviousPathAccordingToFacing(clockwise);
+            newIndex = 0;
         }
-
-        for (int i = 1; i < availablePaths.Count; i++)
+        else if (clockwise)
         {
-            if (clockwise)
-            {
-                newIndex = (pathIndex+i)%availablePaths.Count;
-            }
-            else
-            {
-                newIndex = (pathIndex-i + availablePaths.Count)%availablePaths.Count;
-            }
-
-            if (availablePaths[newIndex].tendril.isTraversable)
-            {
-                break;
-            }
+            newIndex = (pathIndex+1)%availablePaths.Count;
+        }
+        else
+        {
+            newIndex = (pathIndex-1 + availablePaths.Count)%availablePaths.Count;
         }
 
         DeselectCurrentPath();
+        this.pathIndex = -1;
         SetCurrentPathIndex(newIndex);
     }
 
-    public int SelectPreviousPathAccordingToFacing(bool clockwise)
+    public int GetPathClosestToFacing()
     {
-        float angle = PathGraph.GetClockwiseAngle(transform.forward.z, transform.forward.x);
-        int firstLesserPath = 0;
+        int closestAngleIndex = 0;
+        float closestAngle = float.MaxValue;
         for (int i = 0; i < availablePaths.Count; i++)
         {
             Vector3 next = pathGraph.GetOtherNode(currentNode, availablePaths[i]).transform.position;
             Vector3 rel = next - currentNode.transform.position;
-            float nodeAngle = PathGraph.GetClockwiseAngle(rel.z, rel.x);
-            if (nodeAngle < angle)
+            float nodeAngle = Vector3.Angle(rel, transform.forward);
+            if (nodeAngle < closestAngle)
             {
-                firstLesserPath = i;
-                break;
+                closestAngleIndex = i;
+                closestAngle = nodeAngle;
             }
         }
 
-        if (clockwise)
-        {
-            return (firstLesserPath-1 + availablePaths.Count)%availablePaths.Count;
-        }
-        else
-        {
-            return firstLesserPath;
-        }
+        return closestAngleIndex;
     }
 
     public bool CanTraversePath()
@@ -109,7 +94,8 @@ public class Player: MonoBehaviour
     public void OnStoppedMoving()
     {
         SetCurrentNode(nextNode);
-        pathIndex = -1;
+        this.pathIndex = -1;
+        SetCurrentPathIndex(GetPathClosestToFacing());
     }
 
     void SetCurrentNode(PathNeuronNode node)
