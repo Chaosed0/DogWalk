@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour {
         int winner = GetPlayerWhoWon();
         if (winner < 0)
         {
-            EventBus.PublishEvent(new WinrarEvent(winner));
+            EventBus.PublishEvent(new LevelCreationStartEvent());
         }
         else
         {
@@ -135,8 +135,8 @@ public class GameManager : MonoBehaviour {
     public void HandleWinrarEvent(WinrarEvent e)
     {
         List<Doge> dogs = GetComponent<DogSequenceController>().dogs;
-        Doge winningDog = dogs[1];
-        Doge losingDog = 1 == 1 ? dogs[0] : dogs[1];
+        Doge winningDog = dogs[e.player];
+        Doge losingDog = e.player == 1 ? dogs[0] : dogs[1];
 
         winningDog.dog.GetComponent<Animator>().SetTrigger("Win");
         losingDog.dog.GetComponent<Animator>().SetTrigger("Lose");
