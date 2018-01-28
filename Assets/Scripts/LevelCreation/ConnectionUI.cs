@@ -12,8 +12,7 @@ public class ConnectionUI : MonoBehaviour
 {
     Image img;
     public static int tendrilFee = 10;
-    public Connection connection; // TODO: enable/disable connections based on click actions
-    // public bool activeConnection = false;
+    public Connection connection;
     public bool fadeStarted = false;
     public PathTendril tendril;
     public PathGraph graph;
@@ -25,6 +24,9 @@ public class ConnectionUI : MonoBehaviour
 
     Color hoverColor = new Color(1, .42f, .88f);
     Vector2 cursorSize;
+
+    public struct AxonAddEvent { }
+    public struct AxonCutEvent { }
 
     void Awake()
     {
@@ -100,19 +102,18 @@ public class ConnectionUI : MonoBehaviour
     {
         if (!fadeStarted)
         {
-            // if (activeConnection)
             if (!tendril.isTraversable)
             {
                 MoneyManager.Instance.AddMoney(tendrilFee);
                 SetCursor(removeAxonCursor);
-                // activeConnection = true;
                 connection.ToggleConnection();
+                EventBus.PublishEvent(new AxonAddEvent());
             }
             else if (MoneyManager.Instance.CanAfford(tendrilFee) && connection.ToggleConnection())
             {
                 MoneyManager.Instance.RemoveMoney(tendrilFee);
-                // activeConnection = false;
                 SetCursor(addAxonCursor);
+                EventBus.PublishEvent(new AxonCutEvent());
             }
 
             ConfigureImage();
