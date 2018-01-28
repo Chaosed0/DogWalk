@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PathNeuronNode : MonoBehaviour {
     Canvas levelCreationCanvas;
-    Image nodeImage;
+    public Image nodeImage;
 
     void OnDrawGizmos()
     {

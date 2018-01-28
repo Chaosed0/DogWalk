@@ -8,7 +8,7 @@ public class NodeUI : MonoBehaviour
     public float movementAmount;
     public float secondsPerCycle;
 
-    Vector2 initialPos;
+    Vector3 initialPos;
     float roundStart;
     float randomDirX;
     float randomDirY;
@@ -34,6 +34,11 @@ public class NodeUI : MonoBehaviour
 
     public void UpdateInitialPos (float newX)
     {
-        initialPos = new Vector2(newX, initialPos.y);
+        initialPos = new Vector3(newX, initialPos.y);
+    }
+
+    public Vector3 GetOffset()
+    {
+        return transform.position - initialPos;
     }
 }

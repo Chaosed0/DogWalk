@@ -10,10 +10,13 @@ public class Hover : MonoBehaviour {
     public float amplitude;
     public float rate;
 
+    Vector3 originalPos;
+
     private void Start()
     {
         defaultY = transform.position.y;
         offset = Random.Range(0f, Mathf.PI);
+        originalPos = transform.position;
     }
     
     void Update () {
