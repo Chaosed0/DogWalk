@@ -586,7 +586,7 @@ Prefab:
     - target: {fileID: 224624521511726108, guid: 88a76e3941349604b91d1573d284ce69,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 224375360615672290, guid: 88a76e3941349604b91d1573d284ce69,
         type: 2}
@@ -746,7 +746,7 @@ Prefab:
     - target: {fileID: 224957280902629782, guid: e214f97c614d64a4688690860aa143f1,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -22.5
       objectReference: {fileID: 0}
     - target: {fileID: 224131043181283838, guid: e214f97c614d64a4688690860aa143f1,
         type: 2}
@@ -766,7 +766,7 @@ Prefab:
     - target: {fileID: 224131043181283838, guid: e214f97c614d64a4688690860aa143f1,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -214.5
       objectReference: {fileID: 0}
     - target: {fileID: 224538295737180500, guid: e214f97c614d64a4688690860aa143f1,
         type: 2}
@@ -826,7 +826,7 @@ Prefab:
     - target: {fileID: 224302418295670664, guid: e214f97c614d64a4688690860aa143f1,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -70.5
       objectReference: {fileID: 0}
     - target: {fileID: 224643853309346208, guid: e214f97c614d64a4688690860aa143f1,
         type: 2}
@@ -846,7 +846,7 @@ Prefab:
     - target: {fileID: 224643853309346208, guid: e214f97c614d64a4688690860aa143f1,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -118.5
       objectReference: {fileID: 0}
     - target: {fileID: 224676857463377950, guid: e214f97c614d64a4688690860aa143f1,
         type: 2}
@@ -866,7 +866,7 @@ Prefab:
     - target: {fileID: 224676857463377950, guid: e214f97c614d64a4688690860aa143f1,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -166.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e214f97c614d64a4688690860aa143f1, type: 2}
@@ -1121,6 +1121,7 @@ MonoBehaviour:
   burstMoveSpeed: 20
   burstChargeMin: 0.93
   burstChargeMax: 1
+  hypedSpeedFactor: 2
   trapLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -1135,7 +1136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1aa99be1dadb24490dc0ae9f1f2237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chargeTime: 1
+  normalChargeTime: 1
+  hypedChargeTime: 0.3
 --- !u!114 &819393979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1148,6 +1150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathGraph: {fileID: 1615935258}
+  hypedTime: 10
 --- !u!114 &819393980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1162,7 +1165,9 @@ MonoBehaviour:
   minScale: 1
   maxScale: 2
   player: {fileID: 1981206100}
-  particleSystem: {fileID: 0}
+  shocks: {fileID: 0}
+  charge: {fileID: 0}
+  hypedColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &819393982
 Transform:
   m_ObjectHideFlags: 0
@@ -4023,6 +4028,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4036,6 +4042,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4049,6 +4056,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4062,6 +4070,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4075,6 +4084,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4088,6 +4098,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4101,6 +4112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4114,6 +4126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4127,6 +4140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4140,6 +4154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4153,6 +4168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4166,6 +4182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4179,6 +4196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4192,6 +4210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4205,6 +4224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4218,6 +4238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4231,6 +4252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4244,6 +4266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4257,6 +4280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4270,6 +4294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4283,6 +4308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4296,6 +4322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4309,6 +4336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4322,6 +4350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4335,6 +4364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4348,6 +4378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4361,6 +4392,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4374,6 +4406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   node1: {fileID: 0}
   node2: {fileID: 0}
+  tendrilImage: {fileID: 0}
 --- !u!114 &1088678059
 MonoBehaviour:
   m_ObjectHideFlags: 0

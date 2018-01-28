@@ -51,7 +51,7 @@ public class DraggableIcon : MonoBehaviour {
             if (currentConnectionUI && currentConnectionUI.tendril.isTraversable)
             {
                 Vector3 trapPosition = currentConnectionUI.GetTrapPosition();
-                Instantiate(itemPrefab, trapPosition, Quaternion.identity);
+                Instantiate(itemPrefab, trapPosition, GetItemQuaternion());
                 MoneyManager.Instance.RemoveMoney(itemPrefab.GetComponent<PurchasableObject>().cost);
                 isMarker = true;
                 StartCoroutine(ShrinkIcon());
@@ -79,5 +79,12 @@ public class DraggableIcon : MonoBehaviour {
     {
         img = GetComponent<Image>();
         originalColor = img.color;
+    }
+
+    Quaternion GetItemQuaternion()
+    {
+        Vector3 node1Pos = currentConnectionUI.connection.node1.transform.position;
+        Vector3 node2Pos = currentConnectionUI.connection.node2.transform.position;
+        return Quaternion.LookRotation(node1Pos - node2Pos);
     }
 }
