@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+    public static GameManager Instance;
+
     // The player who currently has control.
     public int currentPlayer;
 
@@ -16,6 +18,18 @@ public class GameManager : MonoBehaviour {
 
     public int currentLevel = 0;
     public List<GameObject> levels;
+
+    private void Awake ()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(Instance);
+        }
+    }
 
     private void Start()
     {
@@ -39,7 +53,7 @@ public class GameManager : MonoBehaviour {
     }
 
     [SubscribeGlobal]
-    public void HandleLevelCreationStart(LevelCreationStartEvent e)
+    public void HandleDogSequenceEnd (LevelCreationStartEvent e)
     {
         if (currentPlayer == 1)
         {
@@ -47,14 +61,14 @@ public class GameManager : MonoBehaviour {
             {
                 Destroy(levels[currentLevel]);
                 currentLevel++;
-                //levels[currentLevel].SetActive(true);
+                levels[currentLevel].SetActive(true);
             }
             else
             {
                 Debug.Log("game is over yo");
             }
-
         }
+
         InitializeStartingPath();
     }
 
@@ -76,6 +90,8 @@ public class GameManager : MonoBehaviour {
                 edge.tendril.SetTraversable(false);
             }
         }
+
+        EventBus.PublishEvent(new GraphConfiguredEvent(graph));
     }
 
     [SubscribeGlobal]

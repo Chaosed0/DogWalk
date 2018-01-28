@@ -26,7 +26,10 @@ public class PathNeuronNode : MonoBehaviour {
 
     void Start()
     {
-        InitializeUINode();
+        if (GameManager.Instance.currentLevel == 0)
+        {
+            InitializeUINode();
+        }
     }
 
     [SubscribeGlobal]

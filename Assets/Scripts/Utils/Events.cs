@@ -59,3 +59,13 @@ public struct ToggleTendrilEvent
         this.tendril = tendril;
     }
 }
+
+public struct GraphConfiguredEvent
+{
+    public PathGraph graph;
+
+    public GraphConfiguredEvent(PathGraph graph)
+    {
+        this.graph = graph;
+    }
+}

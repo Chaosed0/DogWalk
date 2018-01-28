@@ -35,6 +35,12 @@ public class Player: MonoBehaviour
         playerMovement.SetPosition(pathGraph.startNode.transform.position);
     }
 
+    [SubscribeGlobal]
+    public void HandleGraphConfiguredEvent (GraphConfiguredEvent e)
+    {
+        pathGraph = e.graph;
+    }
+
     public void SelectNextPath(bool clockwise)
     {
         int newIndex = 0;

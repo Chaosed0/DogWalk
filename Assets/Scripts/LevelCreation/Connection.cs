@@ -82,6 +82,12 @@ public class Connection : MonoBehaviour {
 
         InitNodes();
 
+        if (nodeUI1 == null)
+        {
+            //Debug.Log("null node, mang.");
+            return;
+        }
+
         Vector3 pos1 = Camera.main.WorldToViewportPoint(node1.transform.position + nodeUI1.GetOffset() * .1f);
         Vector3 pos2 = Camera.main.WorldToViewportPoint(node2.transform.position + nodeUI2.GetOffset() * .1f);
 
@@ -140,6 +146,9 @@ public class Connection : MonoBehaviour {
 
     private void OnDestroy ()
     {
-        Destroy(tendrilImage.gameObject);
+        if (tendrilImage)
+        {
+            Destroy(tendrilImage.gameObject);
+        }
     }
 }
