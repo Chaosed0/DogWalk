@@ -8,3 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TitleScreen.unity
     guid: 8b8e0ebfea56a834f8399a4ae71b94db
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: cc4fa1cd60ba3a341b0eddc0bb8c2ae8
+  - enabled: 1
+    path: Assets/Scenes/EdsAndrewScene.unity
+    guid: 187f77d8dbb1ac04c9b0e1cbcb9b0ce2
