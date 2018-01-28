@@ -42,7 +42,6 @@ public class PathTendril : MonoBehaviour {
             EnablePath();
         }
         // Debug.Log("isTraversable: " + isTraversable);
-        EventBus.PublishEvent(new ToggleTendrilEvent(this));
     }
 
     public void EnablePath()
@@ -61,7 +60,20 @@ public class PathTendril : MonoBehaviour {
     {
         // Debug.Log("SetTraversable( " + canTraverse + " )");
         isTraversable = canTraverse;
-        this.gameObject.SetActive(canTraverse);
+        // this.gameObject.SetActive(canTraverse);
+        EventBus.PublishEvent(new ToggleTendrilEvent(this));
+    }
+
+    [SubscribeGlobal]
+    public void HandleRoundStart(RoundStartEvent e)
+    {
+        gameObject.SetActive(isTraversable);
+    }
+
+    [SubscribeGlobal]
+    public void HandleRoundEnd(RoundEndEvent e)
+    {
+        gameObject.SetActive(true);
     }
 
     public void SetSelected(bool selected)

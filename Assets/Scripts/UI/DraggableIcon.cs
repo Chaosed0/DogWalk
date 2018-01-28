@@ -41,7 +41,8 @@ public class DraggableIcon : MonoBehaviour {
     {
         if (Input.GetMouseButtonUp(0) && !isMarker)
         {
-            if (currentConnectionUI && currentConnectionUI.activeConnection)
+            // if (currentConnectionUI && currentConnectionUI.activeConnection)
+            if (currentConnectionUI && currentConnectionUI.tendril.isTraversable)
             {
                 Vector3 trapPosition = currentConnectionUI.GetTrapPosition();
                 Instantiate(itemPrefab, trapPosition, Quaternion.identity);

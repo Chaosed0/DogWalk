@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class Player: MonoBehaviour
 {
-    public PathNeuronNode startNode;
     public PathGraph pathGraph;
 
     PlayerMovement playerMovement;
@@ -24,9 +23,9 @@ public class Player: MonoBehaviour
 
     void Start()
     {
-        SetCurrentNode(startNode);
+        SetCurrentNode(pathGraph.startNode);
         SetCurrentPathIndex(0);
-        playerMovement.SetPosition(startNode.transform.position);
+        playerMovement.SetPosition(pathGraph.startNode.transform.position);
         playerMovement.gameObject.Subscribe<PlayerMovement.StoppedMovingEvent>((x) => OnStoppedMoving());
         playerMovement.gameObject.Subscribe<PlayerMovement.ReversedMovementEvent>((x) => OnReversedMovement());
     }

@@ -77,6 +77,9 @@ public class PathEdge
 
 public class PathGraph : MonoBehaviour
 {
+    public PathNeuronNode startNode;
+    public PathNeuronNode finishNode;
+
     public List<PathEdge> edges = new List<PathEdge>();
 
     public Dictionary<PathNeuronNode, List<PathEdge>> nodeToEdge = new Dictionary<PathNeuronNode, List<PathEdge>>();
@@ -116,15 +119,17 @@ public class PathGraph : MonoBehaviour
         return ang2.CompareTo(ang1);
     }
 
-    [SubscribeGlobal]
-    public void HandleRoundStart(RoundStartEvent e)
+    public struct RandomPath
     {
-        List<PathEdge> randomPath = GetRandomPath((int)(nodeToEdge.Keys.Count / 4f));
-        // TODO: foreach edge on randomPath, toggle path to active
+        public PathNeuronNode startNode;
+        public PathNeuronNode finishNode;
+        public List<PathEdge> pathEdges;
     }
 
-    public List<PathEdge> GetRandomPath(int targetPathLength)
+    public RandomPath GetRandomPath(int targetPathLength)
     {
+        RandomPath randomPath = new RandomPath();
+
         List<PathEdge> pathEdges = new List<PathEdge>();
 
         List<PathNeuronNode> allNodes = new List<PathNeuronNode>(nodeToEdge.Keys);
@@ -162,23 +167,31 @@ public class PathGraph : MonoBehaviour
             currentNode = GetOtherNode(currentNode, nextEdge);
         }
 
-        return pathEdges;
+        randomPath.startNode = startNode;
+        randomPath.finishNode = currentNode;
+        randomPath.pathEdges = pathEdges;
+
+        return randomPath;
     }
 
     public bool CanReachFinishIf(PathTendril tendril, bool tentativeState)
     {
         PathEdge edgeException = tentativeState ? null : tendrilToEdge[tendril];
-        bool canReachFinish = DoesPathExist(gameManager.startNode, gameManager.finishNode, edgeException, tentativeState);
+        if (startNode == null || finishNode == null)
+        {
+            Debug.LogError("Set start and finish nodes");
+        }
+        bool canReachFinish = DoesPathExist(startNode, finishNode, edgeException, tentativeState);
         return canReachFinish;
     }
 
     public bool CanReachFinish()
     {
-        if (gameManager.startNode == null || gameManager.finishNode == null)
+        if (startNode == null || finishNode == null)
         {
-            Debug.LogError("Set start and finish in GameManager");
+            Debug.LogError("Set start and finish nodes");
         }
-        return DoesPathExist(gameManager.startNode, gameManager.finishNode);
+        return DoesPathExist(startNode, finishNode);
     }
 
     public bool DoesPathExist(PathNeuronNode startNode, PathNeuronNode endNode, PathEdge edgeException = null, bool exceptionState = true)

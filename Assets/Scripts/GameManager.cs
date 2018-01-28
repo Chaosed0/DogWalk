@@ -7,13 +7,17 @@ public class GameManager : MonoBehaviour {
     // The player who currently has control.
     public int currentPlayer;
 
-    public PathNeuronNode startNode;
-    public PathNeuronNode finishNode;
-
     public float playerOneScore;
     public float playerTwoScore;
 
     public Timer timer;
+
+    public int targetPathLength = 5;
+
+    private void Start()
+    {
+        InitializeStartingPath();
+    }
 
     public struct PlayerGainedScoreEvent {
         public int player;
@@ -29,6 +33,31 @@ public class GameManager : MonoBehaviour {
     public void HandleRoundStart(RoundStartEvent e)
     {
         TogglePlayerControl();
+    }
+
+    [SubscribeGlobal]
+    public void HandleLevelCreationStart(LevelCreationStartEvent e)
+    {
+        InitializeStartingPath();
+    }
+
+    public void InitializeStartingPath()
+    {
+        PathGraph graph = FindObjectOfType<PathGraph>();
+        PathGraph.RandomPath randomPath = graph.GetRandomPath(targetPathLength);
+        graph.startNode = randomPath.startNode;
+        graph.finishNode = randomPath.finishNode;
+        foreach (PathEdge edge in graph.edges)
+        {
+            if (randomPath.pathEdges.Contains(edge))
+            {
+                edge.tendril.SetTraversable(true);
+            }
+            else
+            {
+                edge.tendril.SetTraversable(false);
+            }
+        }
     }
 
     [SubscribeGlobal]
