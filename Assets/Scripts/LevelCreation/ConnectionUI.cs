@@ -15,7 +15,6 @@ public class ConnectionUI : MonoBehaviour
     public Connection connection;
     public bool fadeStarted = false;
     public PathTendril tendril;
-    public PathGraph graph;
     public Texture2D defaultCursor;
     public Texture2D addAxonCursor;
     public Texture2D removeAxonCursor;
@@ -32,7 +31,6 @@ public class ConnectionUI : MonoBehaviour
     void Awake()
     {
         img = transform.GetChild(0).GetComponent<Image>();
-        graph = GameObject.Find("Graph").GetComponent<PathGraph>();
 
         // inefficient as fuck but whatever
         defaultCursor = Resources.Load<Texture2D>("cursor_regular");
@@ -124,6 +122,7 @@ public class ConnectionUI : MonoBehaviour
     public Vector3 GetTrapPosition()
     {
         float t = connection.GetInterpolationAmount();
+        PathGraph graph = FindObjectOfType<PathGraph>();
         PathEdge edge = graph.tendrilToEdge[tendril];
         PathNeuronNode start = connection.node1.GetComponent<PathNeuronNode>();
 
