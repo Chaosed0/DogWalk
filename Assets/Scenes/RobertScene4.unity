@@ -586,7 +586,7 @@ Prefab:
     - target: {fileID: 224624521511726108, guid: 88a76e3941349604b91d1573d284ce69,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 24
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224375360615672290, guid: 88a76e3941349604b91d1573d284ce69,
         type: 2}
@@ -746,7 +746,7 @@ Prefab:
     - target: {fileID: 224957280902629782, guid: e214f97c614d64a4688690860aa143f1,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -22.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224131043181283838, guid: e214f97c614d64a4688690860aa143f1,
         type: 2}
@@ -766,7 +766,7 @@ Prefab:
     - target: {fileID: 224131043181283838, guid: e214f97c614d64a4688690860aa143f1,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -214.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224538295737180500, guid: e214f97c614d64a4688690860aa143f1,
         type: 2}
@@ -826,7 +826,7 @@ Prefab:
     - target: {fileID: 224302418295670664, guid: e214f97c614d64a4688690860aa143f1,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -70.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224643853309346208, guid: e214f97c614d64a4688690860aa143f1,
         type: 2}
@@ -846,7 +846,7 @@ Prefab:
     - target: {fileID: 224643853309346208, guid: e214f97c614d64a4688690860aa143f1,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -118.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224676857463377950, guid: e214f97c614d64a4688690860aa143f1,
         type: 2}
@@ -866,7 +866,7 @@ Prefab:
     - target: {fileID: 224676857463377950, guid: e214f97c614d64a4688690860aa143f1,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -166.5
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e214f97c614d64a4688690860aa143f1, type: 2}
@@ -1138,6 +1138,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalChargeTime: 1
   hypedChargeTime: 0.3
+  confusedAutoPickTime: 1
+  confusedAndHypedAutoPickTime: 0.5
 --- !u!114 &819393979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1151,6 +1153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathGraph: {fileID: 1615935258}
   hypedTime: 10
+  confusedTime: 10
 --- !u!114 &819393980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1167,6 +1170,7 @@ MonoBehaviour:
   player: {fileID: 1981206100}
   shocks: {fileID: 0}
   charge: {fileID: 0}
+  confusion: {fileID: 0}
   hypedColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &819393982
 Transform:

@@ -138,7 +138,7 @@ public class PlayerMovement: MonoBehaviour
         if ((1 << other.gameObject.layer) == trapLayer.value)
         {
             Debug.Log("Hit Trap!");
-            Trap trap = other.GetComponent<Trap>();
+            Trap trap = other.GetComponentInParent<Trap>();
             trap.ApplyAffectsToPlayer(this.gameObject);
         }
     }
