@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour {
     public float playerOneScore;
     public float playerTwoScore;
 
+    public int playerOneMoolah;
+    public int playerTwoMoolah;
+
     public Timer timer;
 
     [SubscribeGlobal]

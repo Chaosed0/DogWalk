@@ -17,7 +17,7 @@ public class DraggableMenuIcon : MonoBehaviour, IPointerDownHandler, IPointerUpH
 
     void Awake()
     {
-        levelCreationCanvas = GameObject.Find("LevelCreationUI").GetComponent<Canvas>();
+        levelCreationCanvas = GameObject.Find("LevelToolUI").GetComponent<Canvas>();
         levelCreationRectTransform = levelCreationCanvas.GetComponent<RectTransform>();
     }
 
