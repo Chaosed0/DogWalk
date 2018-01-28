@@ -59,4 +59,14 @@ public class NodeUI : MonoBehaviour
     {
         finishImage.alpha = 1.0f;
     }
+
+    public void ClearStartNode()
+    {
+        startImage.alpha = 0f;
+    }
+
+    public void ClearFinishNode()
+    {
+        finishImage.alpha = 0f;
+    }
 }

@@ -60,6 +60,12 @@ public class PathTendril : MonoBehaviour {
     {
         // Debug.Log("SetTraversable( " + canTraverse + " )");
         isTraversable = canTraverse;
+
+        Connection con = GetComponent<Connection>();
+        if (con.tendrilImage != null)
+        {
+            con.tendrilImage.GetComponent<ConnectionUI>().ConfigureImage();
+        }
         // this.gameObject.SetActive(canTraverse);
         EventBus.PublishEvent(new ToggleTendrilEvent(this));
     }

@@ -11,7 +11,7 @@ public class Connection : MonoBehaviour {
     PathTendril tendril;
     PathGraph graph;
     Canvas levelCreationCanvas;
-    Image tendrilImage;
+    public Image tendrilImage;
     Vector3 pos1Canvas;
     Vector3 pos2Canvas;
     NodeUI nodeUI1;
