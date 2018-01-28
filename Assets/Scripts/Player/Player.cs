@@ -27,6 +27,8 @@ public class Player: MonoBehaviour
     public struct GetConfusedEvent { }
     public struct StopConfusedEvent { }
 
+    public struct SelectPathEvent { }
+
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
@@ -71,6 +73,8 @@ public class Player: MonoBehaviour
         DeselectCurrentPath();
         this.pathIndex = -1;
         SetCurrentPathIndex(newIndex);
+
+        this.gameObject.PublishEvent(new SelectPathEvent());
     }
 
     public int GetPathClosestToFacing()
