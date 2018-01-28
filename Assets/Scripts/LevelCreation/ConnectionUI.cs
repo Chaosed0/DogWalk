@@ -119,6 +119,10 @@ public class ConnectionUI : MonoBehaviour
                 SetCursor(addAxonCursor);
                 EventBus.PublishEvent(new AxonCutEvent());
             }
+            else
+            {
+                EventBus.PublishEvent(new ActionNotAllowedEvent());
+            }
 
             ConfigureImage();
         }
