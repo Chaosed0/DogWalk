@@ -385,6 +385,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4861735993950920}
+  - component: {fileID: 114769822908625638}
   m_Layer: 0
   m_Name: NeurotransmittersPrototype
   m_TagString: Untagged
@@ -2720,6 +2721,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   amplitude: 1
   rate: 3
+--- !u!114 &114769822908625638
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1632882348339948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d48892606d52d1346815dbfdd96be85f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 10
 --- !u!114 &114770023307361502
 MonoBehaviour:
   m_ObjectHideFlags: 1

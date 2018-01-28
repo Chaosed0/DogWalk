@@ -15,9 +15,11 @@ public class DraggableMenuIcon : MonoBehaviour, IPointerDownHandler, IPointerUpH
     Vector3 localPointerPosition;
     Canvas levelCreationCanvas;
     RectTransform levelCreationRectTransform;
+    Image img;
 
     void Awake()
     {
+        img = GetComponent<Image>();
         levelCreationCanvas = GameObject.Find("LevelToolUI").GetComponent<Canvas>();
         levelCreationRectTransform = levelCreationCanvas.GetComponent<RectTransform>();
     }
@@ -40,6 +42,8 @@ public class DraggableMenuIcon : MonoBehaviour, IPointerDownHandler, IPointerUpH
         imageIcon = (Instantiate(itemDraggablePrefab, localPointerPosition, Quaternion.identity,
             levelCreationCanvas.transform)).GetComponent<Image>();
         imageIcon.GetComponent<DraggableIcon>().itemPrefab = itemPrefab;
+        imageIcon.sprite = img.sprite;
+        imageIcon.preserveAspect = true;
         imageIcon.transform.position = localPointerPosition;
     }
 
