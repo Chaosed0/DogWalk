@@ -37,6 +37,8 @@ public class DogSequenceController : MonoBehaviour {
     IEnumerator MoveDog()
     {
         Doge dog = dogs[this.playerWhoGainedScore];
+        Animator anim = dog.dog.GetComponent<Animator>();
+
         float start;
         float end;
         if (this.playerWhoGainedScore == 0) {
@@ -49,6 +51,8 @@ public class DogSequenceController : MonoBehaviour {
 
         float timer = 0.0f;
 
+        anim.SetTrigger("Walk");
+
         while (timer <= time)
         {
             // TODO: Play animation
@@ -58,6 +62,8 @@ public class DogSequenceController : MonoBehaviour {
             timer += Time.deltaTime;
             yield return null;
         }
+
+        anim.SetTrigger("Walk");
 
         EventBus.PublishEvent(new EndDogSequenceEvent());
     }
