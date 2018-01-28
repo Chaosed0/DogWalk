@@ -527,7 +527,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf910aaf43bd3bf4e8057248c0d39322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 1687718357515968, guid: aba62bcc501d8324b9e96e608075f992, type: 2}
+  itemDraggablePrefab: {fileID: 1687718357515968, guid: aba62bcc501d8324b9e96e608075f992,
+    type: 2}
+  itemPrefab: {fileID: 1112021809371762, guid: ca56715358c00144ca21da357a4492bd, type: 2}
 --- !u!114 &114760188956657502
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -635,7 +637,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf910aaf43bd3bf4e8057248c0d39322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 1687718357515968, guid: aba62bcc501d8324b9e96e608075f992, type: 2}
+  itemDraggablePrefab: {fileID: 1687718357515968, guid: aba62bcc501d8324b9e96e608075f992,
+    type: 2}
+  itemPrefab: {fileID: 1112021809371762, guid: ca56715358c00144ca21da357a4492bd, type: 2}
 --- !u!114 &114887291693920788
 MonoBehaviour:
   m_ObjectHideFlags: 1
