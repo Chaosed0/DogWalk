@@ -7,14 +7,6 @@ public class DogSequenceController : MonoBehaviour {
 
     public float time = 3.0f;
 
-    [System.Serializable]
-    public class Doge
-    {
-        public GameObject dog;
-        public Transform pathStart;
-        public Transform pathEnd;
-    }
-
     public List<Doge> dogs;
 
     int playerWhoGainedScore;
@@ -63,8 +55,16 @@ public class DogSequenceController : MonoBehaviour {
             yield return null;
         }
 
-        anim.SetTrigger("Walk");
+        anim.SetTrigger("Stand");
 
         EventBus.PublishEvent(new EndDogSequenceEvent());
     }
+}
+
+[System.Serializable]
+public class Doge
+{
+    public GameObject dog;
+    public Transform pathStart;
+    public Transform pathEnd;
 }

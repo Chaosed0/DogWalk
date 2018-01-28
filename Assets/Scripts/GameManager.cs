@@ -134,6 +134,18 @@ public class GameManager : MonoBehaviour {
     [SubscribeGlobal]
     public void HandleWinrarEvent(WinrarEvent e)
     {
+        List<Doge> dogs = GetComponent<DogSequenceController>().dogs;
+        Doge winningDog = dogs[1];
+        Doge losingDog = 1 == 1 ? dogs[0] : dogs[1];
+
+        winningDog.dog.GetComponent<Animator>().SetTrigger("Win");
+        losingDog.dog.GetComponent<Animator>().SetTrigger("Lose");
+
+        Invoke("FadeToEnd", 5);
+    }
+
+    void FadeToEnd()
+    {
         StartCoroutine(FadeToLevel());
     }
 
