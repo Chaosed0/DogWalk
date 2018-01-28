@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System.Linq;
 
 [System.Serializable]
 public class PathEdge
@@ -115,6 +116,48 @@ public class PathGraph : MonoBehaviour
         return ang2.CompareTo(ang1);
     }
     
+    public List<PathEdge> GetRandomPath(int targetPathLength)
+    {
+        List<PathEdge> pathEdges = new List<PathEdge>();
+
+        List<PathNeuronNode> allNodes = new List<PathNeuronNode>(nodeToEdge.Keys);
+        PathNeuronNode startNode = allNodes[Random.Range(0, allNodes.Count)];
+ 
+        HashSet<PathNeuronNode> closedNodeSet = new HashSet<PathNeuronNode> { startNode };
+        Dictionary<PathNeuronNode, HashSet<PathEdge>> closedEdgeSet = new Dictionary<PathNeuronNode, HashSet<PathEdge>>();
+
+        PathNeuronNode currentNode = startNode;
+        while (pathEdges.Count < targetPathLength)
+        {
+            if (!closedEdgeSet.Keys.Contains(currentNode))
+            {
+                closedEdgeSet.Add(startNode, new HashSet<PathEdge>());
+            }
+            List<PathEdge> availableEdges = nodeToEdge[currentNode].Where(x => !closedEdgeSet[currentNode].Contains(x)
+                                                                            && !closedNodeSet.Contains(GetOtherNode(currentNode, x))).ToList();
+            // Back-track if we've reached a dead end
+            if (availableEdges.Count == 0)
+            {
+                if (currentNode == startNode)
+                {
+                    Debug.LogError("Random Path could not be found for start node: " + startNode.gameObject.name + " with target path length: " + targetPathLength.ToString());
+                }
+                PathEdge previousPath = pathEdges[pathEdges.Count - 1];
+                PathNeuronNode previousNode = GetOtherNode(currentNode, previousPath);
+                closedEdgeSet[previousNode].Add(previousPath);
+                pathEdges.Remove(previousPath);
+                currentNode = previousNode;
+                continue;
+            }
+
+            PathEdge nextEdge = availableEdges[Random.Range(0, availableEdges.Count)];
+            pathEdges.Add(nextEdge);
+            currentNode = GetOtherNode(currentNode, nextEdge);
+        }
+
+        return pathEdges;
+    }
+
     public bool CanReachFinishIf(PathTendril tendril, bool tentativeState)
     {
         tendril.SetTraversable(tentativeState);
@@ -135,8 +178,7 @@ public class PathGraph : MonoBehaviour
     public bool DoesPathExist(PathNeuronNode startNode, PathNeuronNode endNode)
     {
         bool pathExists = false;
-
-        HashSet<PathNeuronNode> openSet = new HashSet<PathNeuronNode> { startNode };
+        
         HashSet<PathNeuronNode> closedSet = new HashSet<PathNeuronNode> { startNode };
 
         Queue<PathNeuronNode> queue = new Queue<PathNeuronNode>();
