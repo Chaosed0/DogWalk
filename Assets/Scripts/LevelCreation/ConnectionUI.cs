@@ -155,6 +155,7 @@ public class ConnectionUI : MonoBehaviour
     public void HandleLevelCreationStartEvent(LevelCreationStartEvent e)
     {
         GetComponent<CanvasGroup>().interactable = true;
+        hasTrap = false;
     }
 
     /*
