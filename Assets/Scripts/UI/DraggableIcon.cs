@@ -18,9 +18,9 @@ public class DraggableIcon : MonoBehaviour {
     [SubscribeGlobal]
     public void HandleActiveSegmentHoveredEvent(ActiveSegmentHoveredEvent e)
     {
+        currentConnectionUI = e.connectionUI;
         if (!isMarker && CanPlaceAtConnection(e.connectionUI))
         {
-            currentConnectionUI = e.connectionUI;
             img.color = Color.yellow;
         }
     }
