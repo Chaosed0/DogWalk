@@ -776,6 +776,10 @@ MonoBehaviour:
   light: {fileID: 0}
   brainLightColor: {r: 1, g: 0.23529412, b: 0.98039216, a: 0}
   outdoorLightColor: {r: 1, g: 0.9882353, b: 0.9254902, a: 0}
+  neuronLerpRate: 4
+  neuronDimColor: {r: 0, g: 0, b: 0, a: 1}
+  neuronBrightColor: {r: 0.24313726, g: 0.20784314, b: 0.68235296, a: 0.654902}
+  neuronMat: {fileID: 2100000, guid: 638706d7a9ae52643b53e31bcc72dc07, type: 2}
 --- !u!114 &227500153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1116,7 +1120,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1490177077275168, guid: 70b758bc1fba18d4d87070748df41d67, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 70b758bc1fba18d4d87070748df41d67, type: 2}
@@ -108876,6 +108880,16 @@ Prefab:
       propertyPath: levels.Array.data[1]
       value: 
       objectReference: {fileID: 98057688}
+    - target: {fileID: 114595276965049174, guid: be96d9c1dea2efa4bae363542bb73421,
+        type: 2}
+      propertyPath: coreMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: e63b4f685a877ec47b3682f45817c5a7, type: 2}
+    - target: {fileID: 114595276965049174, guid: be96d9c1dea2efa4bae363542bb73421,
+        type: 2}
+      propertyPath: finishLineCoreMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: e91249715b98dfd44846f10c314ea34d, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: be96d9c1dea2efa4bae363542bb73421, type: 2}
   m_IsPrefabParent: 0

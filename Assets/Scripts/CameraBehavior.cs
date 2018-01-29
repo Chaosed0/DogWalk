@@ -19,6 +19,12 @@ public class CameraBehavior : MonoBehaviour {
     public Color brainLightColor;
     public Color outdoorLightColor;
 
+    public float neuronLerpRate = 4f;
+    public Color neuronDimColor;
+    public Color neuronBrightColor;
+
+    public Material neuronMat;
+
     PlayerCameraBehavior playerCameraBehavior;
 
     int runningCoroutines = 0;
@@ -41,6 +47,7 @@ public class CameraBehavior : MonoBehaviour {
         StartCoroutine(LerpToPos(levelCreationTransform.position, raceStartMovementSpeed));
         StartCoroutine(LerpToRot(levelCreationTransform.rotation, raceStartRotationSpeed));
         StartCoroutine(LerpSky(false));
+        StartCoroutine(LerpNeuronColor(true, neuronLerpRate));
 
         OnCoroutinesStopped = () => { EventBus.PublishEvent(new LevelCreationActuallyStartEvent()); };
     }
@@ -49,6 +56,7 @@ public class CameraBehavior : MonoBehaviour {
     {
         StartCoroutine(LerpToPos(playerCameraBehavior.GetTargetPosition(), raceStartMovementSpeed));
         StartCoroutine(LerpToRot(playerCameraBehavior.GetTargetRotation(), raceStartRotationSpeed));
+        StartCoroutine(LerpNeuronColor(false, neuronLerpRate));
 
         OnCoroutinesStopped = () => { EventBus.PublishEvent(new RoundActuallyStartEvent()); };
     }
@@ -70,6 +78,24 @@ public class CameraBehavior : MonoBehaviour {
         {
             t += Mathf.Clamp01(Time.deltaTime * speed);
             transform.position = Vector3.Lerp(startPos, targetPos, t);
+
+            yield return null;
+        }
+
+        CoroutineStopped();
+    }
+
+    IEnumerator LerpNeuronColor (bool dim, float speed)
+    {
+        ++runningCoroutines;
+        float t = 0;
+        Color startCol = dim ? neuronBrightColor : neuronDimColor;
+        Color endCol = dim ? neuronDimColor : neuronBrightColor;
+
+        while (t < 1)
+        {
+            t += Mathf.Clamp01(Time.deltaTime * speed);
+            neuronMat.SetColor("_Color", Color.Lerp(startCol, endCol, t));
 
             yield return null;
         }
