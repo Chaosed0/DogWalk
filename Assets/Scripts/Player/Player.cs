@@ -49,6 +49,22 @@ public class Player: MonoBehaviour
     }
 
     [SubscribeGlobal]
+    public void HandleRoundEnd(RoundEndEvent e)
+    {
+        if (hypedCoroutine != null)
+        {
+            StopCoroutine(hypedCoroutine);
+            this.gameObject.PublishEvent(new StopHypedEvent());
+        }
+
+        if (confusedCoroutine != null)
+        {
+            StopCoroutine(confusedCoroutine);
+            this.gameObject.PublishEvent(new StopConfusedEvent());
+        }
+    }
+
+    [SubscribeGlobal]
     public void HandleGraphConfiguredEvent (GraphConfiguredEvent e)
     {
         pathGraph = e.graph;
