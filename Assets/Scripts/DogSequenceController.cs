@@ -56,6 +56,11 @@ public class DogSequenceController : MonoBehaviour {
         }
 
         anim.SetTrigger("Stand");
+        Invoke("EndDogSequence", 1.5f);
+    }
+
+    void EndDogSequence()
+    {
 
         EventBus.PublishEvent(new EndDogSequenceEvent());
     }
