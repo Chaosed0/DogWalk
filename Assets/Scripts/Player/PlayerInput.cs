@@ -29,20 +29,24 @@ public class PlayerInput : MonoBehaviour
     public class StoppedChargingEvent { }
     public class ChargeRecycledEvent { }
 
+    bool doUpdate = false;
+
     void Awake()
     {
         autoPickTime = confusedAutoPickTime;
         player = GetComponent<Player>();
         playerMovement = GetComponent<PlayerMovement>();
-        this.enabled = false;
         chargeTime = normalChargeTime;
 
-        EventBus.Subscribe<RoundActuallyStartEvent>((x) => this.enabled = true);
-        EventBus.Subscribe<RoundEndEvent>((x) => this.enabled = false);
+        EventBus.Subscribe<RoundActuallyStartEvent>((x) => doUpdate = true);
+        EventBus.Subscribe<RoundEndEvent>((x) => doUpdate = false);
     }
 
     void Update()
     {
+        if (!doUpdate)
+            return;
+
         if (player.CanTraversePath())
         {
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
