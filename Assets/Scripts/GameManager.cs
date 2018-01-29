@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour {
     public float playerOneScore;
     public float playerTwoScore;
 
+    public Material coreMaterial;
+    public Material finishLineCoreMaterial;
+
     public Timer timer;
 
     public int targetPathLength = 6;
@@ -80,9 +83,13 @@ public class GameManager : MonoBehaviour {
         int seed = (int)(System.DateTime.Now - new System.DateTime(2017, 1, 1)).TotalSeconds;
         //int seed = 33923864;
         Random.InitState(seed);
-        Debug.Log(seed);
+        //Debug.Log(seed);
 
         PathGraph graph = FindObjectOfType<PathGraph>();
+        if (graph.finishNode)
+        {
+            SetCoreMat(graph.finishNode.gameObject, coreMaterial);
+        }
         PathGraph.RandomPath randomPath = graph.GetRandomPath(targetPathLength);
         graph.startNode = randomPath.startNode;
         graph.finishNode = randomPath.finishNode;
@@ -99,8 +106,18 @@ public class GameManager : MonoBehaviour {
             edge.tendril.SetTraversable(true);
         }
 
+        SetCoreMat(graph.finishNode.gameObject, finishLineCoreMaterial);
 
         EventBus.PublishEvent(new GraphConfiguredEvent(graph));
+    }
+
+    void SetCoreMat(GameObject obj, Material mat)
+    {
+        MeshRenderer rendera = obj.GetComponent<MeshRenderer>();
+        Material[] mats = rendera.materials;
+        mats[1] = mat;
+        rendera.materials = mats;
+
     }
 
     [SubscribeGlobal]
