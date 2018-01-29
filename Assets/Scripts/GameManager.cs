@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour {
     [SubscribeGlobal]
     public void HandleRoundStart(RoundStartEvent e)
     {
+        Cursor.visible = false;
         TogglePlayerControl();
     }
 
@@ -120,6 +121,7 @@ public class GameManager : MonoBehaviour {
     [SubscribeGlobal]
     public void HandleDogSequenceEnd(EndDogSequenceEvent e)
     {
+        Cursor.visible = true;
         int winner = GetPlayerWhoWon();
         if (winner < 0)
         {

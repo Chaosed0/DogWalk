@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88f9eecd92dd6f1408c0de15b4adf11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minMoveSpeed: 3
+  minMoveSpeed: 5
   maxMoveSpeed: 10
   burstMoveSpeed: 20
   burstChargeMin: 0.93
@@ -308,6 +308,7 @@ MonoBehaviour:
   trapLayer:
     serializedVersion: 2
     m_Bits: 256
+  isOnSlowPath: 0
 --- !u!114 &114537674342880240
 MonoBehaviour:
   m_ObjectHideFlags: 1
