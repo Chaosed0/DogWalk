@@ -34,6 +34,8 @@ public class MoneyManager : MonoBehaviour {
     public void InitPurchasingStage(int startingMoney)
     {
         currentMoney = startingMoney;
+        SetText();
+        this.gameObject.PublishEvent(new OnMoneyChangedEvent());
     }
 
     public void AddMoney(int amount)
