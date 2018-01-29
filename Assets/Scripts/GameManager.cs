@@ -113,12 +113,18 @@ public class GameManager : MonoBehaviour {
         EventBus.PublishEvent(new GraphConfiguredEvent(graph));
     }
 
-    void SetCoreMat(GameObject obj, Material mat)
+    public void SetCoreMat(GameObject obj, Material mat)
     {
         MeshRenderer rendera = obj.GetComponent<MeshRenderer>();
-        Material[] mats = rendera.materials;
-        mats[1] = mat;
-        rendera.materials = mats;
+        if (rendera)
+        {
+            Material[] mats = rendera.materials;
+            if (mats.Length >= 2)
+            {
+                mats[1] = mat;
+                rendera.materials = mats;
+            }
+        }
 
     }
 

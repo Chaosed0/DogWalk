@@ -35,6 +35,12 @@ public class PathNeuronNode : MonoBehaviour {
     [SubscribeGlobal]
     public void HandleLevelCreationStart (LevelCreationActuallyStartEvent e)
     {
+        PathGraph graph = FindObjectOfType<PathGraph>();
+        if (graph.finishNode != this)
+        {
+            GameManager.Instance.SetCoreMat(gameObject, GameManager.Instance.coreMaterial);
+        }
+
         StartCoroutine(Util.DeferForOneFrame(InitializeUINode));
     }
 
