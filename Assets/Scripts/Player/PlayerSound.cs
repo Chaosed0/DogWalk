@@ -34,6 +34,25 @@ public class PlayerSound : MonoBehaviour {
         this.gameObject.Subscribe<PlayerMovement.ChargeBonusEvent>((x) => OnChargeBonus());
     }
 
+    [SubscribeGlobal]
+    public void HandleDogSequenceStart(StartDogSequenceEvent e)
+    {
+        if (chargeUpSource != null && chargeUpSource.clip != null)
+        {
+            chargeUpSource.Stop();
+        }
+
+        if (adrenalineSource != null && adrenalineSource.clip != null)
+        {
+            adrenalineSource.Stop();
+        }
+
+        if (chargeBonusSource != null && chargeBonusSource.clip != null)
+        {
+            chargeBonusSource.Stop();
+        }
+    }
+
     // Axon Riding & Axon Degraded Sounds
     void OnStartedMoving()
     {
