@@ -55,8 +55,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyText: {fileID: 0}
-  defaultStartingMoney: 75
-  currentMoney: 75
+  firstRoundStartMoney: 75
+  secondRoundStartMoney: 125
 --- !u!114 &114595276965049174
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -71,6 +71,9 @@ MonoBehaviour:
   currentPlayer: 1
   playerOneScore: 0
   playerTwoScore: 0
+  coreMaterial: {fileID: 2100000, guid: e63b4f685a877ec47b3682f45817c5a7, type: 2}
+  finishLineCoreMaterial: {fileID: 2100000, guid: e91249715b98dfd44846f10c314ea34d,
+    type: 2}
   timer: {fileID: 0}
   targetPathLength: 6
   currentLevel: 0

@@ -6,11 +6,13 @@ public class MoneyManager : MonoBehaviour {
     public static MoneyManager Instance;
 
     public Text moneyText;
-    public int defaultStartingMoney;
-    [SerializeField]
-    int currentMoney;
+    public int firstRoundStartMoney;
+    public int secondRoundStartMoney;
 
     public struct OnMoneyChangedEvent { }
+
+    int stage;
+    int currentMoney;
 
     void Awake()
     {
@@ -23,19 +25,33 @@ public class MoneyManager : MonoBehaviour {
             Destroy(Instance);
         }
         SetText();
+
+        currentMoney = firstRoundStartMoney;
+        ++stage;
     }
 
     [SubscribeGlobal]
     public void HandleLevelCreationStart(LevelCreationStartEvent e)
     {
-        InitPurchasingStage(defaultStartingMoney);
+        InitPurchasingStage();
     }
 
-    public void InitPurchasingStage(int startingMoney)
+    public void InitPurchasingStage()
     {
+        int startingMoney;
+        if (stage <= 1)
+        {
+            startingMoney = firstRoundStartMoney;
+        }
+        else
+        {
+            startingMoney = secondRoundStartMoney;
+        }
+
         currentMoney = startingMoney;
         SetText();
         this.gameObject.PublishEvent(new OnMoneyChangedEvent());
+        ++stage;
     }
 
     public void AddMoney(int amount)

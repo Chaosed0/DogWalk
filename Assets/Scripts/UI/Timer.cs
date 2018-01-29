@@ -5,7 +5,10 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     public float allowedLevelSetupTime;
+    public float allowedLevelSetupTime_second;
     public float raceTime;
+
+    int times = 0;
 
     Text timerText;
     bool stopEarly = false;
@@ -49,19 +52,31 @@ public class Timer : MonoBehaviour
 	
 	IEnumerator StartLevelSetupCountdownCoroutine()
     {
-        float remainingLevelSetupTime = allowedLevelSetupTime + .5f; // to account for start delays
+        float setupTime;
+        float remainingLevelSetupTime; // to account for start delays
+        if (times <= 1)
+        {
+            setupTime = allowedLevelSetupTime;
+        }
+        else
+        {
+            setupTime = allowedLevelSetupTime_second;
+        }
+        remainingLevelSetupTime = setupTime + 0.5f;
+
         while (remainingLevelSetupTime > 0)
         {
             if (stopEarly) break;
 
             remainingLevelSetupTime -= Time.deltaTime;
-            timerText.text = "" + Mathf.Clamp(Mathf.Ceil(remainingLevelSetupTime), 1, allowedLevelSetupTime);
+            timerText.text = "" + Mathf.Clamp(Mathf.Ceil(remainingLevelSetupTime), 1, setupTime);
             yield return null;
         }
 
         timerText.text = "GO";
         EventBus.PublishEvent(new RoundStartEvent());
         stopEarly = false;
+        ++times;
     }
 
     IEnumerator StartRaceCountdownCoroutine()

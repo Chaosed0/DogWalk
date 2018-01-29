@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager Instance;
 
+    public AudioSource source;
+
     // The player who currently has control.
     public int currentPlayer;
 
@@ -146,6 +148,7 @@ public class GameManager : MonoBehaviour {
         }
         else
         {
+            source.Play();
             EventBus.PublishEvent(new WinrarEvent(winner));
         }
     }
