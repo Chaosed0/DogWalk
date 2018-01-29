@@ -13,6 +13,8 @@ public class DraggableIcon : MonoBehaviour {
 
     public GameObject itemPrefab;
 
+    public struct TrapAlreadyExistsHereEvent { }
+
     [SubscribeGlobal]
     public void HandleActiveSegmentHoveredEvent(ActiveSegmentHoveredEvent e)
     {
@@ -54,6 +56,11 @@ public class DraggableIcon : MonoBehaviour {
     {
         if (Input.GetMouseButtonUp(0) && !isMarker)
         {
+            if (currentConnectionUI && currentConnectionUI.hasTrap)
+            {
+                EventBus.PublishEvent(new TrapAlreadyExistsHereEvent());
+            }
+
             // if (currentConnectionUI && currentConnectionUI.activeConnection)
             if (CanPlaceAtConnection(currentConnectionUI))
             {
