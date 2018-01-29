@@ -144,9 +144,10 @@ public class PlayerMovement: MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Debug.Log("OnTriggerEnter");
         if ((1 << other.gameObject.layer) == trapLayer.value)
         {
-            Debug.Log("Hit Trap!");
+            // Debug.Log("Hit Trap!");
             Trap trap = other.GetComponentInParent<Trap>();
             trap.ApplyAffectsToPlayer(this.gameObject);
         }
