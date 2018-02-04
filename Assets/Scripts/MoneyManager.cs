@@ -24,9 +24,11 @@ public class MoneyManager : MonoBehaviour {
         {
             Destroy(Instance);
         }
-        SetText();
 
         currentMoney = firstRoundStartMoney;
+
+        SetText();
+
         ++stage;
     }
 

@@ -27,7 +27,15 @@ public class ConnectionUI : MonoBehaviour
     Vector2 cursorSize;
 
     public struct AxonAddEvent { }
-    public struct AxonCutEvent { }
+    public struct AxonCutEvent
+    {
+        public ConnectionUI connectionUI;
+
+        public AxonCutEvent(ConnectionUI connectionUI)
+        {
+            this.connectionUI = connectionUI;
+        }
+    }
     public struct ActionNotAllowedEvent { }
 
     void Awake()
@@ -117,7 +125,7 @@ public class ConnectionUI : MonoBehaviour
             {
                 MoneyManager.Instance.AddMoney(tendrilFee);
                 SetCursor(addAxonCursor);
-                EventBus.PublishEvent(new AxonCutEvent());
+                EventBus.PublishEvent(new AxonCutEvent(this));
             }
             else
             {

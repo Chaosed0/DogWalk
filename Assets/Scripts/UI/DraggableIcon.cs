@@ -13,6 +13,8 @@ public class DraggableIcon : MonoBehaviour {
 
     public GameObject itemPrefab;
 
+    ConnectionUI trapOwningConnection;
+
     public struct TrapAlreadyExistsHereEvent { }
 
     [SubscribeGlobal]
@@ -45,6 +47,17 @@ public class DraggableIcon : MonoBehaviour {
         Destroy(gameObject);
     }
 
+    [SubscribeGlobal]
+    public void HandleAxonCutEvent(ConnectionUI.AxonCutEvent e)
+    {
+        if (isMarker && e.connectionUI == trapOwningConnection)
+        {
+            currentConnectionUI.hasTrap = false;
+            MoneyManager.Instance.AddMoney(itemPrefab.GetComponent<PurchasableObject>().cost);
+            Destroy(gameObject);
+        }
+    }
+
     bool CanPlaceAtConnection(ConnectionUI connectionUI) {
         return connectionUI &&
             !connectionUI.hasTrap &&
@@ -71,6 +84,7 @@ public class DraggableIcon : MonoBehaviour {
                 MoneyManager.Instance.RemoveMoney(itemPrefab.GetComponent<PurchasableObject>().cost);
                 isMarker = true;
                 StartCoroutine(ShrinkIcon());
+                trapOwningConnection = currentConnectionUI;
             }
             else
             {
