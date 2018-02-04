@@ -61,6 +61,11 @@ public class ConnectionUI : MonoBehaviour
 
     public void OnPointerEnter (PointerEventData eventData)
     {
+        if (!Cursor.visible)
+        {
+            return;
+        }
+
         img.color = hoverColor;
         if (!fadeStarted)
         {
@@ -99,6 +104,10 @@ public class ConnectionUI : MonoBehaviour
 
     public void OnPointerExit (PointerEventData eventData)
     {
+        if (!Cursor.visible)
+        {
+            return;
+        }
         img.color = Color.white;
         SetCursor(defaultCursor);
         if (!fadeStarted)
@@ -109,6 +118,11 @@ public class ConnectionUI : MonoBehaviour
 
     public void OnPointerClick (PointerEventData eventData)
     {
+        if (!Cursor.visible)
+        {
+            return;
+        }
+
         if (!fadeStarted)
         {
             if (!tendril.isTraversable)

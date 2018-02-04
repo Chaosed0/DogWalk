@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour {
         graph.finishNode = null;
 
         // ghetto score heuristic - tweak later
-        float scoreBonus = Mathf.Max(.2f, e.remainingTime / timer.raceTime);
+        float scoreBonus = Mathf.Max(.25f, e.remainingTime / timer.raceTime);
         playerOneScore += currentPlayer == 1 ? scoreBonus : 0;
         playerTwoScore += currentPlayer == 2 ? scoreBonus : 0;
 

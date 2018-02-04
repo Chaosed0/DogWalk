@@ -10,6 +10,7 @@ public class DraggableIcon : MonoBehaviour {
     ConnectionUI currentConnectionUI;
     bool isMarker = false;
     float timeToShrink = .25f;
+    GameObject trap;
 
     public GameObject itemPrefab;
 
@@ -55,6 +56,7 @@ public class DraggableIcon : MonoBehaviour {
             currentConnectionUI.hasTrap = false;
             MoneyManager.Instance.AddMoney(itemPrefab.GetComponent<PurchasableObject>().cost);
             Destroy(gameObject);
+            Destroy(trap);
         }
     }
 
@@ -79,7 +81,7 @@ public class DraggableIcon : MonoBehaviour {
             {
                 currentConnectionUI.hasTrap = true;
                 Vector3 trapPosition = currentConnectionUI.GetTrapPosition();
-                GameObject trap = Instantiate(itemPrefab, trapPosition, GetItemQuaternion());
+                trap = Instantiate(itemPrefab, trapPosition, GetItemQuaternion());
                 trap.GetComponent<Trap>().SetTendril(currentConnectionUI.tendril);
                 MoneyManager.Instance.RemoveMoney(itemPrefab.GetComponent<PurchasableObject>().cost);
                 isMarker = true;
