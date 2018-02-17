@@ -13,6 +13,8 @@ public class PlayerInput : MonoBehaviour
     float chargeTime = 1.0f;
     float confusedTimer = 0.0f;
     float autoPickTime = 0.0f;
+    float lastHorizontalPressTime = float.MinValue;
+    float horizontalRepeatTime = 0.5f;
 
     Player player;
     PlayerMovement playerMovement;
@@ -49,14 +51,14 @@ public class PlayerInput : MonoBehaviour
 
         if (player.CanTraversePath())
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+            if (Input.GetButtonDown("Go1") || Input.GetButtonDown("Go2"))
             {
                 currentCharge = 0.0f;
                 isCharging = true;
                 this.gameObject.PublishEvent(new StartedChargingEvent());
             }
 
-            if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W))
+            if (Input.GetButtonUp("Go1") || Input.GetButtonUp("Go2"))
             {
                 isCharging = false;
                 this.gameObject.PublishEvent(new StoppedChargingEvent());
@@ -76,16 +78,22 @@ public class PlayerInput : MonoBehaviour
                     confusedTimer -= autoPickTime;
                 }
             }
-            else
+            else if ((Time.time - lastHorizontalPressTime) >= horizontalRepeatTime)
             {
-                if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+                float horizontal = Input.GetAxis("Horizontal1") + Input.GetAxis("Horizontal2");
+                if (horizontal > 0)
                 {
+                    lastHorizontalPressTime = Time.time;
+                    player.SelectNextPath(true);
+                }
+                else if (horizontal < 0)
+                {
+                    lastHorizontalPressTime = Time.time;
                     player.SelectNextPath(false);
                 }
-
-                if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+                else
                 {
-                    player.SelectNextPath(true);
+                    lastHorizontalPressTime = float.MinValue;
                 }
             }
         }
